@@ -19,7 +19,7 @@ function checkArticle(article) {
 
   if (!article.text
     || article.text.length === 0
-    || article.text.length > 10000) {
+    || article.text.length > 20000) {
     return false;
   }
 

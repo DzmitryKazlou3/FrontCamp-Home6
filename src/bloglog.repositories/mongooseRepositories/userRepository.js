@@ -4,8 +4,8 @@
 
 //locals
 import userDataModel from '../mongooseModels/userDataModel.js';
-import result from '../../bloglog.common/result.js';
-import resultCodes from '../../bloglog.common/resultCodes.js';
+import Result from '../../bloglog.common/result.js';
+import ResultCodes from '../../bloglog.common/resultCodes.js';
 
 /* -------------- implementation -------------- */
 export default class UserRepository {

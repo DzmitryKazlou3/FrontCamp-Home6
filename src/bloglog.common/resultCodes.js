@@ -14,4 +14,5 @@ export default class ResultCodes{
 
     
     static InvalidObject() { return 1;}
+    static ObjectNotFound() { return 2;}
 }

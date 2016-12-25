@@ -3,50 +3,70 @@
 // import { Router } from 'express';
 
 //locals
-import articleDataModel from '../mongooseModels/articlesDataModel.js';
-import result from '../../bloglog.common/result.js';
-import pageResult from '../../bloglog.common/pageResult.js';
-import resultCodes from '../../bloglog.common/resultCodes.js';
+import articleDataModel from '../mongooseModels/articleDataModel.js';
+import Result from '../../bloglog.common/result.js';
+import PageResult from '../../bloglog.common/pageResult.js';
+import ResultCodes from '../../bloglog.common/resultCodes.js';
 
 /* -------------- implementation -------------- */
 export default class ArticleRepository {
-  constructor() {
-  }
+    constructor() {
+    }
 
-  /*
-   * gets articles
-   */
-  get(skip, count) {
-      let promise = new Promise(function (resolve, reject) {
-          articleDataModel
-              .find({})
-              .sort('-createDateTime')
-              .skip(skip)
-              .limit(count)
-              .exec(function (err, articles) {
-                  if (err) {
-                      reject(new result(null, false, err, resultCodes.Error()));
-                  }
+    /*
+     * gets articles
+     */
+    get(skip, count) {
 
-                  articleDataModel.count(function (err, count) {
-                      if (err) {
-                          reject(new result(null, false, err, resultCodes.Error()));
-                      }
+        return new Promise(function (resolve, reject) {
+            articleDataModel
+                .find({})
+                .sort('-createDateTime')
+                .skip(skip)
+                .limit(count)
+                .exec(function (err, articles) {
+                    if (err) {
+                        reject(new Result(null, false, err, ResultCodes.Error()));
+                    }
 
-                      resolve(new result(new pageResult(articles, count), true, "", resultCodes.Success()));
-                  });
-              });
-      });
+                    articleDataModel.count(function (err, count) {
+                        if (err) {
+                            reject(new Result(null, false, err, ResultCodes.Error()));
+                        }
 
-      return promise;
-  };
+                        resolve(new Result(new PageResult(articles, count), true, "", ResultCodes.Success()));
+                    });
+                });
+        });
 
-  /*
-   * adds article
-   */
-  add(article) {
-    return articleDataModel.create(article);
-  };
+    };
+
+    getById(id) {
+
+        return new Promise(function (resolve, reject) {
+            articleDataModel
+                .findOne({ '_id': id })
+                .exec(function (err, article) {
+                    if (err) {
+                        reject(new Result(null, false, err, ResultCodes.Error()));
+                    }
+                    else if (!article) {
+                        reject(new Result(null, false, err, ResultCodes.ObjectNotFound()));
+                    }
+                    else {
+                        resolve(new Result(article, true, "", ResultCodes.Success()));
+                    }
+                });
+        });
+
+    }
+
+    /*
+     * adds article
+     */
+    add(article) {
+        return articleDataModel.create(article);
+    };
 };
 
 
