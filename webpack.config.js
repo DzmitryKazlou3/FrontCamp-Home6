@@ -6,7 +6,17 @@ module.exports = {
   target: 'node',
   externals: [nodeExternals()],
   entry: {
-    index : "./index.js"
+    index: "./index.js",
+    "app/app": [
+      "./bloglog.ui/app/app.module.js",
+      "./bloglog.ui/app/constants.js",
+
+      "./bloglog.ui/app/services/article.service.js",
+
+      "./bloglog.ui/app/home/home.controller.js",
+      "./bloglog.ui/app/article/article-dialog.controller.js"
+      
+    ]
   },
   output: {
     path: __dirname + "/dist",
@@ -18,14 +28,20 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/
+      },
+      {
+        test: /\.html$/,
+        loader: 'file-loader?name=./views/[name].[ext]'
       }
     ]
   },
   node: {
     console: true,
-    fs: 'empty',
     net: 'empty',
-    tls: 'empty'
+    tls: 'empty',
+    __filename: false,
+    __dirname: false
   },
-  watch: true
+  watch: true,
+  devtool: 'source-map'
 };

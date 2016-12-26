@@ -10,23 +10,6 @@ import ResultCodes from '../bloglog.common/resultCodes.js';
 
 
 /* -------------- implementation -------------- */
-function checkComment(comment) {
-  if (!comment.text
-    || comment.text.length === 0
-    || comment.text.length > 5000) {
-    return false;
-  }
-
-  if (!comment.user
-    || !comment.user.user_id
-    || !comment.user.name
-  ) {
-    return false;
-  }
-
-  return true;
-}
-
 export default class TagService {
   constructor() {
   }
@@ -63,4 +46,23 @@ export default class TagService {
     });
 
   }
+}
+
+
+// inner functions
+function checkComment(comment) {
+  if (!comment.text
+    || comment.text.length === 0
+    || comment.text.length > 5000) {
+    return false;
+  }
+
+  if (!comment.user
+    || !comment.user.user_id
+    || !comment.user.name
+  ) {
+    return false;
+  }
+
+  return true;
 }

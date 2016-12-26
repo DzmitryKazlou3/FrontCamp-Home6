@@ -4,6 +4,7 @@
 
 //locals
 import tagDataModel from '../mongooseModels/tagDataModel.js';
+import TagModel from '../../bloglog.models/tagModel.js';
 import Result from '../../bloglog.common/result.js';
 import ResultCodes from '../../bloglog.common/resultCodes.js';
 
@@ -24,11 +25,19 @@ export default class TagRepository {
                   if (err) {
                       reject(new Result(null, false, err, ResultCodes.Error()));
                   }
+                  else if (!tags) {
+                      reject(new Result(null, false, err, ResultCodes.ObjectNotFound()));
+                  }
+                  else {
+                      let tagModels = [];
+                      for (let tag of tags) {
+                          tagModels.push(MapToTagModel(tag));
+                      }
 
-                  resolve(new Result(tags, true, "", ResultCodes.Success()));
+                      resolve(new Result(tagModels, true, "", ResultCodes.Success()));
+                  }
               });
       });
-
   };
 
   /*
@@ -40,3 +49,9 @@ export default class TagRepository {
 };
 
 
+function MapToTagModel(tagDataModel) {
+    return new TagModel(
+        tagDataModel._id,
+        tagDataModel.value,
+        tagDataModel.articles_ids);
+}

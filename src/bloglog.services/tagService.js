@@ -10,16 +10,6 @@ import ResultCodes from '../bloglog.common/resultCodes.js';
 
 
 /* -------------- implementation -------------- */
-function checkTag(tag){
-    if(!tag.value
-      || tag.value.length === 0
-      || tag.value.length > 50){
-      return false;
-    }
-
-    return true;
-}
-
 export default class TagService {
   constructor() {
   }
@@ -42,3 +32,14 @@ export default class TagService {
     return Promise.reject(new Result(null, false, "", ResultCodes.InvalidObject()));
   };
 };
+
+
+function checkTag(tag){
+    if(!tag.value
+      || tag.value.length === 0
+      || tag.value.length > 50){
+      return false;
+    }
+
+    return true;
+}

@@ -4,6 +4,7 @@
 
 //locals
 import articleDataModel from '../mongooseModels/articleDataModel.js';
+import ArticleModel from '../../bloglog.models/articleModel.js';
 import Result from '../../bloglog.common/result.js';
 import PageResult from '../../bloglog.common/pageResult.js';
 import ResultCodes from '../../bloglog.common/resultCodes.js';
@@ -28,17 +29,25 @@ export default class ArticleRepository {
                     if (err) {
                         reject(new Result(null, false, err, ResultCodes.Error()));
                     }
-
-                    articleDataModel.count(function (err, count) {
-                        if (err) {
-                            reject(new Result(null, false, err, ResultCodes.Error()));
+                    else if (!articles) {
+                        reject(new Result(null, false, err, ResultCodes.ObjectNotFound()));
+                    }
+                    else {
+                        let articleModels = [];
+                        for (let article of articles) {
+                            articleModels.push(MapToArticleModel(article));
                         }
 
-                        resolve(new Result(new PageResult(articles, count), true, "", ResultCodes.Success()));
-                    });
+                        articleDataModel.count(function (err, count) {
+                            if (err) {
+                                reject(new Result(null, false, err, ResultCodes.Error()));
+                            }
+
+                            resolve(new Result(new PageResult(articleModels, count), true, "", ResultCodes.Success()));
+                        });
+                    }
                 });
         });
-
     };
 
     getById(id) {
@@ -54,7 +63,7 @@ export default class ArticleRepository {
                         reject(new Result(null, false, err, ResultCodes.ObjectNotFound()));
                     }
                     else {
-                        resolve(new Result(article, true, "", ResultCodes.Success()));
+                        resolve(new Result(MapToArticleModel(article), true, "", ResultCodes.Success()));
                     }
                 });
         });
@@ -70,3 +79,13 @@ export default class ArticleRepository {
 };
 
 
+function MapToArticleModel(articleDataModel) {
+    return new ArticleModel(
+        articleDataModel._id,
+        articleDataModel.title,
+        articleDataModel.text,
+        articleDataModel.tags,
+        articleDataModel.createDateTime,
+        articleDataModel.updateDateTime,
+        articleDataModel.user);
+}

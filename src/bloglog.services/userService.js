@@ -10,28 +10,6 @@ import ResultCodes from '../bloglog.common/resultCodes.js';
 
 
 /* -------------- implementation -------------- */
-function checkUser(user) {
-  if (!user.email
-    || user.email.length === 0
-    || user.email.length > 50) {
-    return false;
-  }
-
-  if (!user.name
-    || user.name.length === 0
-    || user.name.length > 50) {
-    return false;
-  }
-
-  if (!user.password
-    || user.password.length === 0
-    || user.password.length > 50) {
-    return false;
-  }
-
-  return true;
-}
-
 export default class TagService {
   constructor() {
   }
@@ -56,3 +34,25 @@ export default class TagService {
     return Promise.reject(new Result(null, false, "", ResultCodes.InvalidObject()));
   };
 };
+
+function checkUser(user) {
+  if (!user.email
+    || user.email.length === 0
+    || user.email.length > 50) {
+    return false;
+  }
+
+  if (!user.name
+    || user.name.length === 0
+    || user.name.length > 50) {
+    return false;
+  }
+
+  if (!user.password
+    || user.password.length === 0
+    || user.password.length > 50) {
+    return false;
+  }
+
+  return true;
+}

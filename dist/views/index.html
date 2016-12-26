@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.css">
+</head>
+
+<body ng-app="bloglog">
+    <div ng-controller="HomeController as vm">
+        <!-- home -->
+        <div>Total item count: {{vm.totalItemsCount}}</div>
+
+        <div ng-repeat="article in vm.articles">
+            <div>{{article.title}}</div>
+            <div>{{article.tags}}</div>
+            <div>{{article.createDateTime}}</div>
+        </div>
+
+    </div>
+
+    <!-- add article form -->
+<div ng-controller="ArticleDialogController as vm">
+<form id="articleForm" name="articleForm" novalidate ng-submit="vm.save(vm.article)">
+    <div class="well">
+        <div class="form-group">
+            <label>Title:</label>
+            <input name="title" type="text" class="form-control" placeholder="Title" required data-ng-model="vm.article.title" ng-maxlength="255"/>
+        </div>
+
+        <div class="form-group">
+            <label>Text:</label>
+            <input name="text" type="text" class="form-control" placeholder="Text" required data-ng-model="vm.article.text" ng-maxlength="255"/>
+        </div>
+
+        <div class="form-group">
+            <label>Tags:</label>
+            <input name="tags" type="text" class="form-control" placeholder="Tags" required data-ng-model="vm.article.tags" ng-maxlength="255"/>
+        </div>
+    </div>
+</form>
+    <div>
+        <button class="btn button" ng-click="vm.save()">save</button>
+        <button class="btn button" ng-click="vm.close()">close</button>
+    </div>
+</div>
+
+    <script src="angular/angular.min.js"></script>
+    <script src="app/app.bundle.js"></script>
+</body>
+
+</html>

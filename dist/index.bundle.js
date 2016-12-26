@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
-
+/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -46,7 +46,7 @@
 /******/ 			});
 /******/ 		}
 /******/ 	};
-
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -55,15 +55,15 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-
+/******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 34);
+/******/ 	return __webpack_require__(__webpack_require__.s = 44);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -192,19 +192,19 @@ var _mongoose = __webpack_require__(6);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _articleRepository = __webpack_require__(25);
+var _articleRepository = __webpack_require__(34);
 
 var _articleRepository2 = _interopRequireDefault(_articleRepository);
 
-var _tagRepository = __webpack_require__(27);
+var _tagRepository = __webpack_require__(36);
 
 var _tagRepository2 = _interopRequireDefault(_tagRepository);
 
-var _userRepository = __webpack_require__(28);
+var _userRepository = __webpack_require__(37);
 
 var _userRepository2 = _interopRequireDefault(_userRepository);
 
-var _commentRepository = __webpack_require__(26);
+var _commentRepository = __webpack_require__(35);
 
 var _commentRepository2 = _interopRequireDefault(_commentRepository);
 
@@ -236,72 +236,6 @@ exports.commentRepository = commentRepository;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.commentService = exports.userService = exports.tagService = exports.articleService = undefined;
-
-var _articleService = __webpack_require__(29);
-
-var _articleService2 = _interopRequireDefault(_articleService);
-
-var _tagService = __webpack_require__(31);
-
-var _tagService2 = _interopRequireDefault(_tagService);
-
-var _userService = __webpack_require__(32);
-
-var _userService2 = _interopRequireDefault(_userService);
-
-var _commentService = __webpack_require__(30);
-
-var _commentService2 = _interopRequireDefault(_commentService);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var articleService = new _articleService2.default();
-var tagService = new _tagService2.default();
-var userService = new _userService2.default();
-var commentService = new _commentService2.default();
-
-exports.articleService = articleService;
-exports.tagService = tagService;
-exports.userService = userService;
-exports.commentService = commentService;
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var PageResult = function PageResult(data, count) {
-  (0, _classCallCheck3.default)(this, PageResult);
-
-  this.data = data;
-  this.count = count;
-};
-
-exports.default = PageResult;
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
@@ -326,7 +260,7 @@ var ArticleModel = function ArticleModel(id, title, text, tags, createDateTime, 
 exports.default = ArticleModel;
 
 /***/ },
-/* 11 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -355,7 +289,7 @@ var CommentModel = function CommentModel(id, text, user, createDateTime, article
 exports.default = CommentModel;
 
 /***/ },
-/* 12 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -382,7 +316,79 @@ var TagModel = function TagModel(id, value, article_ids) {
 exports.default = TagModel;
 
 /***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.commentService = exports.userService = exports.tagService = exports.articleService = undefined;
+
+var _articleService = __webpack_require__(38);
+
+var _articleService2 = _interopRequireDefault(_articleService);
+
+var _tagService = __webpack_require__(40);
+
+var _tagService2 = _interopRequireDefault(_tagService);
+
+var _userService = __webpack_require__(41);
+
+var _userService2 = _interopRequireDefault(_userService);
+
+var _commentService = __webpack_require__(39);
+
+var _commentService2 = _interopRequireDefault(_commentService);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var articleService = new _articleService2.default();
+var tagService = new _tagService2.default();
+var userService = new _userService2.default();
+var commentService = new _commentService2.default();
+
+exports.articleService = articleService;
+exports.tagService = tagService;
+exports.userService = userService;
+exports.commentService = commentService;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+module.exports = require("babel-runtime/core-js/get-iterator");
+
+/***/ },
 /* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PageResult = function PageResult(data, count) {
+  (0, _classCallCheck3.default)(this, PageResult);
+
+  this.data = data;
+  this.count = count;
+};
+
+exports.default = PageResult;
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -410,7 +416,7 @@ var UserModel = function UserModel(id, name, email, password) {
 exports.default = UserModel;
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 module.exports = {
@@ -422,7 +428,7 @@ module.exports = {
 };
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -434,15 +440,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(5);
 
-var _articleRoutes = __webpack_require__(18);
+var _articleRoutes = __webpack_require__(27);
 
 var _articleRoutes2 = _interopRequireDefault(_articleRoutes);
 
-var _tagsRoutes = __webpack_require__(19);
+var _tagsRoutes = __webpack_require__(28);
 
 var _tagsRoutes2 = _interopRequireDefault(_tagsRoutes);
 
-var _userRoutes = __webpack_require__(20);
+var _userRoutes = __webpack_require__(29);
 
 var _userRoutes2 = _interopRequireDefault(_userRoutes);
 
@@ -459,19 +465,59 @@ router.use('/users', _userRoutes2.default);
 exports.default = router;
 
 /***/ },
-/* 16 */
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _express = __webpack_require__(5);
+
+__webpack_require__(42);
+
+var router = (0, _express.Router)();
+
+router.use('/', function (req, res) {
+    res.render('index.html');
+});
+
+exports.default = router;
+
+/***/ },
+/* 23 */
 /***/ function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ },
-/* 17 */
+/* 24 */
+/***/ function(module, exports) {
+
+module.exports = require("ejs");
+
+/***/ },
+/* 25 */
 /***/ function(module, exports) {
 
 module.exports = require("http");
 
 /***/ },
-/* 18 */
+/* 26 */
+/***/ function(module, exports) {
+
+module.exports = require("path");
+
+/***/ },
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -483,13 +529,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(5);
 
-var _bloglog = __webpack_require__(8);
+var _bloglog = __webpack_require__(11);
 
-var _articleModel = __webpack_require__(10);
+var _articleModel = __webpack_require__(8);
 
 var _articleModel2 = _interopRequireDefault(_articleModel);
 
-var _commentModel = __webpack_require__(11);
+var _commentModel = __webpack_require__(9);
 
 var _commentModel2 = _interopRequireDefault(_commentModel);
 
@@ -538,7 +584,7 @@ router.post('/:id/comments', function (req, res, next) {
 exports.default = router;
 
 /***/ },
-/* 19 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -550,9 +596,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(5);
 
-var _bloglog = __webpack_require__(8);
+var _bloglog = __webpack_require__(11);
 
-var _tagModel = __webpack_require__(12);
+var _tagModel = __webpack_require__(10);
 
 var _tagModel2 = _interopRequireDefault(_tagModel);
 
@@ -581,7 +627,7 @@ router.post('/', function (req, res, next) {
 exports.default = router;
 
 /***/ },
-/* 20 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -593,9 +639,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(5);
 
-var _bloglog = __webpack_require__(8);
+var _bloglog = __webpack_require__(11);
 
-var _userModel = __webpack_require__(13);
+var _userModel = __webpack_require__(14);
 
 var _userModel2 = _interopRequireDefault(_userModel);
 
@@ -619,7 +665,7 @@ router.post('/', function (req, res, next) {
 exports.default = router;
 
 /***/ },
-/* 21 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -671,7 +717,7 @@ var articleSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('articles', articleSchema);
 
 /***/ },
-/* 22 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -715,7 +761,7 @@ var commentSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('comments', commentSchema);
 
 /***/ },
-/* 23 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -745,7 +791,7 @@ var tagSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('tags', tagSchema);
 
 /***/ },
-/* 24 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -781,7 +827,7 @@ var userSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('users', userSchema);
 
 /***/ },
-/* 25 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -790,6 +836,10 @@ exports.default = _mongoose2.default.model('users', userSchema);
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _getIterator2 = __webpack_require__(12);
+
+var _getIterator3 = _interopRequireDefault(_getIterator2);
 
 var _promise = __webpack_require__(4);
 
@@ -803,15 +853,19 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _articleDataModel = __webpack_require__(21);
+var _articleDataModel = __webpack_require__(30);
 
 var _articleDataModel2 = _interopRequireDefault(_articleDataModel);
+
+var _articleModel = __webpack_require__(8);
+
+var _articleModel2 = _interopRequireDefault(_articleModel);
 
 var _result = __webpack_require__(2);
 
 var _result2 = _interopRequireDefault(_result);
 
-var _pageResult = __webpack_require__(9);
+var _pageResult = __webpack_require__(13);
 
 var _pageResult2 = _interopRequireDefault(_pageResult);
 
@@ -834,15 +888,45 @@ var ArticleRepository = function () {
                 _articleDataModel2.default.find({}).sort('-createDateTime').skip(skip).limit(count).exec(function (err, articles) {
                     if (err) {
                         reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                    } else if (!articles) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.ObjectNotFound()));
+                    } else {
+                        (function () {
+                            var articleModels = [];
+                            var _iteratorNormalCompletion = true;
+                            var _didIteratorError = false;
+                            var _iteratorError = undefined;
+
+                            try {
+                                for (var _iterator = (0, _getIterator3.default)(articles), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                                    var article = _step.value;
+
+                                    articleModels.push(MapToArticleModel(article));
+                                }
+                            } catch (err) {
+                                _didIteratorError = true;
+                                _iteratorError = err;
+                            } finally {
+                                try {
+                                    if (!_iteratorNormalCompletion && _iterator.return) {
+                                        _iterator.return();
+                                    }
+                                } finally {
+                                    if (_didIteratorError) {
+                                        throw _iteratorError;
+                                    }
+                                }
+                            }
+
+                            _articleDataModel2.default.count(function (err, count) {
+                                if (err) {
+                                    reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                                }
+
+                                resolve(new _result2.default(new _pageResult2.default(articleModels, count), true, "", _resultCodes2.default.Success()));
+                            });
+                        })();
                     }
-
-                    _articleDataModel2.default.count(function (err, count) {
-                        if (err) {
-                            reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
-                        }
-
-                        resolve(new _result2.default(new _pageResult2.default(articles, count), true, "", _resultCodes2.default.Success()));
-                    });
                 });
             });
         }
@@ -857,7 +941,7 @@ var ArticleRepository = function () {
                     } else if (!article) {
                         reject(new _result2.default(null, false, err, _resultCodes2.default.ObjectNotFound()));
                     } else {
-                        resolve(new _result2.default(article, true, "", _resultCodes2.default.Success()));
+                        resolve(new _result2.default(MapToArticleModel(article), true, "", _resultCodes2.default.Success()));
                     }
                 });
             });
@@ -874,8 +958,12 @@ var ArticleRepository = function () {
 exports.default = ArticleRepository;
 ;
 
+function MapToArticleModel(articleDataModel) {
+    return new _articleModel2.default(articleDataModel._id, articleDataModel.title, articleDataModel.text, articleDataModel.tags, articleDataModel.createDateTime, articleDataModel.updateDateTime, articleDataModel.user);
+}
+
 /***/ },
-/* 26 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -884,6 +972,10 @@ exports.default = ArticleRepository;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _getIterator2 = __webpack_require__(12);
+
+var _getIterator3 = _interopRequireDefault(_getIterator2);
 
 var _promise = __webpack_require__(4);
 
@@ -897,15 +989,19 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _commentDataModel = __webpack_require__(22);
+var _commentDataModel = __webpack_require__(31);
 
 var _commentDataModel2 = _interopRequireDefault(_commentDataModel);
+
+var _commentModel = __webpack_require__(9);
+
+var _commentModel2 = _interopRequireDefault(_commentModel);
 
 var _result = __webpack_require__(2);
 
 var _result2 = _interopRequireDefault(_result);
 
-var _pageResult = __webpack_require__(9);
+var _pageResult = __webpack_require__(13);
 
 var _pageResult2 = _interopRequireDefault(_pageResult);
 
@@ -927,9 +1023,37 @@ var CommentRepository = function () {
                 _commentDataModel2.default.find({ 'article_id': article_id }).sort('-createDateTime').exec(function (err, comments) {
                     if (err) {
                         reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
-                    }
+                    } else if (!comments) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.ObjectNotFound()));
+                    } else {
+                        var commentModels = [];
+                        var _iteratorNormalCompletion = true;
+                        var _didIteratorError = false;
+                        var _iteratorError = undefined;
 
-                    resolve(new _result2.default(comments, true, "", _resultCodes2.default.Success()));
+                        try {
+                            for (var _iterator = (0, _getIterator3.default)(comments), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                                var comment = _step.value;
+
+                                commentModels.push(MapToCommentModel(comment));
+                            }
+                        } catch (err) {
+                            _didIteratorError = true;
+                            _iteratorError = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion && _iterator.return) {
+                                    _iterator.return();
+                                }
+                            } finally {
+                                if (_didIteratorError) {
+                                    throw _iteratorError;
+                                }
+                            }
+                        }
+
+                        resolve(new _result2.default(commentModels, true, "", _resultCodes2.default.Success()));
+                    }
                 });
             });
         }
@@ -945,16 +1069,24 @@ var CommentRepository = function () {
 exports.default = CommentRepository;
 ;
 
+function MapToCommentModel(commentDataModel) {
+    return new _commentModel2.default(commentDataModel._id, commentDataModel.text, commentDataModel.user, commentDataModel.createDateTime, commentDataModel.article_id);
+}
+
 /***/ },
-/* 27 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
+
+var _getIterator2 = __webpack_require__(12);
+
+var _getIterator3 = _interopRequireDefault(_getIterator2);
 
 var _promise = __webpack_require__(4);
 
@@ -968,9 +1100,13 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _tagDataModel = __webpack_require__(23);
+var _tagDataModel = __webpack_require__(32);
 
 var _tagDataModel2 = _interopRequireDefault(_tagDataModel);
+
+var _tagModel = __webpack_require__(10);
+
+var _tagModel2 = _interopRequireDefault(_tagModel);
 
 var _result = __webpack_require__(2);
 
@@ -983,38 +1119,70 @@ var _resultCodes2 = _interopRequireDefault(_resultCodes);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var TagRepository = function () {
-  function TagRepository() {
-    (0, _classCallCheck3.default)(this, TagRepository);
-  }
-
-  (0, _createClass3.default)(TagRepository, [{
-    key: 'get',
-    value: function get() {
-
-      return new _promise2.default(function (resolve, reject) {
-        _tagDataModel2.default.find({}).exec(function (err, tags) {
-          if (err) {
-            reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
-          }
-
-          resolve(new _result2.default(tags, true, "", _resultCodes2.default.Success()));
-        });
-      });
+    function TagRepository() {
+        (0, _classCallCheck3.default)(this, TagRepository);
     }
-  }, {
-    key: 'add',
-    value: function add(tag) {
-      return _tagDataModel2.default.create(tag);
-    }
-  }]);
-  return TagRepository;
+
+    (0, _createClass3.default)(TagRepository, [{
+        key: 'get',
+        value: function get() {
+
+            return new _promise2.default(function (resolve, reject) {
+                _tagDataModel2.default.find({}).exec(function (err, tags) {
+                    if (err) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                    } else if (!tags) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.ObjectNotFound()));
+                    } else {
+                        var tagModels = [];
+                        var _iteratorNormalCompletion = true;
+                        var _didIteratorError = false;
+                        var _iteratorError = undefined;
+
+                        try {
+                            for (var _iterator = (0, _getIterator3.default)(tags), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                                var tag = _step.value;
+
+                                tagModels.push(MapToTagModel(tag));
+                            }
+                        } catch (err) {
+                            _didIteratorError = true;
+                            _iteratorError = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion && _iterator.return) {
+                                    _iterator.return();
+                                }
+                            } finally {
+                                if (_didIteratorError) {
+                                    throw _iteratorError;
+                                }
+                            }
+                        }
+
+                        resolve(new _result2.default(tagModels, true, "", _resultCodes2.default.Success()));
+                    }
+                });
+            });
+        }
+    }, {
+        key: 'add',
+        value: function add(tag) {
+            return _tagDataModel2.default.create(tag);
+        }
+    }]);
+    return TagRepository;
 }();
 
 exports.default = TagRepository;
 ;
 
+function MapToTagModel(tagDataModel) {
+    return new _tagModel2.default(tagDataModel._id, tagDataModel.value, tagDataModel.articles_ids);
+}
+
 /***/ },
-/* 28 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1032,7 +1200,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _userDataModel = __webpack_require__(24);
+var _userDataModel = __webpack_require__(33);
 
 var _userDataModel2 = _interopRequireDefault(_userDataModel);
 
@@ -1067,7 +1235,7 @@ exports.default = UserRepository;
 ;
 
 /***/ },
-/* 29 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1089,7 +1257,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _articleModel = __webpack_require__(10);
+var _articleModel = __webpack_require__(8);
 
 var _articleModel2 = _interopRequireDefault(_articleModel);
 
@@ -1104,18 +1272,6 @@ var _resultCodes = __webpack_require__(3);
 var _resultCodes2 = _interopRequireDefault(_resultCodes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function checkArticle(article) {
-  if (!article.title || article.title.length === 0 || article.title.length > 500) {
-    return false;
-  }
-
-  if (!article.text || article.text.length === 0 || article.text.length > 20000) {
-    return false;
-  }
-
-  return true;
-}
 
 var ArticleService = function () {
   function ArticleService() {
@@ -1143,8 +1299,24 @@ var ArticleService = function () {
 exports.default = ArticleService;
 ;
 
+function checkArticle(article) {
+  if (!article.title || article.title.length === 0 || article.title.length > 500) {
+    return false;
+  }
+
+  if (!article.text || article.text.length === 0 || article.text.length > 20000) {
+    return false;
+  }
+
+  if (!article.user || !article.user.user_id || !article.user.name) {
+    return false;
+  }
+
+  return true;
+}
+
 /***/ },
-/* 30 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1166,7 +1338,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _commentModel = __webpack_require__(11);
+var _commentModel = __webpack_require__(9);
 
 var _commentModel2 = _interopRequireDefault(_commentModel);
 
@@ -1181,18 +1353,6 @@ var _resultCodes = __webpack_require__(3);
 var _resultCodes2 = _interopRequireDefault(_resultCodes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function checkComment(comment) {
-  if (!comment.text || comment.text.length === 0 || comment.text.length > 5000) {
-    return false;
-  }
-
-  if (!comment.user || !comment.user.user_id || !comment.user.name) {
-    return false;
-  }
-
-  return true;
-}
 
 var TagService = function () {
   function TagService() {
@@ -1230,8 +1390,20 @@ var TagService = function () {
 
 exports.default = TagService;
 
+function checkComment(comment) {
+  if (!comment.text || comment.text.length === 0 || comment.text.length > 5000) {
+    return false;
+  }
+
+  if (!comment.user || !comment.user.user_id || !comment.user.name) {
+    return false;
+  }
+
+  return true;
+}
+
 /***/ },
-/* 31 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1253,7 +1425,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _tagModel = __webpack_require__(12);
+var _tagModel = __webpack_require__(10);
 
 var _tagModel2 = _interopRequireDefault(_tagModel);
 
@@ -1268,14 +1440,6 @@ var _resultCodes = __webpack_require__(3);
 var _resultCodes2 = _interopRequireDefault(_resultCodes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function checkTag(tag) {
-  if (!tag.value || tag.value.length === 0 || tag.value.length > 50) {
-    return false;
-  }
-
-  return true;
-}
 
 var TagService = function () {
   function TagService() {
@@ -1303,8 +1467,16 @@ var TagService = function () {
 exports.default = TagService;
 ;
 
+function checkTag(tag) {
+  if (!tag.value || tag.value.length === 0 || tag.value.length > 50) {
+    return false;
+  }
+
+  return true;
+}
+
 /***/ },
-/* 32 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1326,9 +1498,9 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _md = __webpack_require__(33);
+var _md = __webpack_require__(43);
 
-var _userModel = __webpack_require__(13);
+var _userModel = __webpack_require__(14);
 
 var _userModel2 = _interopRequireDefault(_userModel);
 
@@ -1343,22 +1515,6 @@ var _resultCodes = __webpack_require__(3);
 var _resultCodes2 = _interopRequireDefault(_resultCodes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function checkUser(user) {
-  if (!user.email || user.email.length === 0 || user.email.length > 50) {
-    return false;
-  }
-
-  if (!user.name || user.name.length === 0 || user.name.length > 50) {
-    return false;
-  }
-
-  if (!user.password || user.password.length === 0 || user.password.length > 50) {
-    return false;
-  }
-
-  return true;
-}
 
 var TagService = function () {
   function TagService() {
@@ -1387,38 +1543,68 @@ var TagService = function () {
 exports.default = TagService;
 ;
 
+function checkUser(user) {
+  if (!user.email || user.email.length === 0 || user.email.length > 50) {
+    return false;
+  }
+
+  if (!user.name || user.name.length === 0 || user.name.length > 50) {
+    return false;
+  }
+
+  if (!user.password || user.password.length === 0 || user.password.length > 50) {
+    return false;
+  }
+
+  return true;
+}
+
 /***/ },
-/* 33 */
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "./views/index.html";
+
+/***/ },
+/* 43 */
 /***/ function(module, exports) {
 
 module.exports = require("ts-md5/dist/md5");
 
 /***/ },
-/* 34 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+var _path = __webpack_require__(26);
+
+var _path2 = _interopRequireDefault(_path);
+
 var _express = __webpack_require__(5);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _http = __webpack_require__(17);
+var _http = __webpack_require__(25);
 
 var _http2 = _interopRequireDefault(_http);
 
-var _bodyParser = __webpack_require__(16);
+var _bodyParser = __webpack_require__(23);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _config = __webpack_require__(14);
+var _config = __webpack_require__(15);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _bloglog = __webpack_require__(15);
+var _bloglog = __webpack_require__(16);
 
 var _bloglog2 = _interopRequireDefault(_bloglog);
+
+var _bloglog3 = __webpack_require__(22);
+
+var _bloglog4 = _interopRequireDefault(_bloglog3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1426,10 +1612,18 @@ var app = (0, _express2.default)();
 app.server = _http2.default.createServer(app);
 
 app.use(_bodyParser2.default.json());
+app.use(_express2.default.static('dist'));
+app.use(_express2.default.static('./node_modules'));
+
+app.set('view engine', 'html');
+app.engine('html', __webpack_require__(24).renderFile);
+app.set('views', _path2.default.join(__dirname, '/views'));
 
 app.use('/api', _bloglog2.default);
+app.use('/', _bloglog4.default);
 
 app.server.listen(process.env.PORT || _config2.default.port);
 
 /***/ }
 /******/ ]);
+//# sourceMappingURL=index.bundle.js.map

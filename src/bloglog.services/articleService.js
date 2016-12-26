@@ -10,22 +10,6 @@ import ResultCodes from '../bloglog.common/resultCodes.js';
 
 
 /* -------------- implementation -------------- */
-function checkArticle(article) {
-  if (!article.title
-    || article.title.length === 0
-    || article.title.length > 500) {
-    return false;
-  }
-
-  if (!article.text
-    || article.text.length === 0
-    || article.text.length > 20000) {
-    return false;
-  }
-
-  return true;
-}
-
 export default class ArticleService {
   constructor() {
   }
@@ -48,3 +32,26 @@ export default class ArticleService {
     return Promise.reject(new Result(null, false, "", ResultCodes.InvalidObject()));
   };
 };
+
+function checkArticle(article) {
+  if (!article.title
+    || article.title.length === 0
+    || article.title.length > 500) {
+    return false;
+  }
+
+  if (!article.text
+    || article.text.length === 0
+    || article.text.length > 20000) {
+    return false;
+  }
+
+  if (!article.user
+    || !article.user.user_id
+    || !article.user.name
+  ) {
+    return false;
+  }
+
+  return true;
+}

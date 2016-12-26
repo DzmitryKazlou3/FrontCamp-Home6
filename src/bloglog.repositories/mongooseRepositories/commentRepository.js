@@ -4,6 +4,7 @@
 
 //locals
 import commentDataModel from '../mongooseModels/commentDataModel.js';
+import CommentModel from '../../bloglog.models/commentModel.js';
 import Result from '../../bloglog.common/result.js';
 import PageResult from '../../bloglog.common/pageResult.js';
 import ResultCodes from '../../bloglog.common/resultCodes.js';
@@ -25,8 +26,16 @@ export default class CommentRepository {
                   if (err) {
                       reject(new Result(null, false, err, ResultCodes.Error()));
                   }
-
-                  resolve(new Result(comments, true, "", ResultCodes.Success()));
+                  else if (!comments) {
+                      reject(new Result(null, false, err, ResultCodes.ObjectNotFound()));
+                  }
+                  else {
+                      let commentModels = [];
+                      for (let comment of comments) {
+                          commentModels.push(MapToCommentModel(comment));
+                      }
+                      resolve(new Result(commentModels, true, "", ResultCodes.Success()));
+                  }
               });
       });
   };
@@ -39,4 +48,11 @@ export default class CommentRepository {
   };
 };
 
-
+function MapToCommentModel(commentDataModel) {
+    return new CommentModel(
+        commentDataModel._id,
+        commentDataModel.text,
+        commentDataModel.user,
+        commentDataModel.createDateTime,
+        commentDataModel.article_id);
+}
