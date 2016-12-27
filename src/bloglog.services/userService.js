@@ -10,21 +10,24 @@ import ResultCodes from '../bloglog.common/resultCodes.js';
 
 
 /* -------------- implementation -------------- */
-export default class TagService {
+export default class UserService {
   constructor() {
   }
 
   /*
-   * gets tags
+   * gets user
    */
-  getTags() {
-    return tagRepository.get();
+  get(email) {
+
+    return userRepository.get(email);
+    
   };
 
   /*
-   * adds tag
+   * adds user
    */
   add(userModel) {
+
     if (checkUser(userModel)) {
       // we must not keep password as it is - so we hash it.
       userModel.password = Md5.hashStr(userModel.password);
@@ -32,6 +35,7 @@ export default class TagService {
     }
 
     return Promise.reject(new Result(null, false, "", ResultCodes.InvalidObject()));
+
   };
 };
 

@@ -12,7 +12,7 @@ export default class Result{
     constructor(data, success, message, code){
       this.data = data;
       this.success = success;
-      this.Message = message;
+      this.message = message;
       this.code = code;
     }
 }

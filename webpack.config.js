@@ -12,9 +12,11 @@ module.exports = {
       "./bloglog.ui/app/constants.js",
 
       "./bloglog.ui/app/services/article.service.js",
+      "./bloglog.ui/app/auth/auth.service.js",
 
       "./bloglog.ui/app/home/home.controller.js",
-      "./bloglog.ui/app/article/article-dialog.controller.js"
+      "./bloglog.ui/app/article/article-dialog.controller.js",      
+      "./bloglog.ui/app/auth/create-user-dialog.controller.js"
       
     ]
   },

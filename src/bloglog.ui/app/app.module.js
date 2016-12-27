@@ -2,6 +2,10 @@
 
 (function () {
 
-    angular.module('bloglog', []);
+    angular.module('bloglog', [
+        'ngTouch',
+        'ngAnimate',
+        'ui.bootstrap'
+    ]);
 
 })();

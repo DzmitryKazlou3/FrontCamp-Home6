@@ -11,7 +11,8 @@
 
         .constant('URLS', {
             BASE: window.location.href,
-            ARTICLES: "api/articles"
+            ARTICLES: "api/articles",
+            SIGNUP: "signup"
         })
         
         .constant('EVENTS', {

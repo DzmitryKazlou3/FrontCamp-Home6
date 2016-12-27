@@ -1,5 +1,6 @@
 // external
 import { Router } from 'express';
+import passport from 'passport';
 
 // locals
 import { articleService, commentService } from '../bloglog.services';
@@ -14,6 +15,7 @@ const router = Router();
 */
 router.get('/', (req, res, next) => {
 
+  passport.authenticate('local', { failureRedirect: '/#login' });
   articleService.getRecent()
     .then((result) => {
       res.json(result);

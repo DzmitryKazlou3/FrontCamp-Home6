@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 45);
+/******/ 	return __webpack_require__(__webpack_require__.s = 50);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 17:
+/***/ 19:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76,12 +76,12 @@
 
 (function () {
 
-    angular.module('bloglog', []);
+    angular.module('bloglog', ['ngTouch', 'ngAnimate', 'ui.bootstrap']);
 })();
 
 /***/ },
 
-/***/ 18:
+/***/ 20:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -123,7 +123,82 @@
 
 /***/ },
 
-/***/ 19:
+/***/ 21:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+
+    angular.module('bloglog').service('authService', authService);
+
+    authService.$inject = ['$http', 'URLS', '$q'];
+
+    function authService($http, URLS, $q) {
+        return {
+            createUser: createUser
+        };
+
+        function createUser(user) {
+
+            return $http.post(URLS.BASE + URLS.SIGNUP, user).then(function (responce) {
+                debugger;
+                return responce.data;
+            }).catch(function (error) {
+                debugger;
+                console.log(error);
+                return $q.reject(error);
+            });
+        }
+    }
+})();
+
+/***/ },
+
+/***/ 22:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+
+    angular.module('bloglog').controller('CreateUserDialogController', CreateUserDialogController);
+
+    CreateUserDialogController.$inject = ['authService', '$uibModalInstance', '$rootScope', 'EVENTS'];
+
+    function CreateUserDialogController(authService, $uibModalInstance, $rootScope, EVENTS) {
+
+        var vm = this;
+
+        vm.user = {};
+        vm.user.name = "";
+        vm.user.email = "";
+        vm.user.password = "";
+
+        vm.save = save;
+        vm.cancel = cancel;
+
+        function save() {
+
+            authService.createUser(vm.user).then(function (pageResult) {
+                debugger;
+                $uibModalInstance.close();
+            }).catch(function (error) {
+                alert(error.data);
+            });
+        }
+
+        function cancel() {
+            $uibModalInstance.dismiss('cancel');
+        };
+    }
+})();
+
+/***/ },
+
+/***/ 23:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -135,7 +210,8 @@
         OK: "OK"
     }).constant('URLS', {
         BASE: window.location.href,
-        ARTICLES: "api/articles"
+        ARTICLES: "api/articles",
+        SIGNUP: "signup"
     }).constant('EVENTS', {
         ARTICLE_ADDED: "Article_Added"
     });
@@ -143,7 +219,7 @@
 
 /***/ },
 
-/***/ 20:
+/***/ 24:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -153,14 +229,15 @@
 
     angular.module('bloglog').controller('HomeController', HomeController);
 
-    HomeController.$inject = ['articleService', 'EVENTS', '$rootScope'];
+    HomeController.$inject = ['$document', 'articleService', 'EVENTS', '$rootScope', '$uibModal'];
 
-    function HomeController(articleService, EVENTS, $rootScope) {
+    function HomeController($document, articleService, EVENTS, $rootScope, $uibModal) {
 
         var vm = this;
 
         vm.articles = [];
         vm.totalItemsCount = 0;
+        vm.signup = signup;
 
         $rootScope.$on(EVENTS.ARTICLE_ADDED, function (event, data) {
             loadArticles();
@@ -174,12 +251,32 @@
         }
 
         loadArticles();
+
+        function signup(selector) {
+            var parentElem = selector ? angular.element($document[0].querySelector(selector)) : undefined;
+
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'signupModalContent.html',
+                controller: 'CreateUserDialogController',
+                controllerAs: 'vm',
+                size: '',
+                appendTo: parentElem,
+                resolve: {
+                    items: function items() {
+                        return [];
+                    }
+                }
+            }).result.then(function (selectedItem) {}, function () {});
+        }
     }
 })();
 
 /***/ },
 
-/***/ 21:
+/***/ 25:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -224,14 +321,16 @@
 
 /***/ },
 
-/***/ 45:
+/***/ 50:
 /***/ function(module, exports, __webpack_require__) {
 
-__webpack_require__(17);
 __webpack_require__(19);
+__webpack_require__(23);
+__webpack_require__(25);
 __webpack_require__(21);
+__webpack_require__(24);
 __webpack_require__(20);
-module.exports = __webpack_require__(18);
+module.exports = __webpack_require__(22);
 
 
 /***/ }

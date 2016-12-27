@@ -19,12 +19,5 @@ router.use('/', function (req, res) {
     res.render('index.html');
 });
 
-// // add tag routes
-// router.use('/tags', tagsRoutes);
-
-// // add user routes
-// router.use('/users', userRoutes);
-
-
 /* -------------- exports -------------- */
 export default router;

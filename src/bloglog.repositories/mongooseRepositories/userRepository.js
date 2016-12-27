@@ -4,6 +4,7 @@
 
 //locals
 import userDataModel from '../mongooseModels/userDataModel.js';
+import UserModel from '../../bloglog.models/userModel.js';
 import Result from '../../bloglog.common/result.js';
 import ResultCodes from '../../bloglog.common/resultCodes.js';
 
@@ -13,21 +14,25 @@ export default class UserRepository {
   }
 
   /*
-   * gets tags
+   * gets user
    */
-  getById(id) {
+  get(email) {
 
-    //   return new Promise(function (resolve, reject) {
-    //       tagDataModel
-    //           .find({})
-    //           .exec(function (err, tags) {
-    //               if (err) {
-    //                   reject(new result(null, false, err, resultCodes.Error()));
-    //               }
-
-    //               resolve(new result(tags, true, "", resultCodes.Success()));
-    //           });
-    //   });
+    return new Promise(function (resolve, reject) {
+      userDataModel
+        .findOne({ "email": email })
+        .exec(function (err, user) {
+          if (err) {
+            reject(new Result(null, false, err, ResultCodes.Error()));
+          }
+          else if (!user) {
+            reject(new Result(null, false, err, ResultCodes.ObjectNotFound()));
+          }
+          else {
+            resolve(new Result(MapToUserModel(user), true, "", ResultCodes.Success()));
+          }
+        });
+    });
 
   };
 
@@ -38,3 +43,12 @@ export default class UserRepository {
     return userDataModel.create(user);
   };
 };
+
+function MapToUserModel(user) {
+  return new UserModel(
+    user._id,
+    user.name,
+    user.email,
+    ""
+  );
+}
