@@ -37,6 +37,10 @@ export default class UserService {
     return Promise.reject(new Result(null, false, "", ResultCodes.InvalidObject()));
 
   };
+
+  checkPassword(user, password){
+    return user.password === Md5.hashStr(password);
+  }
 };
 
 function checkUser(user) {

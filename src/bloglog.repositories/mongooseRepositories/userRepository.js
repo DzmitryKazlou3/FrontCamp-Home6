@@ -49,6 +49,6 @@ function MapToUserModel(user) {
     user._id,
     user.name,
     user.email,
-    ""
+    user.password
   );
 }

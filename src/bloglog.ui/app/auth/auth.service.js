@@ -10,7 +10,8 @@
 
     function authService($http, URLS, $q) {
         return {
-            createUser: createUser
+            createUser: createUser,
+            logIn: logIn
         };
 
         function createUser(user){
@@ -19,14 +20,33 @@
                 URLS.BASE + URLS.SIGNUP,
                 user)
                 .then((responce) => {
-                    debugger;
                     return responce.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                    return $q.reject(error);
+                });
+
+        }
+
+        function logIn(user) {
+
+            return $http.post(
+                URLS.BASE + URLS.LOGIN,
+                user)
+                .then((responce) => {
+                    if(responce.data.success){
+                        return responce.data.data;
+                    }
+
+                    return $q.reject(responce.message);
                 })
                 .catch((error) => {
                     debugger;
                     console.log(error);
                     return $q.reject(error);
                 });
+
         }
     }
 })();

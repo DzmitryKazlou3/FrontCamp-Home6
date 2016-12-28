@@ -5,6 +5,10 @@
     angular
         .module('bloglog')
 
+        .constant('COMMON', {
+            JWT_TOKEN: "Token.JWT"
+        })
+
         .constant('STRINGS', {
             OK: "OK"
         })
@@ -12,7 +16,8 @@
         .constant('URLS', {
             BASE: window.location.href,
             ARTICLES: "api/articles",
-            SIGNUP: "signup"
+            SIGNUP: "signup",
+            LOGIN: "login"
         })
         
         .constant('EVENTS', {

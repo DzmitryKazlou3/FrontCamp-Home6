@@ -36,7 +36,6 @@
                 URLS.BASE + URLS.ARTICLES,
                 article)
                 .then((responce) => {
-                    debugger;
                     return responce.data;
                 })
                 .catch((error) => {

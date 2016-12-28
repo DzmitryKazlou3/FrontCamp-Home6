@@ -63,23 +63,10 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 50);
+/******/ 	return __webpack_require__(__webpack_require__.s = 53);
 /******/ })
 /************************************************************************/
 /******/ ({
-
-/***/ 19:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-(function () {
-
-    angular.module('bloglog', ['ngTouch', 'ngAnimate', 'ui.bootstrap']);
-})();
-
-/***/ },
 
 /***/ 20:
 /***/ function(module, exports, __webpack_require__) {
@@ -89,41 +76,53 @@
 
 (function () {
 
+    angular.module('bloglog', ['ngTouch', 'ngAnimate', 'ui.bootstrap', 'ngCookies']);
+
+    angular.module("bloglog").config(["$httpProvider", function ($httpProvider) {
+        $httpProvider.interceptors.push('httpInterceptorService');
+    }]);
+})();
+
+/***/ },
+
+/***/ 21:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+
     angular.module('bloglog').controller('ArticleDialogController', ArticleDialogController);
 
-    ArticleDialogController.$inject = ['articleService', '$rootScope', 'EVENTS'];
+    ArticleDialogController.$inject = ['articleService', '$uibModalInstance', '$rootScope', 'EVENTS'];
 
-    function ArticleDialogController(articleService, $rootScope, EVENTS) {
+    function ArticleDialogController(articleService, $uibModalInstance, $rootScope, EVENTS) {
 
         var vm = this;
-        vm.save = save;
+
         vm.article = {};
 
-        vm.article.user = {};
-        vm.article.user.user_id = "some user id";
-        vm.article.user.name = "some user name";
+        vm.save = save;
+        vm.close = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
 
         function save() {
 
             articleService.addArticle(vm.article).then(function (pageResult) {
-                cleanForm();
                 $rootScope.$broadcast(EVENTS.ARTICLE_ADDED, {});
+                $uibModalInstance.close();
             }).catch(function (error) {
                 alert(error.data);
             });
-        }
-
-        function cleanForm() {
-            vm.article.title = "";
-            vm.article.text = "";
-            vm.article.tags = "";
         }
     }
 })();
 
 /***/ },
 
-/***/ 21:
+/***/ 22:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -137,14 +136,28 @@
 
     function authService($http, URLS, $q) {
         return {
-            createUser: createUser
+            createUser: createUser,
+            logIn: logIn
         };
 
         function createUser(user) {
 
             return $http.post(URLS.BASE + URLS.SIGNUP, user).then(function (responce) {
-                debugger;
                 return responce.data;
+            }).catch(function (error) {
+                console.log(error);
+                return $q.reject(error);
+            });
+        }
+
+        function logIn(user) {
+
+            return $http.post(URLS.BASE + URLS.LOGIN, user).then(function (responce) {
+                if (responce.data.success) {
+                    return responce.data.data;
+                }
+
+                return $q.reject(responce.message);
             }).catch(function (error) {
                 debugger;
                 console.log(error);
@@ -156,7 +169,7 @@
 
 /***/ },
 
-/***/ 22:
+/***/ 23:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -198,7 +211,7 @@
 
 /***/ },
 
-/***/ 23:
+/***/ 24:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -206,12 +219,61 @@
 
 (function () {
 
-    angular.module('bloglog').constant('STRINGS', {
+    angular.module('bloglog').controller('LogInDialogController', LogInDialogController);
+
+    LogInDialogController.$inject = ['authService', '$uibModalInstance', '$rootScope', 'EVENTS', '$cookies', 'COMMON'];
+
+    function LogInDialogController(authService, $uibModalInstance, $rootScope, EVENTS, $cookies, COMMON) {
+
+        var vm = this;
+
+        vm.user = {};
+        vm.user.email = "";
+        vm.user.password = "";
+
+        vm.logIn = logIn;
+        vm.cancel = cancel;
+
+        function logIn() {
+
+            authService.logIn(vm.user).then(function (JWTResult) {
+                if (!JWTResult.token) {
+                    alert("JWTResult does not contains token");
+                    return;
+                }
+                $cookies.put(COMMON.JWT_TOKEN, JWTResult.token);
+                $rootScope.Authorized = true;
+                $uibModalInstance.close();
+            }).catch(function (error) {
+                alert(error.data);
+            });
+        }
+
+        function cancel() {
+            $uibModalInstance.dismiss('cancel');
+        };
+    }
+})();
+
+/***/ },
+
+/***/ 25:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+
+    angular.module('bloglog').constant('COMMON', {
+        JWT_TOKEN: "Token.JWT"
+    }).constant('STRINGS', {
         OK: "OK"
     }).constant('URLS', {
         BASE: window.location.href,
         ARTICLES: "api/articles",
-        SIGNUP: "signup"
+        SIGNUP: "signup",
+        LOGIN: "login"
     }).constant('EVENTS', {
         ARTICLE_ADDED: "Article_Added"
     });
@@ -219,7 +281,7 @@
 
 /***/ },
 
-/***/ 24:
+/***/ 26:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -229,15 +291,22 @@
 
     angular.module('bloglog').controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$document', 'articleService', 'EVENTS', '$rootScope', '$uibModal'];
+    HomeController.$inject = ['$document', 'articleService', 'EVENTS', '$rootScope', '$uibModal', '$cookies', 'COMMON'];
 
-    function HomeController($document, articleService, EVENTS, $rootScope, $uibModal) {
+    function HomeController($document, articleService, EVENTS, $rootScope, $uibModal, $cookies, COMMON) {
 
         var vm = this;
 
+        $rootScope.Authorized = $cookies.get(COMMON.JWT_TOKEN);
         vm.articles = [];
         vm.totalItemsCount = 0;
-        vm.signup = signup;
+        vm.signupDialog = signupDialog;
+        vm.loginDialog = loginDialog;
+        vm.addArticle = addArticle;
+        vm.logOut = function () {
+            $cookies.remove(COMMON.JWT_TOKEN);
+            $rootScope.Authorized = false;
+        };
 
         $rootScope.$on(EVENTS.ARTICLE_ADDED, function (event, data) {
             loadArticles();
@@ -252,7 +321,7 @@
 
         loadArticles();
 
-        function signup(selector) {
+        function signupDialog(selector) {
             var parentElem = selector ? angular.element($document[0].querySelector(selector)) : undefined;
 
             var modalInstance = $uibModal.open({
@@ -271,12 +340,53 @@
                 }
             }).result.then(function (selectedItem) {}, function () {});
         }
+
+        function loginDialog(selector) {
+
+            var parentElem = selector ? angular.element($document[0].querySelector(selector)) : undefined;
+
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'loginModalContent.html',
+                controller: 'LogInDialogController',
+                controllerAs: 'vm',
+                size: '',
+                appendTo: parentElem,
+                resolve: {
+                    items: function items() {
+                        return [];
+                    }
+                }
+            }).result.then(function (selectedItem) {}, function () {});
+        }
+
+        function addArticle(selector) {
+            var parentElem = selector ? angular.element($document[0].querySelector(selector)) : undefined;
+
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'articleModalContent.html',
+                controller: 'ArticleDialogController',
+                controllerAs: 'vm',
+                size: '',
+                appendTo: parentElem,
+                resolve: {
+                    items: function items() {
+                        return [];
+                    }
+                }
+            }).result.then(function (selectedItem) {}, function () {});
+        }
     }
 })();
 
 /***/ },
 
-/***/ 25:
+/***/ 27:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -307,7 +417,6 @@
         function addArticle(article) {
 
             return $http.post(URLS.BASE + URLS.ARTICLES, article).then(function (responce) {
-                debugger;
                 return responce.data;
             }).catch(function (error) {
                 console.log(error);
@@ -321,16 +430,64 @@
 
 /***/ },
 
-/***/ 50:
+/***/ 28:
 /***/ function(module, exports, __webpack_require__) {
 
-__webpack_require__(19);
-__webpack_require__(23);
-__webpack_require__(25);
-__webpack_require__(21);
-__webpack_require__(24);
+"use strict";
+
+
+(function () {
+    'use strict';
+
+    angular.module("bloglog").factory('httpInterceptorService', httpInterceptorService);
+
+    httpInterceptorService.$inject = ['$q', '$location', '$injector', '$cookies', 'COMMON'];
+
+    function httpInterceptorService($q, $location, $injector, $cookies, COMMON) {
+        return {
+            request: request,
+            responseError: responseError
+        };
+
+        function request(config) {
+            config.headers = config.headers || {};
+            if (config.url.indexOf("api") > -1) {
+                var token = $cookies.get(COMMON.JWT_TOKEN);
+                if (token) {
+                    config.headers.Authorization = token;
+                } else {
+                    console.log("You are not logged in. Please login to execute protected actions.");
+                }
+            }
+            return config;
+        }
+
+        function responseError(responce) {
+            if (responce.config.url.indexOf("api") > -1) {
+                if (responce.status === 401) {
+                    $cookies.remove(COMMON.JWT_TOKEN);
+                }
+            }
+
+            return $q.reject(responce);
+        }
+    }
+})();
+
+/***/ },
+
+/***/ 53:
+/***/ function(module, exports, __webpack_require__) {
+
 __webpack_require__(20);
-module.exports = __webpack_require__(22);
+__webpack_require__(25);
+__webpack_require__(28);
+__webpack_require__(27);
+__webpack_require__(22);
+__webpack_require__(26);
+__webpack_require__(21);
+__webpack_require__(23);
+module.exports = __webpack_require__(24);
 
 
 /***/ }

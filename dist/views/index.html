@@ -13,53 +13,34 @@
 
     <!-- home -->
     <div ng-controller="HomeController as vm">
+
+        <button type="button" class="btn btn-default" ng-click="vm.signupDialog('#dialog')" ng-if="!Authorized">Sign Up...</button>
+        <button type="button" class="btn btn-default" ng-click="vm.loginDialog('#dialog')" ng-if="!Authorized">Log In...</button>
+        <button type="button" class="btn btn-default" ng-click="vm.logOut()" ng-if="Authorized">Log Out</button>
+        <button type="button" class="btn btn-default" ng-click="vm.addArticle('#dialog')" ng-if="Authorized">Add Article</button>
         
-        <button type="button" class="btn btn-default" ng-click="vm.signup('#signup_dialog')">Sign Up</button>
+        <div ng-repeat="article in vm.articles" class="well">
+            <div>Title: {{article.title}}</div>
+            <div>Author: {{article.user.name}}</div>
+            <div>Tags: {{article.tags}}</div>
+            <div>Created: {{article.createDateTime}}</div>
+        </div>
+
         <div>Total item count: {{vm.totalItemsCount}}</div>
 
-        <div ng-repeat="article in vm.articles">
-            <div>{{article.title}}</div>
-            <div>{{article.tags}}</div>
-            <div>{{article.createDateTime}}</div>
-        </div>
-
     </div>
 
-    <!-- add article form -->
-    <div ng-controller="ArticleDialogController as vm">
-        <form id="articleForm" name="articleForm" novalidate ng-submit="vm.save(vm.article)">
-            <div class="well">
-                <div class="form-group">
-                    <label>Title:</label>
-                    <input name="title" type="text" class="form-control" placeholder="Title" required data-ng-model="vm.article.title" ng-maxlength="500"
-                    />
-                </div>
-
-                <div class="form-group">
-                    <label>Text:</label>
-                    <input name="text" type="text" class="form-control" placeholder="Text" required data-ng-model="vm.article.text" ng-maxlength="20000"
-                    />
-                </div>
-
-                <div class="form-group">
-                    <label>Tags:</label>
-                    <input name="tags" type="text" class="form-control" placeholder="Tags" required data-ng-model="vm.article.tags" ng-maxlength="500"
-                    />
-                </div>
-            </div>
-        </form>
-        <div>
-            <button class="btn button" ng-click="vm.save()">save</button>
-            <button class="btn button" ng-click="vm.close()">close</button>
-        </div>
-    </div>
-
-    <div id="signup_dialog"></div>
+    <div id="dialog"></div>
+    
+    <!-- scripts -->
     <script src="angular/angular.min.js"></script>
+    <script src="angular-cookies/angular-cookies.min.js"></script>
     <script src="angular-animate/angular-animate.min.js"></script>
     <script src="angular-touch/angular-touch.min.js"></script>
     <script src="angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
     <script src="app/app.bundle.js"></script>
+    
+    <!-- templates -->
     <script type="text/ng-template" id="signupModalContent.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">Sign Up...</h3>
@@ -90,6 +71,68 @@
         <div class="modal-footer">
             <button class="btn btn-primary" type="button" ng-click="vm.save()">OK</button>
             <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="loginModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Log In...</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <form id="createUserForm" name="createUserForm" novalidate ng-submit="vm.logIn(vm.user)">
+            <div class="well">
+
+                <div class="form-group">
+                    <label>E-mail:</label>
+                    <input name="text" type="text" class="form-control" placeholder="email" required data-ng-model="vm.user.email" ng-maxlength="255"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input name="tags" type="password" class="form-control" placeholder="password" required data-ng-model="vm.user.password"
+                        ng-maxlength="255" />
+                </div>
+
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="vm.logIn()">Log In</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="articleModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Add article...</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+        <form id="articleForm" name="articleForm" novalidate ng-submit="vm.save(vm.article)">
+            <div class="well">
+                <div class="form-group">
+                    <label>Title:</label>
+                    <input name="title" type="text" class="form-control" placeholder="Title" required data-ng-model="vm.article.title" ng-maxlength="500"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label>Text:</label>
+                    <input name="text" type="text" class="form-control" placeholder="Text" required data-ng-model="vm.article.text" ng-maxlength="20000"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label>Tags:</label>
+                    <input name="tags" type="text" class="form-control" placeholder="Tags" required data-ng-model="vm.article.tags" ng-maxlength="500"
+                    />
+                </div>
+            </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn button" ng-click="vm.save()">save</button>
+            <button class="btn button" ng-click="vm.close()">close</button>
         </div>
     </script>
 </body>

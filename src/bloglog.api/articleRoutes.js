@@ -13,9 +13,9 @@ const router = Router();
 /*
     get recent articles
 */
-router.get('/', (req, res, next) => {
-
-  passport.authenticate('local', { failureRedirect: '/#login' });
+router.get('/',
+ (req, res, next) => {
+   
   articleService.getRecent()
     .then((result) => {
       res.json(result);
@@ -26,8 +26,8 @@ router.get('/', (req, res, next) => {
 
 });
 
-router.post('/', (req, res, next) => {
-
+router.post('/', passport.authenticate('jwt', { session: false}), (req, res, next) => {
+  
   articleService.add(
     new ArticleModel(
       null,
@@ -36,7 +36,10 @@ router.post('/', (req, res, next) => {
       req.body.tags,
       Date.now(),
       Date.now(),
-      req.body.user))
+      {
+        "user_id": req.user.id,
+        "name": req.user.name
+      }))
     .then(() => res.sendStatus(200))
     .catch((result) => res.json(result));
 
