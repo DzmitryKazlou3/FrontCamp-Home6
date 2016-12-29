@@ -73,9 +73,48 @@ export default class ArticleRepository {
     /*
      * adds article
      */
-    add(article) {
-        return articleDataModel.create(article);
+    add(articleModel) {
+        return articleDataModel.create(articleModel);
     };
+    
+    /*
+     * update article
+     */
+    update(articleModel) {
+        return new Promise(function (resolve, reject) {
+
+            articleDataModel.findByIdAndUpdate(
+                articleModel.id,
+                {
+                    title: articleModel.title,
+                    text: articleModel.text,
+                    tags: articleModel.tags
+                },
+                { new: true },
+                function (err, updatedArticleDataModel) {
+                    if (err) {
+                        reject(new Result(null, false, err, ResultCodes.Error()));
+                    }
+
+                    resolve(new Result(MapToArticleModel(updatedArticleDataModel), true, "updated succesful", ResultCodes.Success()));
+                });
+
+        });
+    };
+
+    delete(articleModel){
+        return new Promise(function (resolve, reject) {
+
+            articleDataModel.findByIdAndRemove(articleModel.id, {}, function (err, deletedArticleDataModel) {
+                    if (err) {
+                        reject(new Result(null, false, err, ResultCodes.Error()));
+                    }
+
+                    resolve(new Result(null, true, "deleted succesful", ResultCodes.Success()));
+                });
+
+        });
+    }
 };
 
 

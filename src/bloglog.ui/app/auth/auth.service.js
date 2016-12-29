@@ -42,7 +42,6 @@
                     return $q.reject(responce.message);
                 })
                 .catch((error) => {
-                    debugger;
                     console.log(error);
                     return $q.reject(error);
                 });

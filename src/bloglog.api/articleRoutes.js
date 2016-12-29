@@ -1,3 +1,4 @@
+/* -------------- imports -------------- */
 // external
 import { Router } from 'express';
 import passport from 'passport';
@@ -7,6 +8,9 @@ import { articleService, commentService } from '../bloglog.services';
 import ArticleModel from '../bloglog.models/articleModel.js';
 import CommentModel from '../bloglog.models/commentModel.js';
 
+
+
+/* -------------- implementation -------------- */
 // create router
 const router = Router();
 
@@ -45,6 +49,47 @@ router.post('/', passport.authenticate('jwt', { session: false}), (req, res, nex
 
 });
 
+router.put('/', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+
+  articleService.update(
+    new ArticleModel(
+      req.body.id,
+      req.body.title,
+      req.body.text,
+      req.body.tags,
+      req.body.createDateTime,
+      Date.now(),
+      {
+        "user_id": req.user.id,
+        "name": req.user.name
+      }))
+    .then(result => res.json(result))
+    .catch((errorResult) => res.json(errorResult));
+
+});
+
+router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  
+  var article_id = req.params.id;
+  articleService.delete(
+    new ArticleModel(
+      article_id,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "user_id": req.user.id,
+        "name": req.user.name
+      }))
+    .then(result => res.json(result))
+    .catch((errorResult) => res.json(errorResult));
+
+});
+
+
+///////////// article comments section //////////////////////
 router.get('/:id/comments', (req, res, next) => {
 
   let article_id = req.params.id;
@@ -69,4 +114,6 @@ router.post('/:id/comments', (req, res, next) => {
 
 });
 
+
+/* -------------- exports -------------- */
 export default router;

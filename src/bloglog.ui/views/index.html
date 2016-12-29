@@ -24,6 +24,9 @@
             <div>Author: {{article.user.name}}</div>
             <div>Tags: {{article.tags}}</div>
             <div>Created: {{article.createDateTime}}</div>
+            <button type="button" class="btn btn-default" ng-click="vm.addComment('#dialog')" ng-if="Authorized">Add Comment</button>
+            <button type="button" class="btn btn-default" ng-click="vm.updateArticle('#dialog', article)" ng-if="UserId === article.user.user_id">Update Article</button>
+            <button type="button" class="btn btn-default" ng-click="vm.deleteArticle('#dialog', article)" ng-if="UserId === article.user.user_id">Delete Article</button>
         </div>
 
         <div>Total item count: {{vm.totalItemsCount}}</div>
@@ -34,9 +37,11 @@
     
     <!-- scripts -->
     <script src="angular/angular.min.js"></script>
+    <script src="angular-aria/angular-aria.js"></script> 
     <script src="angular-cookies/angular-cookies.min.js"></script>
     <script src="angular-animate/angular-animate.min.js"></script>
     <script src="angular-touch/angular-touch.min.js"></script>
+    <script src="angular-material/angular-material.js"></script>
     <script src="angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
     <script src="app/app.bundle.js"></script>
     
@@ -126,6 +131,27 @@
                     <label>Tags:</label>
                     <input name="tags" type="text" class="form-control" placeholder="Tags" required data-ng-model="vm.article.tags" ng-maxlength="500"
                     />
+                </div>
+            </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn button" ng-click="vm.save()">save</button>
+            <button class="btn button" ng-click="vm.close()">close</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="commentModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Add comment...</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+        <form id="articleForm" name="articleForm" novalidate ng-submit="vm.save(vm.article)">
+            <div class="well">
+                <div class="form-group">
+                    <label>Text:</label>
+                    <textarea name="title" type="text" class="form-control" placeholder="Title" required data-ng-model="vm.article.title" ng-maxlength="500"
+                    ></textarea>
                 </div>
             </div>
         </form>

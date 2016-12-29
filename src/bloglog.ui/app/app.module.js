@@ -6,7 +6,8 @@
         'ngTouch',
         'ngAnimate',
         'ui.bootstrap',
-        'ngCookies'
+        'ngCookies',
+        'ngMaterial'
     ]);
 
     angular.module("bloglog").config(["$httpProvider", function ($httpProvider) {

@@ -29,7 +29,10 @@
                         return;
                     }
                     $cookies.put(COMMON.JWT_TOKEN, JWTResult.token);
+                    $cookies.put(COMMON.ID, JWTResult.id);
+
                     $rootScope.Authorized = true;
+                    $rootScope.UserId = JWTResult.id;
                     $uibModalInstance.close();
                 })
                 .catch((error) => {

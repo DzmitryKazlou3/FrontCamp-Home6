@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 53);
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -76,7 +76,7 @@
 
 (function () {
 
-    angular.module('bloglog', ['ngTouch', 'ngAnimate', 'ui.bootstrap', 'ngCookies']);
+    angular.module('bloglog', ['ngTouch', 'ngAnimate', 'ui.bootstrap', 'ngCookies', 'ngMaterial']);
 
     angular.module("bloglog").config(["$httpProvider", function ($httpProvider) {
         $httpProvider.interceptors.push('httpInterceptorService');
@@ -95,13 +95,12 @@
 
     angular.module('bloglog').controller('ArticleDialogController', ArticleDialogController);
 
-    ArticleDialogController.$inject = ['articleService', '$uibModalInstance', '$rootScope', 'EVENTS'];
+    ArticleDialogController.$inject = ['articleService', '$uibModalInstance', '$rootScope', 'EVENTS', 'existingArticle'];
 
-    function ArticleDialogController(articleService, $uibModalInstance, $rootScope, EVENTS) {
+    function ArticleDialogController(articleService, $uibModalInstance, $rootScope, EVENTS, existingArticle) {
 
         var vm = this;
-
-        vm.article = {};
+        vm.article = existingArticle ? existingArticle : {};
 
         vm.save = save;
         vm.close = function () {
@@ -109,13 +108,21 @@
         };
 
         function save() {
-
-            articleService.addArticle(vm.article).then(function (pageResult) {
-                $rootScope.$broadcast(EVENTS.ARTICLE_ADDED, {});
-                $uibModalInstance.close();
-            }).catch(function (error) {
-                alert(error.data);
-            });
+            if (existingArticle) {
+                articleService.updateArticle(vm.article).then(function (pageResult) {
+                    $rootScope.$broadcast(EVENTS.ARTICLE_ADDED, {});
+                    $uibModalInstance.close();
+                }).catch(function (error) {
+                    alert(error.data);
+                });
+            } else {
+                articleService.addArticle(vm.article).then(function (pageResult) {
+                    $rootScope.$broadcast(EVENTS.ARTICLE_ADDED, {});
+                    $uibModalInstance.close();
+                }).catch(function (error) {
+                    alert(error.data);
+                });
+            }
         }
     }
 })();
@@ -159,7 +166,6 @@
 
                 return $q.reject(responce.message);
             }).catch(function (error) {
-                debugger;
                 console.log(error);
                 return $q.reject(error);
             });
@@ -242,7 +248,10 @@
                     return;
                 }
                 $cookies.put(COMMON.JWT_TOKEN, JWTResult.token);
+                $cookies.put(COMMON.ID, JWTResult.id);
+
                 $rootScope.Authorized = true;
+                $rootScope.UserId = JWTResult.id;
                 $uibModalInstance.close();
             }).catch(function (error) {
                 alert(error.data);
@@ -266,14 +275,17 @@
 (function () {
 
     angular.module('bloglog').constant('COMMON', {
-        JWT_TOKEN: "Token.JWT"
+        JWT_TOKEN: "Token.JWT",
+        ID: "Id"
     }).constant('STRINGS', {
         OK: "OK"
     }).constant('URLS', {
         BASE: window.location.href,
-        ARTICLES: "api/articles",
-        SIGNUP: "signup",
-        LOGIN: "login"
+        API: "api/",
+        ARTICLES: "api/articles/",
+        SIGNUP: "signup/",
+        LOGIN: "login/",
+        COMMENTS: "comments/"
     }).constant('EVENTS', {
         ARTICLE_ADDED: "Article_Added"
     });
@@ -298,14 +310,20 @@
         var vm = this;
 
         $rootScope.Authorized = $cookies.get(COMMON.JWT_TOKEN);
+        $rootScope.UserId = $cookies.get(COMMON.ID);
+
         vm.articles = [];
         vm.totalItemsCount = 0;
         vm.signupDialog = signupDialog;
         vm.loginDialog = loginDialog;
         vm.addArticle = addArticle;
+        vm.updateArticle = updateArticle;
+        vm.deleteArticle = deleteArticle;
         vm.logOut = function () {
             $cookies.remove(COMMON.JWT_TOKEN);
+            $cookies.remove(COMMON.ID);
             $rootScope.Authorized = false;
+            $rootScope.UserId = null;
         };
 
         $rootScope.$on(EVENTS.ARTICLE_ADDED, function (event, data) {
@@ -381,6 +399,34 @@
                 }
             }).result.then(function (selectedItem) {}, function () {});
         }
+
+        function updateArticle(selector, article) {
+            var parentElem = selector ? angular.element($document[0].querySelector(selector)) : undefined;
+
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'articleModalContent.html',
+                controller: 'ArticleDialogController',
+                controllerAs: 'vm',
+                size: '',
+                appendTo: parentElem,
+                resolve: {
+                    existingArticle: function existingArticle() {
+                        return article;
+                    }
+                }
+            }).result.then(function (selectedItem) {
+                loadArticles();
+            }, function () {});
+        }
+
+        function deleteArticle(selector, article) {
+            articleService.deleteArticle(article).then(function (resulrt) {
+                loadArticles();
+            }).catch(function (error) {});
+        }
     }
 })();
 
@@ -401,7 +447,9 @@
     function articleService($http, URLS, $q) {
         var service = {
             getRecentArticles: getRecentArticles,
-            addArticle: addArticle
+            addArticle: addArticle,
+            updateArticle: updateArticle,
+            deleteArticle: deleteArticle
         };
 
         function getRecentArticles() {
@@ -417,6 +465,26 @@
         function addArticle(article) {
 
             return $http.post(URLS.BASE + URLS.ARTICLES, article).then(function (responce) {
+                return responce.data;
+            }).catch(function (error) {
+                console.log(error);
+                return $q.reject(error);
+            });
+        }
+
+        function updateArticle(article) {
+
+            return $http.put(URLS.BASE + URLS.ARTICLES, article).then(function (responce) {
+                return responce.data;
+            }).catch(function (error) {
+                console.log(error);
+                return $q.reject(error);
+            });
+        }
+
+        function deleteArticle(article) {
+
+            return $http.delete(URLS.BASE + URLS.ARTICLES + article.id).then(function (responce) {
                 return responce.data;
             }).catch(function (error) {
                 console.log(error);
@@ -476,7 +544,7 @@
 
 /***/ },
 
-/***/ 53:
+/***/ 52:
 /***/ function(module, exports, __webpack_require__) {
 
 __webpack_require__(20);

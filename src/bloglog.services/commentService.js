@@ -10,7 +10,7 @@ import ResultCodes from '../bloglog.common/resultCodes.js';
 
 
 /* -------------- implementation -------------- */
-export default class TagService {
+export default class CommentService {
   constructor() {
   }
 
@@ -28,10 +28,11 @@ export default class TagService {
 
     return new Promise(function (resolve, reject) {
       articleRepository.getById(commentModel.article_id)
+
         .then(function (result) {
           if (result.success) {
             if (checkComment(commentModel)) {
-              return resolve(new commentRepository.add(commentModel));
+              return resolve(commentRepository.add(commentModel));
             }
 
             return reject(new Result(null, false, "Comment has invalid field", ResultCodes.InvalidObject()));
@@ -40,9 +41,11 @@ export default class TagService {
             reject(result);
           }
         })
+
         .catch(function (errorResult) {
           reject(new Result(null, false, errorResult.message, errorResult.code));
         });
+        
     });
 
   }

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 52);
+/******/ 	return __webpack_require__(__webpack_require__.s = 51);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -196,53 +196,25 @@ module.exports = require("mongoose");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var UserModel = function UserModel(id, name, email, password) {
-  (0, _classCallCheck3.default)(this, UserModel);
-
-  this.id = id;
-  this.name = name;
-  this.email = email;
-  this.password = password;
-};
-
-exports.default = UserModel;
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 exports.commentRepository = exports.userRepository = exports.tagRepository = exports.articleRepository = undefined;
 
 var _mongoose = __webpack_require__(6);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _articleRepository = __webpack_require__(41);
+var _articleRepository = __webpack_require__(40);
 
 var _articleRepository2 = _interopRequireDefault(_articleRepository);
 
-var _tagRepository = __webpack_require__(43);
+var _tagRepository = __webpack_require__(42);
 
 var _tagRepository2 = _interopRequireDefault(_tagRepository);
 
-var _userRepository = __webpack_require__(44);
+var _userRepository = __webpack_require__(43);
 
 var _userRepository2 = _interopRequireDefault(_userRepository);
 
-var _commentRepository = __webpack_require__(42);
+var _commentRepository = __webpack_require__(41);
 
 var _commentRepository2 = _interopRequireDefault(_commentRepository);
 
@@ -267,47 +239,7 @@ exports.userRepository = userRepository;
 exports.commentRepository = commentRepository;
 
 /***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.commentService = exports.userService = exports.tagService = exports.articleService = undefined;
-
-var _articleService = __webpack_require__(45);
-
-var _articleService2 = _interopRequireDefault(_articleService);
-
-var _tagService = __webpack_require__(47);
-
-var _tagService2 = _interopRequireDefault(_tagService);
-
-var _userService = __webpack_require__(48);
-
-var _userService2 = _interopRequireDefault(_userService);
-
-var _commentService = __webpack_require__(46);
-
-var _commentService2 = _interopRequireDefault(_commentService);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var articleService = new _articleService2.default();
-var tagService = new _tagService2.default();
-var userService = new _userService2.default();
-var commentService = new _commentService2.default();
-
-exports.articleService = articleService;
-exports.tagService = tagService;
-exports.userService = userService;
-exports.commentService = commentService;
-
-/***/ },
-/* 10 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -338,7 +270,7 @@ var ArticleModel = function ArticleModel(id, title, text, tags, createDateTime, 
 exports.default = ArticleModel;
 
 /***/ },
-/* 11 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -367,7 +299,7 @@ var CommentModel = function CommentModel(id, text, user, createDateTime, article
 exports.default = CommentModel;
 
 /***/ },
-/* 12 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -392,6 +324,74 @@ var TagModel = function TagModel(id, value, article_ids) {
 };
 
 exports.default = TagModel;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserModel = function UserModel(id, name, email, password) {
+  (0, _classCallCheck3.default)(this, UserModel);
+
+  this.id = id;
+  this.name = name;
+  this.email = email;
+  this.password = password;
+};
+
+exports.default = UserModel;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.commentService = exports.userService = exports.tagService = exports.articleService = undefined;
+
+var _articleService = __webpack_require__(44);
+
+var _articleService2 = _interopRequireDefault(_articleService);
+
+var _tagService = __webpack_require__(46);
+
+var _tagService2 = _interopRequireDefault(_tagService);
+
+var _userService = __webpack_require__(47);
+
+var _userService2 = _interopRequireDefault(_userService);
+
+var _commentService = __webpack_require__(45);
+
+var _commentService2 = _interopRequireDefault(_commentService);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var articleService = new _articleService2.default();
+var tagService = new _tagService2.default();
+var userService = new _userService2.default();
+var commentService = new _commentService2.default();
+
+exports.articleService = articleService;
+exports.tagService = tagService;
+exports.userService = userService;
+exports.commentService = commentService;
 
 /***/ },
 /* 13 */
@@ -470,10 +470,6 @@ var _tagsRoutes = __webpack_require__(35);
 
 var _tagsRoutes2 = _interopRequireDefault(_tagsRoutes);
 
-var _userRoutes = __webpack_require__(36);
-
-var _userRoutes2 = _interopRequireDefault(_userRoutes);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = (0, _express.Router)();
@@ -481,8 +477,6 @@ var router = (0, _express.Router)();
 router.use('/articles', _articleRoutes2.default);
 
 router.use('/tags', _tagsRoutes2.default);
-
-router.use('/users', _userRoutes2.default);
 
 exports.default = router;
 
@@ -501,17 +495,17 @@ var _passport = __webpack_require__(15);
 
 var _passport2 = _interopRequireDefault(_passport);
 
-var _passportJwt = __webpack_require__(51);
+var _passportJwt = __webpack_require__(50);
 
-var _jwtSimple = __webpack_require__(50);
+var _jwtSimple = __webpack_require__(49);
 
 var _jwtSimple2 = _interopRequireDefault(_jwtSimple);
 
 var _md = __webpack_require__(16);
 
-var _bloglog = __webpack_require__(9);
+var _bloglog = __webpack_require__(12);
 
-var _userModel = __webpack_require__(7);
+var _userModel = __webpack_require__(11);
 
 var _userModel2 = _interopRequireDefault(_userModel);
 
@@ -578,7 +572,11 @@ function initialize(app) {
                 var user = result.data;
                 if (_bloglog.userService.checkPassword(user, req.body.password)) {
                     var token = _jwtSimple2.default.encode(user, opts.secretOrKey);
-                    return res.json(new _result2.default({ token: 'JWT ' + token }, true, "success", _resultCodes2.default.Success()));
+
+                    return res.json(new _result2.default({
+                        id: user.id,
+                        token: 'JWT ' + token
+                    }, true, "success", _resultCodes2.default.Success()));
                 }
 
                 return res.json(new _result2.default(null, false, "invalid creadentials", _resultCodes2.default.Unathorized()));
@@ -588,11 +586,6 @@ function initialize(app) {
         }).catch(function (error) {
             return res.json(new _result2.default(error, false, "", _resultCodes2.default.Error()));
         });
-    });
-
-    app.get('/logout', function (req, res) {
-        req.logout();
-        res.redirect('/');
     });
 }
 
@@ -620,7 +613,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(5);
 
-__webpack_require__(49);
+__webpack_require__(48);
 
 var router = (0, _express.Router)();
 
@@ -671,13 +664,13 @@ var _passport = __webpack_require__(15);
 
 var _passport2 = _interopRequireDefault(_passport);
 
-var _bloglog = __webpack_require__(9);
+var _bloglog = __webpack_require__(12);
 
-var _articleModel = __webpack_require__(10);
+var _articleModel = __webpack_require__(8);
 
 var _articleModel2 = _interopRequireDefault(_articleModel);
 
-var _commentModel = __webpack_require__(11);
+var _commentModel = __webpack_require__(9);
 
 var _commentModel2 = _interopRequireDefault(_commentModel);
 
@@ -703,6 +696,31 @@ router.post('/', _passport2.default.authenticate('jwt', { session: false }), fun
     return res.sendStatus(200);
   }).catch(function (result) {
     return res.json(result);
+  });
+});
+
+router.put('/', _passport2.default.authenticate('jwt', { session: false }), function (req, res, next) {
+
+  _bloglog.articleService.update(new _articleModel2.default(req.body.id, req.body.title, req.body.text, req.body.tags, req.body.createDateTime, Date.now(), {
+    "user_id": req.user.id,
+    "name": req.user.name
+  })).then(function (result) {
+    return res.json(result);
+  }).catch(function (errorResult) {
+    return res.json(errorResult);
+  });
+});
+
+router.delete('/:id', _passport2.default.authenticate('jwt', { session: false }), function (req, res, next) {
+
+  var article_id = req.params.id;
+  _bloglog.articleService.delete(new _articleModel2.default(article_id, null, null, null, null, null, {
+    "user_id": req.user.id,
+    "name": req.user.name
+  })).then(function (result) {
+    return res.json(result);
+  }).catch(function (errorResult) {
+    return res.json(errorResult);
   });
 });
 
@@ -741,9 +759,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(5);
 
-var _bloglog = __webpack_require__(9);
+var _bloglog = __webpack_require__(12);
 
-var _tagModel = __webpack_require__(12);
+var _tagModel = __webpack_require__(10);
 
 var _tagModel2 = _interopRequireDefault(_tagModel);
 
@@ -773,44 +791,6 @@ exports.default = router;
 
 /***/ },
 /* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _express = __webpack_require__(5);
-
-var _bloglog = __webpack_require__(9);
-
-var _userModel = __webpack_require__(7);
-
-var _userModel2 = _interopRequireDefault(_userModel);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var router = (0, _express.Router)();
-
-router.get('/:id', function (req, res, next) {
-  res.end("not yet implemented");
-});
-
-router.post('/', function (req, res, next) {
-
-  _bloglog.userService.add(new _userModel2.default(null, req.body.name, req.body.email, req.body.password)).then(function () {
-    return res.sendStatus(200);
-  }).catch(function (result) {
-    return res.json(result);
-  });
-});
-
-exports.default = router;
-
-/***/ },
-/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -862,7 +842,7 @@ var articleSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('articles', articleSchema);
 
 /***/ },
-/* 38 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -906,7 +886,7 @@ var commentSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('comments', commentSchema);
 
 /***/ },
-/* 39 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -936,7 +916,7 @@ var tagSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('tags', tagSchema);
 
 /***/ },
-/* 40 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -972,7 +952,7 @@ var userSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('users', userSchema);
 
 /***/ },
-/* 41 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -998,11 +978,11 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _articleDataModel = __webpack_require__(37);
+var _articleDataModel = __webpack_require__(36);
 
 var _articleDataModel2 = _interopRequireDefault(_articleDataModel);
 
-var _articleModel = __webpack_require__(10);
+var _articleModel = __webpack_require__(8);
 
 var _articleModel2 = _interopRequireDefault(_articleModel);
 
@@ -1093,8 +1073,40 @@ var ArticleRepository = function () {
         }
     }, {
         key: 'add',
-        value: function add(article) {
-            return _articleDataModel2.default.create(article);
+        value: function add(articleModel) {
+            return _articleDataModel2.default.create(articleModel);
+        }
+    }, {
+        key: 'update',
+        value: function update(articleModel) {
+            return new _promise2.default(function (resolve, reject) {
+
+                _articleDataModel2.default.findByIdAndUpdate(articleModel.id, {
+                    title: articleModel.title,
+                    text: articleModel.text,
+                    tags: articleModel.tags
+                }, { new: true }, function (err, updatedArticleDataModel) {
+                    if (err) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                    }
+
+                    resolve(new _result2.default(MapToArticleModel(updatedArticleDataModel), true, "updated succesful", _resultCodes2.default.Success()));
+                });
+            });
+        }
+    }, {
+        key: 'delete',
+        value: function _delete(articleModel) {
+            return new _promise2.default(function (resolve, reject) {
+
+                _articleDataModel2.default.findByIdAndRemove(articleModel.id, {}, function (err, deletedArticleDataModel) {
+                    if (err) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                    }
+
+                    resolve(new _result2.default(null, true, "deleted succesful", _resultCodes2.default.Success()));
+                });
+            });
         }
     }]);
     return ArticleRepository;
@@ -1108,7 +1120,7 @@ function MapToArticleModel(articleDataModel) {
 }
 
 /***/ },
-/* 42 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1134,11 +1146,11 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _commentDataModel = __webpack_require__(38);
+var _commentDataModel = __webpack_require__(37);
 
 var _commentDataModel2 = _interopRequireDefault(_commentDataModel);
 
-var _commentModel = __webpack_require__(11);
+var _commentModel = __webpack_require__(9);
 
 var _commentModel2 = _interopRequireDefault(_commentModel);
 
@@ -1219,7 +1231,7 @@ function MapToCommentModel(commentDataModel) {
 }
 
 /***/ },
-/* 43 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1245,11 +1257,11 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _tagDataModel = __webpack_require__(39);
+var _tagDataModel = __webpack_require__(38);
 
 var _tagDataModel2 = _interopRequireDefault(_tagDataModel);
 
-var _tagModel = __webpack_require__(12);
+var _tagModel = __webpack_require__(10);
 
 var _tagModel2 = _interopRequireDefault(_tagModel);
 
@@ -1327,7 +1339,7 @@ function MapToTagModel(tagDataModel) {
 }
 
 /***/ },
-/* 44 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1349,11 +1361,11 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _userDataModel = __webpack_require__(40);
+var _userDataModel = __webpack_require__(39);
 
 var _userDataModel2 = _interopRequireDefault(_userDataModel);
 
-var _userModel = __webpack_require__(7);
+var _userModel = __webpack_require__(11);
 
 var _userModel2 = _interopRequireDefault(_userModel);
 
@@ -1405,7 +1417,7 @@ function MapToUserModel(user) {
 }
 
 /***/ },
-/* 45 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1427,11 +1439,11 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _articleModel = __webpack_require__(10);
+var _articleModel = __webpack_require__(8);
 
 var _articleModel2 = _interopRequireDefault(_articleModel);
 
-var _bloglog = __webpack_require__(8);
+var _bloglog = __webpack_require__(7);
 
 var _result = __webpack_require__(1);
 
@@ -1462,6 +1474,71 @@ var ArticleService = function () {
 
       return _promise2.default.reject(new _result2.default(null, false, "", _resultCodes2.default.InvalidObject()));
     }
+  }, {
+    key: 'update',
+    value: function update(articleModel) {
+      if (!checkArticle(articleModel)) {
+        return _promise2.default.reject(new _result2.default(null, false, "The given article is not valid", _resultCodes2.default.InvalidObject()));
+      }
+
+      return new _promise2.default(function (resolve, reject) {
+        _bloglog.articleRepository.getById(articleModel.id).then(function (result) {
+
+          if (result.success) {
+            var articleFromStorage = result.data;
+
+            if (articleFromStorage.user.user_id.equals(articleModel.user.user_id)) {
+
+              articleFromStorage.title = articleModel.title;
+              articleFromStorage.text = articleModel.text;
+              articleFromStorage.tags = articleModel.tags;
+
+
+              _bloglog.articleRepository.update(articleModel).then(function (result) {
+                resolve(result);
+              }).catch(function (errorResult) {
+                reject(errorResult);
+              });
+              return;
+            }
+
+            reject(new _result2.default(null, false, "Given article has wrong user_id. The article can't change the owner.", _resultCodes2.default.InvalidObject()));
+          } else {
+            reject(result);
+          }
+        }).catch(function (errorResult) {
+          reject(errorResult);
+        });
+      });
+    }
+  }, {
+    key: 'delete',
+    value: function _delete(articleModel) {
+
+      return new _promise2.default(function (resolve, reject) {
+        _bloglog.articleRepository.getById(articleModel.id).then(function (result) {
+
+          if (result.success) {
+            var articleFromStorage = result.data;
+
+            if (articleFromStorage.user.user_id.equals(articleModel.user.user_id)) {
+              _bloglog.articleRepository.delete(articleModel).then(function (result) {
+                resolve(result);
+              }).catch(function (errorResult) {
+                reject(errorResult);
+              });
+              return;
+            }
+
+            reject(new _result2.default(null, false, "Given article has wrong user_id. The article can't change the owner.", _resultCodes2.default.InvalidObject()));
+          } else {
+            reject(result);
+          }
+        }).catch(function (errorResult) {
+          reject(errorResult);
+        });
+      });
+    }
   }]);
   return ArticleService;
 }();
@@ -1479,6 +1556,93 @@ function checkArticle(article) {
   }
 
   if (!article.user || !article.user.user_id || !article.user.name) {
+    return false;
+  }
+
+  return true;
+}
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _promise = __webpack_require__(4);
+
+var _promise2 = _interopRequireDefault(_promise);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(3);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _commentModel = __webpack_require__(9);
+
+var _commentModel2 = _interopRequireDefault(_commentModel);
+
+var _bloglog = __webpack_require__(7);
+
+var _result = __webpack_require__(1);
+
+var _result2 = _interopRequireDefault(_result);
+
+var _resultCodes = __webpack_require__(2);
+
+var _resultCodes2 = _interopRequireDefault(_resultCodes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CommentService = function () {
+  function CommentService() {
+    (0, _classCallCheck3.default)(this, CommentService);
+  }
+
+  (0, _createClass3.default)(CommentService, [{
+    key: 'getCommentsByArticleId',
+    value: function getCommentsByArticleId(article_id) {
+      return _bloglog.commentRepository.getByArticleId(article_id);
+    }
+  }, {
+    key: 'add',
+    value: function add(commentModel) {
+
+      return new _promise2.default(function (resolve, reject) {
+        _bloglog.articleRepository.getById(commentModel.article_id).then(function (result) {
+          if (result.success) {
+            if (checkComment(commentModel)) {
+              return resolve(_bloglog.commentRepository.add(commentModel));
+            }
+
+            return reject(new _result2.default(null, false, "Comment has invalid field", _resultCodes2.default.InvalidObject()));
+          } else {
+            reject(result);
+          }
+        }).catch(function (errorResult) {
+          reject(new _result2.default(null, false, errorResult.message, errorResult.code));
+        });
+      });
+    }
+  }]);
+  return CommentService;
+}();
+
+exports.default = CommentService;
+
+function checkComment(comment) {
+  if (!comment.text || comment.text.length === 0 || comment.text.length > 5000) {
+    return false;
+  }
+
+  if (!comment.user || !comment.user.user_id || !comment.user.name) {
     return false;
   }
 
@@ -1508,98 +1672,11 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _commentModel = __webpack_require__(11);
-
-var _commentModel2 = _interopRequireDefault(_commentModel);
-
-var _bloglog = __webpack_require__(8);
-
-var _result = __webpack_require__(1);
-
-var _result2 = _interopRequireDefault(_result);
-
-var _resultCodes = __webpack_require__(2);
-
-var _resultCodes2 = _interopRequireDefault(_resultCodes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var TagService = function () {
-  function TagService() {
-    (0, _classCallCheck3.default)(this, TagService);
-  }
-
-  (0, _createClass3.default)(TagService, [{
-    key: 'getCommentsByArticleId',
-    value: function getCommentsByArticleId(article_id) {
-      return _bloglog.commentRepository.getByArticleId(article_id);
-    }
-  }, {
-    key: 'add',
-    value: function add(commentModel) {
-
-      return new _promise2.default(function (resolve, reject) {
-        _bloglog.articleRepository.getById(commentModel.article_id).then(function (result) {
-          if (result.success) {
-            if (checkComment(commentModel)) {
-              return resolve(new _bloglog.commentRepository.add(commentModel));
-            }
-
-            return reject(new _result2.default(null, false, "Comment has invalid field", _resultCodes2.default.InvalidObject()));
-          } else {
-            reject(result);
-          }
-        }).catch(function (errorResult) {
-          reject(new _result2.default(null, false, errorResult.message, errorResult.code));
-        });
-      });
-    }
-  }]);
-  return TagService;
-}();
-
-exports.default = TagService;
-
-function checkComment(comment) {
-  if (!comment.text || comment.text.length === 0 || comment.text.length > 5000) {
-    return false;
-  }
-
-  if (!comment.user || !comment.user.user_id || !comment.user.name) {
-    return false;
-  }
-
-  return true;
-}
-
-/***/ },
-/* 47 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _promise = __webpack_require__(4);
-
-var _promise2 = _interopRequireDefault(_promise);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(3);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _tagModel = __webpack_require__(12);
+var _tagModel = __webpack_require__(10);
 
 var _tagModel2 = _interopRequireDefault(_tagModel);
 
-var _bloglog = __webpack_require__(8);
+var _bloglog = __webpack_require__(7);
 
 var _result = __webpack_require__(1);
 
@@ -1646,7 +1723,7 @@ function checkTag(tag) {
 }
 
 /***/ },
-/* 48 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1670,11 +1747,11 @@ var _createClass3 = _interopRequireDefault(_createClass2);
 
 var _md = __webpack_require__(16);
 
-var _userModel = __webpack_require__(7);
+var _userModel = __webpack_require__(11);
 
 var _userModel2 = _interopRequireDefault(_userModel);
 
-var _bloglog = __webpack_require__(8);
+var _bloglog = __webpack_require__(7);
 
 var _result = __webpack_require__(1);
 
@@ -1737,25 +1814,25 @@ function checkUser(user) {
 }
 
 /***/ },
-/* 49 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./views/index.html";
 
 /***/ },
-/* 50 */
+/* 49 */
 /***/ function(module, exports) {
 
 module.exports = require("jwt-simple");
 
 /***/ },
-/* 51 */
+/* 50 */
 /***/ function(module, exports) {
 
 module.exports = require("passport-jwt");
 
 /***/ },
-/* 52 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";

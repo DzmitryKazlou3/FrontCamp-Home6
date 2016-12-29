@@ -85,7 +85,16 @@ function initialize(app) {
                     let user = result.data;
                     if (userService.checkPassword(user, req.body.password)) {
                         var token = JWT.encode(user, opts.secretOrKey);
-                        return res.json(new Result({ token: 'JWT ' + token }, true, "success", ResultCodes.Success()));
+                        
+                        return res.json(
+                            new Result(
+                                { 
+                                    id: user.id,
+                                    token: 'JWT ' + token
+                                },
+                                true,
+                                "success",
+                                ResultCodes.Success()));
                     }
 
                     return res.json(new Result(null, false, "invalid creadentials", ResultCodes.Unathorized()));
@@ -98,12 +107,6 @@ function initialize(app) {
             });
 
     });
-
-    app.get('/logout', function (req, res) {
-        req.logout();
-        res.redirect('/');
-    });
-
 }
 
 

@@ -6,7 +6,8 @@
         .module('bloglog')
 
         .constant('COMMON', {
-            JWT_TOKEN: "Token.JWT"
+            JWT_TOKEN: "Token.JWT",
+            ID: "Id"
         })
 
         .constant('STRINGS', {
@@ -15,9 +16,11 @@
 
         .constant('URLS', {
             BASE: window.location.href,
-            ARTICLES: "api/articles",
-            SIGNUP: "signup",
-            LOGIN: "login"
+            API: "api/",
+            ARTICLES: "api/articles/",
+            SIGNUP: "signup/",
+            LOGIN: "login/",
+            COMMENTS: "comments/"
         })
         
         .constant('EVENTS', {
