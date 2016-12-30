@@ -735,7 +735,7 @@ router.get('/:id/comments', function (req, res, next) {
 });
 
 router.post('/:id/comments', function (req, res, next) {
-
+  debugger;
   var article_id = req.params.id;
   _bloglog.commentService.add(new _commentModel2.default(null, req.body.text, req.body.user, Date.now(), article_id)).then(function () {
     return res.sendStatus(200);
@@ -1008,8 +1008,8 @@ var ArticleRepository = function () {
     (0, _createClass3.default)(ArticleRepository, [{
         key: 'get',
         value: function get(skip, count) {
-
             return new _promise2.default(function (resolve, reject) {
+
                 _articleDataModel2.default.find({}).sort('-createDateTime').skip(skip).limit(count).exec(function (err, articles) {
                     if (err) {
                         reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
@@ -1058,8 +1058,8 @@ var ArticleRepository = function () {
     }, {
         key: 'getById',
         value: function getById(id) {
-
             return new _promise2.default(function (resolve, reject) {
+
                 _articleDataModel2.default.findOne({ '_id': id }).exec(function (err, article) {
                     if (err) {
                         reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
@@ -1074,7 +1074,18 @@ var ArticleRepository = function () {
     }, {
         key: 'add',
         value: function add(articleModel) {
-            return _articleDataModel2.default.create(articleModel);
+            return new _promise2.default(function (resolve, reject) {
+
+                _articleDataModel2.default.create(articleModel, function (err, articleCreatedDataModel) {
+                    if (err) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                    } else if (!articleCreatedDataModel) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                    } else {
+                        resolve(new _result2.default(MapToArticleModel(articleCreatedDataModel), true, "", _resultCodes2.default.Success()));
+                    }
+                });
+            });
         }
     }, {
         key: 'update',
@@ -1177,6 +1188,7 @@ var CommentRepository = function () {
         key: 'getByArticleId',
         value: function getByArticleId(article_id) {
             return new _promise2.default(function (resolve, reject) {
+
                 _commentDataModel2.default.find({ 'article_id': article_id }).sort('-createDateTime').exec(function (err, comments) {
                     if (err) {
                         reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
@@ -1216,15 +1228,26 @@ var CommentRepository = function () {
         }
     }, {
         key: 'add',
-        value: function add(comment) {
-            return _commentDataModel2.default.create(comment);
+        value: function add(commentModel) {
+            return new _promise2.default(function (resolve, reject) {
+
+                _commentDataModel2.default.create(commentModel, function (err, commentCreatedDataModel) {
+                    if (err) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                    } else if (!commentCreatedDataModel) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                    } else {
+                        resolve(new _result2.default(MapToCommentModel(commentCreatedDataModel), true, "", _resultCodes2.default.Success()));
+                    }
+                });
+            });
         }
     }]);
     return CommentRepository;
 }();
 
 exports.default = CommentRepository;
-;
+
 
 function MapToCommentModel(commentDataModel) {
     return new _commentModel2.default(commentDataModel._id, commentDataModel.text, commentDataModel.user, commentDataModel.createDateTime, commentDataModel.article_id);
@@ -1469,7 +1492,7 @@ var ArticleService = function () {
     key: 'add',
     value: function add(articleModel) {
       if (checkArticle(articleModel)) {
-        return new _bloglog.articleRepository.add(articleModel);
+        return _bloglog.articleRepository.add(articleModel);
       }
 
       return _promise2.default.reject(new _result2.default(null, false, "", _resultCodes2.default.InvalidObject()));
@@ -1614,15 +1637,23 @@ var CommentService = function () {
   }, {
     key: 'add',
     value: function add(commentModel) {
+      if (!checkComment(commentModel)) {
+        return _promise2.default.reject(new _result2.default(null, false, "The given comment is not valid", _resultCodes2.default.InvalidObject()));
+      }
 
       return new _promise2.default(function (resolve, reject) {
+
         _bloglog.articleRepository.getById(commentModel.article_id).then(function (result) {
           if (result.success) {
-            if (checkComment(commentModel)) {
-              return resolve(_bloglog.commentRepository.add(commentModel));
-            }
-
-            return reject(new _result2.default(null, false, "Comment has invalid field", _resultCodes2.default.InvalidObject()));
+            _bloglog.commentRepository.add(commentModel).then(function (result) {
+              if (result.success) {
+                resolve(result);
+              } else {
+                reject(result);
+              }
+            }).catch(function (errorResult) {
+              reject(errorResult);
+            });
           } else {
             reject(result);
           }

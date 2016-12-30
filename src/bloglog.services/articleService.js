@@ -26,7 +26,7 @@ export default class ArticleService {
    */
   add(articleModel) {
     if (checkArticle(articleModel)) {
-      return new articleRepository.add(articleModel);
+      return articleRepository.add(articleModel);
     }
 
     return Promise.reject(new Result(null, false, "", ResultCodes.InvalidObject()));
@@ -86,6 +86,9 @@ export default class ArticleService {
     });
   }
 
+  /*
+   * deletes given article
+   */
   delete(articleModel) {
     
     return new Promise(function (resolve, reject) {
@@ -125,6 +128,7 @@ export default class ArticleService {
         });
     });
   }
+  
 };
 
 function checkArticle(article) {

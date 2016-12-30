@@ -100,7 +100,7 @@ router.get('/:id/comments', (req, res, next) => {
 });
 
 router.post('/:id/comments', (req, res, next) => {
-
+debugger;
   let article_id = req.params.id;
   commentService.add(
     new CommentModel(

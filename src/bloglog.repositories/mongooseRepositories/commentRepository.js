@@ -11,42 +11,59 @@ import ResultCodes from '../../bloglog.common/resultCodes.js';
 
 /* -------------- implementation -------------- */
 export default class CommentRepository {
-  constructor() {
-  }
+    constructor() {
+    }
 
-  /*
-   * gets comments of the given article
-   */
-  getByArticleId(article_id) {
-      return new Promise(function (resolve, reject) {
-          commentDataModel
-              .find({ 'article_id': article_id })
-              .sort('-createDateTime')
-              .exec(function (err, comments) {
-                  if (err) {
-                      reject(new Result(null, false, err, ResultCodes.Error()));
-                  }
-                  else if (!comments) {
-                      reject(new Result(null, false, err, ResultCodes.ObjectNotFound()));
-                  }
-                  else {
-                      let commentModels = [];
-                      for (let comment of comments) {
-                          commentModels.push(MapToCommentModel(comment));
-                      }
-                      resolve(new Result(commentModels, true, "", ResultCodes.Success()));
-                  }
-              });
-      });
-  };
+    /*
+     * gets comments of the given article
+     */
+    getByArticleId(article_id) {
+        return new Promise(function (resolve, reject) {
 
-  /*
-   * adds comment
-   */
-  add(comment) {
-    return commentDataModel.create(comment);
-  };
-};
+            commentDataModel
+                .find({ 'article_id': article_id })
+                .sort('-createDateTime')
+                .exec(function (err, comments) {
+                    if (err) {
+                        reject(new Result(null, false, err, ResultCodes.Error()));
+                    }
+                    else if (!comments) {
+                        reject(new Result(null, false, err, ResultCodes.ObjectNotFound()));
+                    }
+                    else {
+                        let commentModels = [];
+                        for (let comment of comments) {
+                            commentModels.push(MapToCommentModel(comment));
+                        }
+                        resolve(new Result(commentModels, true, "", ResultCodes.Success()));
+                    }
+                });
+
+        });
+    }
+
+    /*
+     * adds comment
+     */
+    add(commentModel) {
+        return new Promise(function (resolve, reject) {
+
+            commentDataModel.create(commentModel, function (err, commentCreatedDataModel) {
+                if (err) {
+                    reject(new Result(null, false, err, ResultCodes.Error()));
+                }
+                else if (!commentCreatedDataModel) {
+                    reject(new Result(null, false, err, ResultCodes.Error()));
+                }
+                else {
+                    resolve(new Result(MapToCommentModel(commentCreatedDataModel), true, "", ResultCodes.Success()));
+                }
+            });
+
+        });
+    }
+
+}
 
 function MapToCommentModel(commentDataModel) {
     return new CommentModel(

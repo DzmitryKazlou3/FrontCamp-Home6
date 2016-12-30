@@ -26,18 +26,31 @@ export default class CommentService {
    */
   add(commentModel) {
 
+    // if commentModel is not valid - return error
+    if (!checkComment(commentModel)) {
+      return Promise.reject(new Result(null, false, "The given comment is not valid", ResultCodes.InvalidObject()));
+    }
+
     return new Promise(function (resolve, reject) {
+
       articleRepository.getById(commentModel.article_id)
 
         .then(function (result) {
           if (result.success) {
-            if (checkComment(commentModel)) {
-              return resolve(commentRepository.add(commentModel));
-            }
-
-            return reject(new Result(null, false, "Comment has invalid field", ResultCodes.InvalidObject()));
+            commentRepository.add(commentModel)
+              .then(result => {
+                if (result.success) {
+                  resolve(result);
+                }
+                else {
+                  reject(result);
+                }
+              })
+              .catch(errorResult => {
+                reject(errorResult);
+              });
           }
-          else{
+          else {
             reject(result);
           }
         })
@@ -45,10 +58,10 @@ export default class CommentService {
         .catch(function (errorResult) {
           reject(new Result(null, false, errorResult.message, errorResult.code));
         });
-        
-    });
 
+    });
   }
+
 }
 
 

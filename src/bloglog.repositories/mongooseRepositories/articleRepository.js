@@ -18,8 +18,8 @@ export default class ArticleRepository {
      * gets articles
      */
     get(skip, count) {
-
         return new Promise(function (resolve, reject) {
+
             articleDataModel
                 .find({})
                 .sort('-createDateTime')
@@ -47,12 +47,16 @@ export default class ArticleRepository {
                         });
                     }
                 });
+
         });
-    };
+    }
 
+    /*
+     * gets article by Id
+     */
     getById(id) {
-
         return new Promise(function (resolve, reject) {
+
             articleDataModel
                 .findOne({ '_id': id })
                 .exec(function (err, article) {
@@ -66,17 +70,31 @@ export default class ArticleRepository {
                         resolve(new Result(MapToArticleModel(article), true, "", ResultCodes.Success()));
                     }
                 });
-        });
 
+        });
     }
 
     /*
      * adds article
      */
     add(articleModel) {
-        return articleDataModel.create(articleModel);
-    };
-    
+        return new Promise(function (resolve, reject) {
+
+            articleDataModel.create(articleModel, function (err, articleCreatedDataModel) {
+                if (err) {
+                    reject(new Result(null, false, err, ResultCodes.Error()));
+                }
+                else if (!articleCreatedDataModel) {
+                    reject(new Result(null, false, err, ResultCodes.Error()));
+                }
+                else {
+                    resolve(new Result(MapToArticleModel(articleCreatedDataModel), true, "", ResultCodes.Success()));
+                }
+            });
+
+        });
+    }
+
     /*
      * update article
      */
@@ -100,21 +118,25 @@ export default class ArticleRepository {
                 });
 
         });
-    };
+    }
 
-    delete(articleModel){
+    /*
+     * deletes article
+     */
+    delete(articleModel) {
         return new Promise(function (resolve, reject) {
 
             articleDataModel.findByIdAndRemove(articleModel.id, {}, function (err, deletedArticleDataModel) {
-                    if (err) {
-                        reject(new Result(null, false, err, ResultCodes.Error()));
-                    }
+                if (err) {
+                    reject(new Result(null, false, err, ResultCodes.Error()));
+                }
 
-                    resolve(new Result(null, true, "deleted succesful", ResultCodes.Success()));
-                });
+                resolve(new Result(null, true, "deleted succesful", ResultCodes.Success()));
+            });
 
         });
     }
+
 };
 
 

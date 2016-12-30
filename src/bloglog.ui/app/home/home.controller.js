@@ -114,9 +114,7 @@
                 size: '',
                 appendTo: parentElem,
                 resolve: {
-                    items: function () {
-                        return [];
-                    }
+                    existingArticle: null
                 }
             }).result.then(function (selectedItem) {
 
