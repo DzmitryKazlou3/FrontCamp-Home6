@@ -3,10 +3,11 @@
 (function () {
 
     angular.module('bloglog', [
+        'ui.router',
         'ngAnimate',
         'ui.bootstrap',
         'ngCookies',
-        'ngMaterial'
+        'material.components.button'
     ]);
 
     angular.module("bloglog").config(["$httpProvider", function ($httpProvider) {

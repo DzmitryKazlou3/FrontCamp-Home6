@@ -22,7 +22,7 @@
         vm.addArticle = addArticle;
         vm.updateArticle = updateArticle;
         vm.deleteArticle = deleteArticle;
-        vm.logOut = function () { 
+        vm.logOut = function () {
             $cookies.remove(COMMON.JWT_TOKEN);
             $cookies.remove(COMMON.ID);
             $rootScope.Authorized = false;

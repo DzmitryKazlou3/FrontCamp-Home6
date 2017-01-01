@@ -22,7 +22,7 @@ app.server = http.createServer(app);
 app.use(bodyParser.json());
 
 // make static files server
-app.use(express.static('dist'));
+app.use(express.static('./dist'));
 app.use(express.static('./node_modules'));
 
 // configure views

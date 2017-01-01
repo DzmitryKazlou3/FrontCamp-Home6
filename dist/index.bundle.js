@@ -1908,7 +1908,7 @@ app.server = _http2.default.createServer(app);
 
 app.use(_bodyParser2.default.json());
 
-app.use(_express2.default.static('dist'));
+app.use(_express2.default.static('./dist'));
 app.use(_express2.default.static('./node_modules'));
 
 app.set('view engine', 'html');
