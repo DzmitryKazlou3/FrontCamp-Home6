@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 53);
+/******/ 	return __webpack_require__(__webpack_require__.s = 54);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -76,16 +76,29 @@
 
 (function () {
 
-    angular.module('bloglog', ['ui.router', 'ngAnimate', 'ui.bootstrap', 'ngCookies', 'material.components.button']);
-
-    angular.module("bloglog").config(["$httpProvider", function ($httpProvider) {
-        $httpProvider.interceptors.push('httpInterceptorService');
-    }]);
+    angular.module('bloglog', ['ngAnimate', 'ngCookies', 'ngMessages', 'ui.bootstrap', 'ui.router', 'material.components.button', 'material.components.dialog', 'material.components.input', 'material.components.content', 'material.components.toolbar']);
 })();
 
 /***/ },
 
 /***/ 21:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+
+        angular.module("bloglog").config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
+                $stateProvider.state('home', { url: '', component: 'home' });
+
+                $urlRouterProvider.otherwise('');
+        }]);
+})();
+
+/***/ },
+
+/***/ 22:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -129,7 +142,7 @@
 
 /***/ },
 
-/***/ 22:
+/***/ 23:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -164,54 +177,12 @@
                     return responce.data.data;
                 }
 
-                return $q.reject(responce.message);
+                return $q.reject(responce.data);
             }).catch(function (error) {
-                console.log(error);
+                console.log(error.message);
                 return $q.reject(error);
             });
         }
-    }
-})();
-
-/***/ },
-
-/***/ 23:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-(function () {
-
-    angular.module('bloglog').controller('CreateUserDialogController', CreateUserDialogController);
-
-    CreateUserDialogController.$inject = ['authService', '$uibModalInstance', '$rootScope', 'EVENTS'];
-
-    function CreateUserDialogController(authService, $uibModalInstance, $rootScope, EVENTS) {
-
-        var vm = this;
-
-        vm.user = {};
-        vm.user.name = "";
-        vm.user.email = "";
-        vm.user.password = "";
-
-        vm.save = save;
-        vm.cancel = cancel;
-
-        function save() {
-
-            authService.createUser(vm.user).then(function (pageResult) {
-                debugger;
-                $uibModalInstance.close();
-            }).catch(function (error) {
-                alert(error.data);
-            });
-        }
-
-        function cancel() {
-            $uibModalInstance.dismiss('cancel');
-        };
     }
 })();
 
@@ -225,41 +196,28 @@
 
 (function () {
 
-    angular.module('bloglog').controller('LogInDialogController', LogInDialogController);
+    angular.module('bloglog').controller('CreateUserDialogController', CreateUserDialogController);
 
-    LogInDialogController.$inject = ['authService', '$uibModalInstance', '$rootScope', 'EVENTS', '$cookies', 'COMMON'];
+    CreateUserDialogController.$inject = ['authService', '$rootScope', 'EVENTS', '$mdDialog'];
 
-    function LogInDialogController(authService, $uibModalInstance, $rootScope, EVENTS, $cookies, COMMON) {
+    function CreateUserDialogController(authService, $rootScope, EVENTS, $mdDialog) {
 
         var vm = this;
 
         vm.user = {};
+        vm.user.name = "";
         vm.user.email = "";
         vm.user.password = "";
 
-        vm.logIn = logIn;
+        vm.ok = ok;
         vm.cancel = cancel;
 
-        function logIn() {
-
-            authService.logIn(vm.user).then(function (JWTResult) {
-                if (!JWTResult.token) {
-                    alert("JWTResult does not contains token");
-                    return;
-                }
-                $cookies.put(COMMON.JWT_TOKEN, JWTResult.token);
-                $cookies.put(COMMON.ID, JWTResult.id);
-
-                $rootScope.Authorized = true;
-                $rootScope.UserId = JWTResult.id;
-                $uibModalInstance.close();
-            }).catch(function (error) {
-                alert(error.data);
-            });
+        function ok() {
+            $mdDialog.hide(vm.user);
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $mdDialog.cancel();
         };
     }
 })();
@@ -274,21 +232,29 @@
 
 (function () {
 
-    angular.module('bloglog').constant('COMMON', {
-        JWT_TOKEN: "Token.JWT",
-        ID: "Id"
-    }).constant('STRINGS', {
-        OK: "OK"
-    }).constant('URLS', {
-        BASE: window.location.href,
-        API: "api/",
-        ARTICLES: "api/articles/",
-        SIGNUP: "signup/",
-        LOGIN: "login/",
-        COMMENTS: "comments/"
-    }).constant('EVENTS', {
-        ARTICLE_ADDED: "Article_Added"
-    });
+    angular.module('bloglog').controller('LogInDialogController', LogInDialogController);
+
+    LogInDialogController.$inject = ['authService', '$mdDialog', '$rootScope', 'EVENTS', '$cookies', 'COMMON'];
+
+    function LogInDialogController(authService, $mdDialog, $rootScope, EVENTS, $cookies, COMMON) {
+
+        var vm = this;
+
+        vm.user = {};
+        vm.user.email = "";
+        vm.user.password = "";
+
+        vm.ok = ok;
+        vm.cancel = cancel;
+
+        function ok() {
+            $mdDialog.hide(vm.user);
+        }
+
+        function cancel() {
+            $mdDialog.cancel();
+        };
+    }
 })();
 
 /***/ },
@@ -301,11 +267,44 @@
 
 (function () {
 
+    angular.module('bloglog').constant('COMMON', {
+        JWT_TOKEN: "Token.JWT",
+        ID: "Id"
+    }).constant('STRINGS', {
+        OK: "OK"
+    }).constant('URLS', {
+        BASE: window.location.origin + '/',
+        API: "api/",
+        ARTICLES: "api/articles/",
+        SIGNUP: "signup/",
+        LOGIN: "login/",
+        COMMENTS: "comments/"
+    }).constant('EVENTS', {
+        ARTICLE_ADDED: "Article_Added"
+    });
+})();
+
+/***/ },
+
+/***/ 27:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+
+    angular.module('bloglog').component('home', {
+        templateUrl: 'home.html',
+        controller: 'HomeController',
+        controllerAs: 'vm'
+    });
+
     angular.module('bloglog').controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$document', 'articleService', 'EVENTS', '$rootScope', '$uibModal', '$cookies', 'COMMON'];
+    HomeController.$inject = ['$document', 'articleService', 'authService', 'EVENTS', '$rootScope', '$uibModal', '$mdDialog', '$cookies', 'COMMON'];
 
-    function HomeController($document, articleService, EVENTS, $rootScope, $uibModal, $cookies, COMMON) {
+    function HomeController($document, articleService, authService, EVENTS, $rootScope, $uibModal, $mdDialog, $cookies, COMMON) {
 
         var vm = this;
 
@@ -339,45 +338,53 @@
 
         loadArticles();
 
-        function signupDialog(selector) {
-            var parentElem = selector ? angular.element($document[0].querySelector(selector)) : undefined;
+        function signupDialog() {
 
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'signupModalContent.html',
+            $mdDialog.show({
                 controller: 'CreateUserDialogController',
                 controllerAs: 'vm',
-                size: '',
-                appendTo: parentElem,
-                resolve: {
-                    items: function items() {
-                        return [];
-                    }
-                }
-            }).result.then(function (selectedItem) {}, function () {});
+                templateUrl: 'signupModalContent.html',
+                parent: angular.element(document.body),
+                bindToController: true,
+                clickOutsideToClose: false,
+                escapeToClose: true,
+                fullscreen: false }).then(function (user) {
+                authService.createUser(user).then(function (pageResult) {
+                    debugger;
+                }).catch(function (error) {
+                    alert(error.message);
+                });
+            }).catch(function () {});
         }
 
-        function loginDialog(selector) {
+        function loginDialog() {
 
-            var parentElem = selector ? angular.element($document[0].querySelector(selector)) : undefined;
-
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'loginModalContent.html',
+            $mdDialog.show({
                 controller: 'LogInDialogController',
                 controllerAs: 'vm',
-                size: '',
-                appendTo: parentElem,
-                resolve: {
-                    items: function items() {
-                        return [];
+                templateUrl: 'loginModalContent.html',
+                parent: angular.element(document.body),
+                bindToController: true,
+                clickOutsideToClose: false,
+                escapeToClose: true,
+                fullscreen: false }).then(function (user) {
+                console.log("ok");
+                authService.logIn(user).then(function (JWTResult) {
+                    if (!JWTResult.token) {
+                        alert("JWTResult does not contains token");
+                        return;
                     }
-                }
-            }).result.then(function (selectedItem) {}, function () {});
+                    $cookies.put(COMMON.JWT_TOKEN, JWTResult.token);
+                    $cookies.put(COMMON.ID, JWTResult.id);
+
+                    $rootScope.Authorized = true;
+                    $rootScope.UserId = JWTResult.id;
+                }).catch(function (error) {
+                    alert(error.data);
+                });
+            }).catch(function () {
+                console.log("cancel");
+            });
         }
 
         function addArticle(selector) {
@@ -430,7 +437,7 @@
 
 /***/ },
 
-/***/ 27:
+/***/ 28:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -496,7 +503,7 @@
 
 /***/ },
 
-/***/ 28:
+/***/ 29:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -542,18 +549,19 @@
 
 /***/ },
 
-/***/ 53:
+/***/ 54:
 /***/ function(module, exports, __webpack_require__) {
 
 __webpack_require__(20);
-__webpack_require__(25);
+__webpack_require__(21);
+__webpack_require__(26);
+__webpack_require__(29);
 __webpack_require__(28);
+__webpack_require__(23);
 __webpack_require__(27);
 __webpack_require__(22);
-__webpack_require__(26);
-__webpack_require__(21);
-__webpack_require__(23);
-module.exports = __webpack_require__(24);
+__webpack_require__(24);
+module.exports = __webpack_require__(25);
 
 
 /***/ }

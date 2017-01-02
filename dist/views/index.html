@@ -13,12 +13,17 @@
     <link rel="stylesheet" type="text/css" href="angular-material/modules/layouts/angular-material.layouts.min.css">
     <link rel="stylesheet" type="text/css" href="angular-material/modules/layouts/angular-material.layout-attributes.min.css">
     <link rel="stylesheet" type="text/css" href="angular-material/modules/layouts/angular-material.layouts.ie_fixes.css">
+    <link rel="stylesheet" type="text/css" href="angular-material/modules/js/dialog/dialog.min.css">
+    <link rel="stylesheet" type="text/css" href="angular-material/modules/js/backdrop/backdrop.min.css">
+    <link rel="stylesheet" type="text/css" href="angular-material/modules/js/input/input.min.css">
+    <link rel="stylesheet" type="text/css" href="angular-material/modules/js/content/content.min.css">
+    <link rel="stylesheet" type="text/css" href="angular-material/modules/js/toolbar/toolbar.min.css">
     <link rel="stylesheet" type="text/css" href="./css/css.css">
 </head>
 
 <body ng-app="bloglog">
-
-    <div ui-view></div>
+    
+    <ui-view></ui-view>
     <!-- home -->
     <!--<div ng-controller="HomeController as vm">
 
@@ -40,22 +45,10 @@
         <div>Total item count: {{vm.totalItemsCount}}</div>
 
     </div>-->
-
-    <div class="main" layout="row">
-        <div flex-offset="50"flex-offset-xs="0">
-            <div class="bloglog">bloglog</div>
-            <div id="main-page-text-container">
-            <div>Start your way here...</div>
-                <md-button class="main-page-button">Sign Up</md-button>
-                <md-button class="main-page-button">Sign In</md-button>
-                <md-button class="main-page-button">Articles</md-button>
-            </div>
-        </div>
-    </div>
-    <div id="dialog"></div>
     
     <!-- scripts -->
     <script src="angular/angular.min.js"></script>
+    <!--<script src="angular-route/angular-route.min.js"></script>-->
     <script src="angular-aria/angular-aria.min.js"></script>
     <script src="angular-messages/angular-messages.min.js"></script>
     <script src="angular-sanitize/angular-sanitize.min.js"></script>
@@ -66,72 +59,128 @@
     <!-- angular material -->
     <script src="angular-material/modules/js/core/core.min.js"></script>
     <script src="angular-material/modules/js/button/button.min.js"></script>
+    <script src="angular-material/modules/js/dialog/dialog.min.js"></script>
+    <script src="angular-material/modules/js/backdrop/backdrop.min.js"></script>
+    <script src="angular-material/modules/js/input/input.min.js"></script>
+    <script src="angular-material/modules/js/content/content.min.js"></script>
+    <script src="angular-material/modules/js/toolbar/toolbar.min.js"></script>
 
     <script src="angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
 
     <script src="app/app.bundle.js"></script>
     
     <!-- templates -->
-    <script type="text/ng-template" id="signupModalContent.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Sign Up...</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-          <form id="createUserForm" name="createUserForm" novalidate ng-submit="vm.save(vm.user)">
-            <div class="well">
-                <div class="form-group">
-                    <label>Name:</label>
-                    <input name="title" type="text" class="form-control" placeholder="name" required data-ng-model="vm.user.name" ng-maxlength="255"
-                    />
-                </div>
-
-                <div class="form-group">
-                    <label>E-mail:</label>
-                    <input name="text" type="text" class="form-control" placeholder="email" required data-ng-model="vm.user.email" ng-maxlength="255"
-                    />
-                </div>
-
-                <div class="form-group">
-                    <label>Password:</label>
-                    <input name="tags" type="password" class="form-control" placeholder="password" required data-ng-model="vm.user.password"
-                        ng-maxlength="255" />
+    <script type="text/ng-template" id="home.html">
+        <div class="main" layout="row" ng-controller="HomeController as vm">
+            <div flex-offset="50"flex-offset-xs="0">
+                <div class="bloglog">bloglog</div>
+                <div id="main-page-text-container">
+                <div>Start your way here...</div>
+                    <md-button class="main-page-button" ng-click="vm.signupDialog()" ng-if="!$root.Authorized">Sign Up</md-button>
+                    <md-button class="main-page-button" ng-click="vm.loginDialog()" ng-if="!$root.Authorized">Sign In</md-button>
+                    <md-button class="main-page-button">Articles</md-button>
+                    <md-button class="main-page-button" ng-click="vm.logOut()" ng-if="$root.Authorized">Log Out</md-button>
                 </div>
             </div>
-          </form>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="vm.save()">OK</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
-        </div>
+    </script>
+    
+    <script type="text/ng-template" id="signupModalContent.html">
+
+      <md-dialog aria-label="List dialog" class="signup dialog">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Sign Up...</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-content layout-gt-sm="row" layout-padding>
+                <form name="signUpForm">
+
+                    <md-input-container class="md-block">
+                        <label>Name</label>
+                        <input md-maxlength="100" required md-no-asterisk name="username" ng-model="vm.user.name">
+                        <div ng-messages="signUpForm.username.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The name must be less than 10 characters long.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>E-mail</label>
+                        <input md-maxlength="100" required md-no-asterisk name="email" ng-model="vm.user.email">
+                        <div ng-messages="signUpForm.email.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The email must be less than 100 characters long.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Password</label>
+                        <input md-maxlength="100" type="password" required md-no-asterisk name="password" ng-model="vm.user.password">
+                        <div ng-messages="signUpForm.password.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The password must be less than 100 characters long.</div>
+                        </div>
+                    </md-input-container>
+
+                </form>
+            </md-content>
+            <md-dialog-actions layout="column" class="dialog-action-block">
+                <md-button ng-click="vm.ok()" class="md-primary">Sign Up</md-button>
+                <md-button ng-click="vm.cancel()" class="md-primary">Close</md-button>
+            </md-dialog-actions>
+        </md-dialog-content>
+      </md-dialog>
+    
     </script>
 
     <script type="text/ng-template" id="loginModalContent.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Log In...</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-          <form id="createUserForm" name="createUserForm" novalidate ng-submit="vm.logIn(vm.user)">
-            <div class="well">
-
-                <div class="form-group">
-                    <label>E-mail:</label>
-                    <input name="text" type="text" class="form-control" placeholder="email" required data-ng-model="vm.user.email" ng-maxlength="255"
-                    />
-                </div>
-
-                <div class="form-group">
-                    <label>Password:</label>
-                    <input name="tags" type="password" class="form-control" placeholder="password" required data-ng-model="vm.user.password"
-                        ng-maxlength="255" />
-                </div>
-
+      <md-dialog aria-label="List dialog" class="signup dialog">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Sign In...</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="vm.logIn()">Log In</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
-        </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-content layout-gt-sm="row" layout-padding>
+                <form name="signUpForm">
+
+                    <md-input-container class="md-block">
+                        <label>E-mail</label>
+                        <input md-maxlength="100" required md-no-asterisk name="email" ng-model="vm.user.email">
+                        <div ng-messages="signUpForm.email.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The email must be less than 100 characters long.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Password</label>
+                        <input md-maxlength="100" type="password" required md-no-asterisk name="password" ng-model="vm.user.password">
+                        <div ng-messages="signUpForm.password.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The password must be less than 100 characters long.</div>
+                        </div>
+                    </md-input-container>
+
+                </form>
+            </md-content>
+            <md-dialog-actions layout="column" class="dialog-action-block">
+                <md-button ng-click="vm.ok()" class="md-primary">Sign In</md-button>
+                <md-button ng-click="vm.cancel()" class="md-primary">Close</md-button>
+            </md-dialog-actions>
+        </md-dialog-content>
+      </md-dialog>
+
     </script>
 
     <script type="text/ng-template" id="articleModalContent.html">

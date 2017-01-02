@@ -39,10 +39,10 @@
                         return responce.data.data;
                     }
 
-                    return $q.reject(responce.message);
+                    return $q.reject(responce.data);
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log(error.message);
                     return $q.reject(error);
                 });
 

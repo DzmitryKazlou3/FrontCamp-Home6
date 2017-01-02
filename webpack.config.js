@@ -12,13 +12,15 @@ module.exports = {
     index: "./index.js",
     "app/app": [
       "./bloglog.ui/app/app.module.js",
+      "./bloglog.ui/app/app.routes.js",
       "./bloglog.ui/app/constants.js",
 
       "./bloglog.ui/app/services/http-iterceptor.service.js",
       "./bloglog.ui/app/services/article.service.js",
       "./bloglog.ui/app/auth/auth.service.js",
 
-      "./bloglog.ui/app/home/home.controller.js",
+      "./bloglog.ui/app/home/home.component.js",
+      // "./bloglog.ui/app/home/home.controller.js",
       "./bloglog.ui/app/article/article-dialog.controller.js",
       "./bloglog.ui/app/auth/create-user-dialog.controller.js",
       "./bloglog.ui/app/auth/login-dialog.controller.js"

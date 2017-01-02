@@ -3,15 +3,25 @@
 (function () {
 
     angular.module('bloglog', [
-        'ui.router',
         'ngAnimate',
-        'ui.bootstrap',
         'ngCookies',
-        'material.components.button'
+        'ngMessages',
+
+        'ui.bootstrap',
+        'ui.router',
+
+        'material.components.button',
+        'material.components.dialog',
+        'material.components.input',
+        'material.components.content',
+        'material.components.toolbar'
     ]);
 
-    angular.module("bloglog").config(["$httpProvider", function ($httpProvider) {
-        $httpProvider.interceptors.push('httpInterceptorService');
-    }]);
+    // angular.module("bloglog").config(["$httpProvider",
+    //  function ($httpProvider) {
+
+    //     $httpProvider.interceptors.push('httpInterceptorService');
+
+    // }]);
 
 })();

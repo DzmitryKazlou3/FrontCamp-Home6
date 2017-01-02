@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 51);
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -202,19 +202,19 @@ var _mongoose = __webpack_require__(6);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _articleRepository = __webpack_require__(40);
+var _articleRepository = __webpack_require__(41);
 
 var _articleRepository2 = _interopRequireDefault(_articleRepository);
 
-var _tagRepository = __webpack_require__(42);
+var _tagRepository = __webpack_require__(43);
 
 var _tagRepository2 = _interopRequireDefault(_tagRepository);
 
-var _userRepository = __webpack_require__(43);
+var _userRepository = __webpack_require__(44);
 
 var _userRepository2 = _interopRequireDefault(_userRepository);
 
-var _commentRepository = __webpack_require__(41);
+var _commentRepository = __webpack_require__(42);
 
 var _commentRepository2 = _interopRequireDefault(_commentRepository);
 
@@ -365,19 +365,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.commentService = exports.userService = exports.tagService = exports.articleService = undefined;
 
-var _articleService = __webpack_require__(44);
+var _articleService = __webpack_require__(45);
 
 var _articleService2 = _interopRequireDefault(_articleService);
 
-var _tagService = __webpack_require__(46);
+var _tagService = __webpack_require__(47);
 
 var _tagService2 = _interopRequireDefault(_tagService);
 
-var _userService = __webpack_require__(47);
+var _userService = __webpack_require__(48);
 
 var _userService2 = _interopRequireDefault(_userService);
 
-var _commentService = __webpack_require__(45);
+var _commentService = __webpack_require__(46);
 
 var _commentService2 = _interopRequireDefault(_commentService);
 
@@ -462,11 +462,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(5);
 
-var _articleRoutes = __webpack_require__(34);
+var _articleRoutes = __webpack_require__(35);
 
 var _articleRoutes2 = _interopRequireDefault(_articleRoutes);
 
-var _tagsRoutes = __webpack_require__(35);
+var _tagsRoutes = __webpack_require__(36);
 
 var _tagsRoutes2 = _interopRequireDefault(_tagsRoutes);
 
@@ -495,9 +495,9 @@ var _passport = __webpack_require__(15);
 
 var _passport2 = _interopRequireDefault(_passport);
 
-var _passportJwt = __webpack_require__(50);
+var _passportJwt = __webpack_require__(51);
 
-var _jwtSimple = __webpack_require__(49);
+var _jwtSimple = __webpack_require__(50);
 
 var _jwtSimple2 = _interopRequireDefault(_jwtSimple);
 
@@ -601,7 +601,8 @@ exports.default = { initialize: initialize };
 /* 26 */,
 /* 27 */,
 /* 28 */,
-/* 29 */
+/* 29 */,
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -613,7 +614,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(5);
 
-__webpack_require__(48);
+__webpack_require__(49);
 
 var router = (0, _express.Router)();
 
@@ -624,31 +625,31 @@ router.use('/', function (req, res) {
 exports.default = router;
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports) {
 
 module.exports = require("ejs");
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports) {
 
 module.exports = require("http");
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports) {
 
 module.exports = require("path");
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -747,7 +748,7 @@ router.post('/:id/comments', function (req, res, next) {
 exports.default = router;
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -790,7 +791,7 @@ router.post('/', function (req, res, next) {
 exports.default = router;
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -842,7 +843,7 @@ var articleSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('articles', articleSchema);
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -886,7 +887,7 @@ var commentSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('comments', commentSchema);
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -916,7 +917,7 @@ var tagSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('tags', tagSchema);
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -952,7 +953,7 @@ var userSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('users', userSchema);
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -978,7 +979,7 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _articleDataModel = __webpack_require__(36);
+var _articleDataModel = __webpack_require__(37);
 
 var _articleDataModel2 = _interopRequireDefault(_articleDataModel);
 
@@ -1131,7 +1132,7 @@ function MapToArticleModel(articleDataModel) {
 }
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1157,7 +1158,7 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _commentDataModel = __webpack_require__(37);
+var _commentDataModel = __webpack_require__(38);
 
 var _commentDataModel2 = _interopRequireDefault(_commentDataModel);
 
@@ -1254,7 +1255,7 @@ function MapToCommentModel(commentDataModel) {
 }
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1280,7 +1281,7 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _tagDataModel = __webpack_require__(38);
+var _tagDataModel = __webpack_require__(39);
 
 var _tagDataModel2 = _interopRequireDefault(_tagDataModel);
 
@@ -1362,7 +1363,7 @@ function MapToTagModel(tagDataModel) {
 }
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1384,7 +1385,7 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _userDataModel = __webpack_require__(39);
+var _userDataModel = __webpack_require__(40);
 
 var _userDataModel2 = _interopRequireDefault(_userDataModel);
 
@@ -1440,7 +1441,7 @@ function MapToUserModel(user) {
 }
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1586,7 +1587,7 @@ function checkArticle(article) {
 }
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1681,7 +1682,7 @@ function checkComment(comment) {
 }
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1754,7 +1755,7 @@ function checkTag(tag) {
 }
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1829,15 +1830,15 @@ exports.default = UserService;
 ;
 
 function checkUser(user) {
-  if (!user.email || user.email.length === 0 || user.email.length > 50) {
+  if (!user.email || user.email.length === 0 || user.email.length > 100) {
     return false;
   }
 
-  if (!user.name || user.name.length === 0 || user.name.length > 50) {
+  if (!user.name || user.name.length === 0 || user.name.length > 100) {
     return false;
   }
 
-  if (!user.password || user.password.length === 0 || user.password.length > 50) {
+  if (!user.password || user.password.length === 0 || user.password.length > 100) {
     return false;
   }
 
@@ -1845,31 +1846,31 @@ function checkUser(user) {
 }
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./views/index.html";
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports) {
 
 module.exports = require("jwt-simple");
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports) {
 
 module.exports = require("passport-jwt");
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _path = __webpack_require__(33);
+var _path = __webpack_require__(34);
 
 var _path2 = _interopRequireDefault(_path);
 
@@ -1877,11 +1878,11 @@ var _express = __webpack_require__(5);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _http = __webpack_require__(32);
+var _http = __webpack_require__(33);
 
 var _http2 = _interopRequireDefault(_http);
 
-var _bodyParser = __webpack_require__(30);
+var _bodyParser = __webpack_require__(31);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
@@ -1893,7 +1894,7 @@ var _bloglog = __webpack_require__(18);
 
 var _bloglog2 = _interopRequireDefault(_bloglog);
 
-var _bloglog3 = __webpack_require__(29);
+var _bloglog3 = __webpack_require__(30);
 
 var _bloglog4 = _interopRequireDefault(_bloglog3);
 
@@ -1912,7 +1913,7 @@ app.use(_express2.default.static('./dist'));
 app.use(_express2.default.static('./node_modules'));
 
 app.set('view engine', 'html');
-app.engine('html', __webpack_require__(31).renderFile);
+app.engine('html', __webpack_require__(32).renderFile);
 app.set('views', _path2.default.join(__dirname, '/views'));
 
 _bloglog6.default.initialize(app);

@@ -46,19 +46,19 @@ export default class UserService {
 function checkUser(user) {
   if (!user.email
     || user.email.length === 0
-    || user.email.length > 50) {
+    || user.email.length > 100) {
     return false;
   }
 
   if (!user.name
     || user.name.length === 0
-    || user.name.length > 50) {
+    || user.name.length > 100) {
     return false;
   }
 
   if (!user.password
     || user.password.length === 0
-    || user.password.length > 50) {
+    || user.password.length > 100) {
     return false;
   }
 

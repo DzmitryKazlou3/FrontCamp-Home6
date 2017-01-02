@@ -6,9 +6,9 @@
         .module('bloglog')
         .controller('CreateUserDialogController', CreateUserDialogController);
 
-    CreateUserDialogController.$inject = ['authService', '$uibModalInstance', '$rootScope', 'EVENTS'];
+    CreateUserDialogController.$inject = ['authService', '$rootScope', 'EVENTS', '$mdDialog'];
 
-    function CreateUserDialogController(authService, $uibModalInstance, $rootScope, EVENTS) {
+    function CreateUserDialogController(authService, $rootScope, EVENTS, $mdDialog) {
 
         let vm = this;
 
@@ -17,25 +17,16 @@
         vm.user.email = "";
         vm.user.password = "";
 
-        vm.save = save;
+        vm.ok = ok;
         vm.cancel = cancel;
 
         /////////////////////////////////////////////////////
-        function save() {
-
-            authService.createUser(vm.user)
-                .then((pageResult) => {
-                    debugger;
-                    $uibModalInstance.close();
-                })
-                .catch((error) => {
-                    alert(error.data);
-                });
-
+        function ok() {
+            $mdDialog.hide(vm.user);
         }
 
         function cancel() {
-            $uibModalInstance.dismiss('cancel');
+            $mdDialog.cancel();
         };
     }
 })();

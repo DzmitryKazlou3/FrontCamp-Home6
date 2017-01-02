@@ -4,11 +4,19 @@
 
     angular
         .module('bloglog')
+        .component('home', {
+            templateUrl: 'home.html',
+            controller: 'HomeController',
+            controllerAs: 'vm'
+        });
+
+    angular
+        .module('bloglog')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$document','articleService', 'EVENTS', '$rootScope', '$uibModal', '$cookies', 'COMMON'];
+    HomeController.$inject = ['$document','articleService', 'authService', 'EVENTS', '$rootScope', '$uibModal', '$mdDialog', '$cookies', 'COMMON'];
 
-    function HomeController($document, articleService, EVENTS, $rootScope, $uibModal, $cookies, COMMON) {
+    function HomeController($document, articleService, authService, EVENTS, $rootScope, $uibModal, $mdDialog, $cookies, COMMON) {
 
         let vm = this;
 
@@ -46,55 +54,67 @@
         loadArticles();
 
         /////////////////////// sign up //////////////////////
-        function signupDialog(selector) {
-            var parentElem = selector ?
-                angular.element($document[0].querySelector(selector)) : undefined;
+        function signupDialog() {
 
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'signupModalContent.html',
+            $mdDialog.show({
                 controller: 'CreateUserDialogController',
                 controllerAs: 'vm',
-                size: '',
-                appendTo: parentElem,
-                resolve: {
-                    items: function () {
-                        return [];
-                    }
-                }
-            }).result.then(function (selectedItem) {
-                
-            }, function () {
-                
+                templateUrl: 'signupModalContent.html',
+                parent: angular.element(document.body),
+                bindToController: true,
+                clickOutsideToClose: false,
+                escapeToClose: true,
+                fullscreen: false // Only for -xs, -sm breakpoints.
+            })
+            .then(function (user) {
+                authService.createUser(user)
+                .then((pageResult) => {
+                    debugger;
+                    // $uibModalInstance.close();
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+            })
+            .catch(function () {
+
             });
         }
 
         //////////////////////// log in //////////////////
-        function loginDialog(selector) {
+        function loginDialog() {
 
-            var parentElem = selector ?
-                angular.element($document[0].querySelector(selector)) : undefined;
-
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'loginModalContent.html',
+            $mdDialog.show({
                 controller: 'LogInDialogController',
                 controllerAs: 'vm',
-                size: '',
-                appendTo: parentElem,
-                resolve: {
-                    items: function () {
-                        return [];
-                    }
-                }
-            }).result.then(function (selectedItem) {
+                templateUrl: 'loginModalContent.html',
+                parent: angular.element(document.body),
+                bindToController: true,
+                clickOutsideToClose: false,
+                escapeToClose: true,
+                fullscreen: false // Only for -xs, -sm breakpoints.
+            })
+            .then(function (user) {
+console.log("ok");
+                authService.logIn(user)
+                    .then((JWTResult) => {
+                        if(!JWTResult.token){
+                            alert("JWTResult does not contains token");
+                            return;
+                        }
+                        $cookies.put(COMMON.JWT_TOKEN, JWTResult.token);
+                        $cookies.put(COMMON.ID, JWTResult.id);
 
-            }, function () {
+                        $rootScope.Authorized = true;
+                        $rootScope.UserId = JWTResult.id;
+                    })
+                    .catch((error) => {
+                        alert(error.data);
+                    });
 
+            })
+            .catch(function () {
+console.log("cancel");
             });
 
         }

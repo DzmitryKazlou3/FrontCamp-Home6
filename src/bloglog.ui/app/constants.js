@@ -15,7 +15,7 @@
         })
 
         .constant('URLS', {
-            BASE: window.location.href,
+            BASE: window.location.origin + '/',
             API: "api/",
             ARTICLES: "api/articles/",
             SIGNUP: "signup/",
