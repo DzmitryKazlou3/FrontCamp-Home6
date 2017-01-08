@@ -5,8 +5,8 @@
     angular.module("bloglog").config(["$stateProvider", "$urlRouterProvider",
      function ($stateProvider, $urlRouterProvider) {
          $stateProvider.state('home', { url: '', component: 'home' });
-         
-            
+         $stateProvider.state('articles', { url: '/articles', component: 'articles' });
+         $stateProvider.state('articleDetail', { url: '/article', component: 'articleDetail' });
             
             // { 
             // name: 'people', 

@@ -18,33 +18,21 @@
     <link rel="stylesheet" type="text/css" href="angular-material/modules/js/input/input.min.css">
     <link rel="stylesheet" type="text/css" href="angular-material/modules/js/content/content.min.css">
     <link rel="stylesheet" type="text/css" href="angular-material/modules/js/toolbar/toolbar.min.css">
+    <link rel="stylesheet" type="text/css" href="angular-material/modules/js/sidenav/sidenav.min.css">
+    <link rel="stylesheet" type="text/css" href="angular-material/modules/js/list/list.min.css">
+    <link rel="stylesheet" type="text/css" href="angular-material/modules/js/fabToolbar/fabToolbar.min.css">
+    <link rel="stylesheet" type="text/css" href="angular-material/modules/js/fabSpeedDial/fabSpeedDial.min.css">
+    <link rel="stylesheet" type="text/css" href="angular-material/modules/js/icon/icon.min.css">
+    <link rel="stylesheet" type="text/css" href="angular-material/modules/js/chips/chips.min.css">
+    <link rel="stylesheet" type="text/css" href="angular-material/modules/js/autocomplete/autocomplete.min.css">
+    <link rel="stylesheet" type="text/css" href="angular-material/modules/js/virtualRepeat/virtualRepeat.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="angular-material/modules/js/divider/divider.min.css">-->
     <link rel="stylesheet" type="text/css" href="./css/css.css">
 </head>
 
 <body ng-app="bloglog">
     
     <ui-view></ui-view>
-    <!-- home -->
-    <!--<div ng-controller="HomeController as vm">
-
-        <button type="button" class="btn btn-default" ng-click="vm.signupDialog('#dialog')" ng-if="!Authorized">Sign Up...</button>
-        <button type="button" class="btn btn-default" ng-click="vm.loginDialog('#dialog')" ng-if="!Authorized">Log In...</button>
-        <button type="button" class="btn btn-default" ng-click="vm.logOut()" ng-if="Authorized">Log Out</button>
-        <button type="button" class="btn btn-default" ng-click="vm.addArticle('#dialog')" ng-if="Authorized">Add Article</button>
-        
-        <div ng-repeat="article in vm.articles" class="well">
-            <div>Title: {{article.title}}</div>
-            <div>Author: {{article.user.name}}</div>
-            <div>Tags: {{article.tags}}</div>
-            <div>Created: {{article.createDateTime}}</div>
-            <button type="button" class="btn btn-default" ng-click="vm.addComment('#dialog')" ng-if="Authorized">Add Comment</button>
-            <button type="button" class="btn btn-default" ng-click="vm.updateArticle('#dialog', article)" ng-if="UserId === article.user.user_id">Update Article</button>
-            <button type="button" class="btn btn-default" ng-click="vm.deleteArticle('#dialog', article)" ng-if="UserId === article.user.user_id">Delete Article</button>
-        </div>
-
-        <div>Total item count: {{vm.totalItemsCount}}</div>
-
-    </div>-->
     
     <!-- scripts -->
     <script src="angular/angular.min.js"></script>
@@ -62,8 +50,19 @@
     <script src="angular-material/modules/js/dialog/dialog.min.js"></script>
     <script src="angular-material/modules/js/backdrop/backdrop.min.js"></script>
     <script src="angular-material/modules/js/input/input.min.js"></script>
-    <script src="angular-material/modules/js/content/content.min.js"></script>
+    <script src="angular-material/modules/js/content/content.min.js"></script>    
     <script src="angular-material/modules/js/toolbar/toolbar.min.js"></script>
+    <script src="angular-material/modules/js/sidenav/sidenav.min.js"></script>
+    <script src="angular-material/modules/js/list/list.min.js"></script>
+    <script src="angular-material/modules/js/fabActions/fabActions.min.js"></script>
+    <script src="angular-material/modules/js/fabSpeedDial/fabSpeedDial.min.js"></script>
+    <script src="angular-material/modules/js/fabToolbar/fabToolbar.min.js"></script>
+    <script src="angular-material/modules/js/icon/icon.min.js"></script>
+    <script src="angular-material/modules/js/showHide/showHide.min.js"></script>
+    <script src="angular-material/modules/js/virtualRepeat/virtualRepeat.min.js"></script>
+    <script src="angular-material/modules/js/autocomplete/autocomplete.min.js"></script>
+    <script src="angular-material/modules/js/chips/chips.min.js"></script>
+    <!--<script src="angular-material/modules/js/divider/divider.min.js"></script>-->
 
     <script src="angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
 
@@ -71,18 +70,87 @@
     
     <!-- templates -->
     <script type="text/ng-template" id="home.html">
-        <div class="main" layout="row" ng-controller="HomeController as vm">
+        <div class="main" layout="row">
             <div flex-offset="50"flex-offset-xs="0">
                 <div class="bloglog">bloglog</div>
                 <div id="main-page-text-container">
                 <div>Start your way here...</div>
                     <md-button class="main-page-button" ng-click="vm.signupDialog()" ng-if="!$root.Authorized">Sign Up</md-button>
                     <md-button class="main-page-button" ng-click="vm.loginDialog()" ng-if="!$root.Authorized">Sign In</md-button>
-                    <md-button class="main-page-button">Articles</md-button>
+                    <md-button class="main-page-button" ng-click="vm.navigateTo('articles')">Articles</md-button>
                     <md-button class="main-page-button" ng-click="vm.logOut()" ng-if="$root.Authorized">Log Out</md-button>
                 </div>
             </div>
         </div>
+    </script>
+
+    <script type="text/ng-template" id="articles.html">
+        
+        <section layout="row" flex class="articles-section">
+
+            <md-sidenav
+                class="md-sidenav-left"
+                md-component-id="left"
+                md-is-locked-open="$mdMedia('gt-sm')"
+                md-whiteframe="4">
+
+                <md-toolbar class="md-theme-indigo">
+                    <h1 class="md-toolbar-tools">Search</h1>
+                </md-toolbar>
+                <md-content layout-padding>
+                    [Search Component]
+                </md-content>
+
+            </md-sidenav>
+            
+            <md-content flex class="articles-container">
+                <md-fab-toolbar md-open="vm.isOpen" count="vm.count"
+                                    md-direction="left" class="articles-fab-toolbar">
+                    <md-fab-trigger class="align-with-text">
+                    <md-button aria-label="menu" class="md-fab md-primary">
+                        <md-icon md-svg-src="/images/menu.svg"></md-icon>
+                    </md-button>
+                    </md-fab-trigger>
+
+                    <md-toolbar>
+                        <md-fab-actions class="md-toolbar-tools">
+                            <md-button aria-label="label" class="md-icon-button" ng-click="vm.home()">
+                                <md-icon md-svg-src="/images/home.svg"></md-icon>
+                            </md-button>
+                            <md-button aria-label="comment" class="md-icon-button" ng-if="$root.Authorized" ng-click="vm.addArticle()">
+                                <md-icon md-svg-src="/images/new.svg"></md-icon>
+                            </md-button>
+                            <!--<md-button aria-label="photo" class="md-icon-button">
+                                <md-icon md-svg-src="/images/menu.svg"></md-icon>
+                            </md-button>-->
+                        </md-fab-actions>
+                    </md-toolbar>
+                </md-fab-toolbar>
+
+                <md-content class="articles-content" flex>
+                    <div style="position: relative; height:100%">
+                        <div class="articles-list-container" flex>
+                            <md-list flex class="articles-list md-dense">
+                                <md-list-item class="md-3-line article md-clickable" ng-click="null" ng-repeat="article in vm.articles">
+                                    <div class="md-list-item-text article-list-item" layout="column">
+                                        <div class="article-list-item-header">{{article.title}}</div>
+                                        <div class="article-list-item-tags">{{article.tags}}</div>
+                                        <div class="article-list-item-description">{{article.createDateTime}}</div>                                        
+                                    </div>
+                                </md-list-item>
+
+                            </md-list>
+                        </div>
+                        <div class="articles-paging-container">
+                            <paging-control flex cl-pages="20" class="articles-paging-control" cl-steps="5" cl-page-changed="null" cl-align="center center" cl-current-page="3"></paging-control>
+                        </div>
+                    </div>
+                </md-content>
+                    
+            </md-content>
+
+        </section>
+
     </script>
     
     <script type="text/ng-template" id="signupModalContent.html">
@@ -92,8 +160,8 @@
             <div class="md-toolbar-tools">
                 <h2>Sign Up...</h2>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()">
-                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                <md-button class="md-icon-button" ng-click="vm.cancel()">
+                    <md-icon md-svg-src="images/close.svg" aria-label="Close dialog"></md-icon>
                 </md-button>
             </div>
         </md-toolbar>
@@ -140,13 +208,14 @@
     </script>
 
     <script type="text/ng-template" id="loginModalContent.html">
+
       <md-dialog aria-label="List dialog" class="signup dialog">
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>Sign In...</h2>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()">
-                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                <md-button class="md-icon-button" ng-click="vm.cancel()">
+                    <md-icon md-svg-src="images/close.svg" aria-label="Close dialog"></md-icon>
                 </md-button>
             </div>
         </md-toolbar>
@@ -184,36 +253,76 @@
     </script>
 
     <script type="text/ng-template" id="articleModalContent.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Add article...</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-        <form id="articleForm" name="articleForm" novalidate ng-submit="vm.save(vm.article)">
-            <div class="well">
-                <div class="form-group">
-                    <label>Title:</label>
-                    <input name="title" type="text" class="form-control" placeholder="Title" required data-ng-model="vm.article.title" ng-maxlength="500"
-                    />
-                </div>
 
-                <div class="form-group">
-                    <label>Text:</label>
-                    <input name="text" type="text" class="form-control" placeholder="Text" required data-ng-model="vm.article.text" ng-maxlength="20000"
-                    />
-                </div>
-
-                <div class="form-group">
-                    <label>Tags:</label>
-                    <input name="tags" type="text" class="form-control" placeholder="Tags" required data-ng-model="vm.article.tags" ng-maxlength="500"
-                    />
-                </div>
+      <md-dialog aria-label="" class="article-new-dialog">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{vm.title}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.cancel()">
+                    <md-icon md-svg-src="images/close.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
             </div>
-        </form>
-        </div>
-        <div class="modal-footer">
-            <button class="btn button" ng-click="vm.save()">save</button>
-            <button class="btn button" ng-click="vm.close()">close</button>
-        </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-content layout-gt-sm="row" class="md-dialog-content" layout-padding>
+                <form name="articleForm">
+
+                    <md-input-container class="md-block">
+                        <label>Title</label>
+                        <input md-maxlength="150" required md-no-asterisk name="title" ng-model="vm.article.title">
+                        <div ng-messages="articleForm.title.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The title must be less than 150 characters long.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-chips ng-model="vm.article.tags"
+                              md-autocomplete-snap
+                              md-transform-chip="vm.chips.transformChip($chip)"
+                              md-require-match="vm.chips.autocompleteDemoRequireMatch">
+                        <md-autocomplete
+                            md-selected-item="vm.chips.selectedItem"
+                            md-search-text="vm.chips.searchText"
+                            md-items="item in vm.chips.querySearch(vm.chips.searchText)"
+                            md-item-text="item"
+                            placeholder="Search for a Tags">
+                            <span md-highlight-text="vm.chips.searchText">{{item}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>
+                            <strong>{{$chip}}</strong>
+                            </span>
+                        </md-chip-template>
+                    </md-chips>
+
+                    <md-input-container class="md-block">
+                        <label>Description</label>
+                        <input md-maxlength="300" required md-no-asterisk name="description" ng-model="vm.article.description">
+                        <div ng-messages="articleForm.description.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The description must be less than 300 characters long.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Text</label>
+                        <textarea md-maxlength="20000" type="textarea" required md-no-asterisk rows="3" md-select-on-focus name="text" ng-model="vm.article.text"></textarea>
+                        <div ng-messages="articleForm.text.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The text must be less than 20000 characters long.</div>
+                        </div>
+                    </md-input-container>
+
+                </form>
+            </md-content>
+            <md-dialog-actions layout="row" class="dialog-action-block">
+                <md-button ng-click="vm.ok(vm.article)" class="md-primary">Save</md-button>
+                <md-button ng-click="vm.cancel()" class="md-primary">Close</md-button>
+            </md-dialog-actions>
+        </md-dialog-content>
+      </md-dialog>
+
     </script>
 
     <script type="text/ng-template" id="commentModalContent.html">

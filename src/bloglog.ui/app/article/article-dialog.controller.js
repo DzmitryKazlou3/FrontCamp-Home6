@@ -6,39 +6,64 @@
         .module('bloglog')
         .controller('ArticleDialogController', ArticleDialogController);
 
-    ArticleDialogController.$inject = ['articleService', '$uibModalInstance', '$rootScope', 'EVENTS', 'existingArticle'];
+    ArticleDialogController.$inject = ['articleService', '$mdDialog', '$rootScope', 'EVENTS', 'existingArticle', 'dialogTitle'];
 
-    function ArticleDialogController(articleService, $uibModalInstance, $rootScope, EVENTS, existingArticle) {
+    function ArticleDialogController(articleService, $mdDialog, $rootScope, EVENTS, existingArticle, dialogTitle) {
 
         let vm = this;
+
+        vm.title = dialogTitle;
         vm.article = existingArticle ? existingArticle : {};
+        if(!existingArticle) {
+            vm.article.tags = [];
+        }
+        
+        vm.chips = {};
+        vm.tags = [];
+        vm.chips.transformChip = transformChip;
+        vm.chips.querySearch = querySearch;
+        vm.chips.autocompleteDemoRequireMatch = false;
+        vm.chips.selectedTags = [];
 
-        vm.save = save;        
-        vm.close = function () { $uibModalInstance.dismiss('cancel'); };
+        vm.ok = article => {
+            let vmm = vm;
+            $mdDialog.hide(article);
+        }
 
-        /////////////////////////////////////////////////////
-        function save() {
-            if (existingArticle) {
-                articleService.updateArticle(vm.article)
-                    .then((pageResult) => {
-                        $rootScope.$broadcast(EVENTS.ARTICLE_ADDED, {});
-                        $uibModalInstance.close();
-                    })
-                    .catch((error) => {
-                        alert(error.data);
-                    });
+        vm.cancel = () => $mdDialog.cancel();
+        
+        //////////////////////////////////////////////////////////////////////
+        function transformChip(chip) {      
+            let vmmv = vm;      
+            // If it is an object, it's already a known chip
+            if (angular.isObject(chip)) {
+                return chip;
             }
-            else {
-                articleService.addArticle(vm.article)
-                    .then((pageResult) => {
-                        $rootScope.$broadcast(EVENTS.ARTICLE_ADDED, {});
-                        $uibModalInstance.close();
-                    })
-                    .catch((error) => {
-                        alert(error.data);
-                    });
-            }
+
+            let articleTags = vm.article.Tags;
+            // Otherwise, create a new one
+            return chip;
+        }
+
+        /**
+         * Search for tags.
+         */
+        function querySearch(query) {
+            var results = query ? vm.tags.filter(createFilterFor(query)) : [];
+            return results;
+        }
+
+        /**
+         * Create filter function for a query string
+         */
+        function createFilterFor(query) {
+            var lowercaseQuery = angular.lowercase(query);
+
+            return function filterFn(tag) {
+                return (tag.indexOf(lowercaseQuery) === 0);
+            };
 
         }
+
     }
 })();

@@ -51,11 +51,12 @@ export default class ArticleService {
           if (result.success) {
             let articleFromStorage = result.data;
 
-            // Check the article does not change owner.
+            // Check the article does not change owner. (i.e. check that you update your own article)
             if (articleFromStorage.user.user_id.equals(articleModel.user.user_id)) {
 
               articleFromStorage.title = articleModel.title;
               articleFromStorage.text = articleModel.text;
+              articleFromStorage.description = articleModel.description;
               articleFromStorage.tags = articleModel.tags;
               // TODO: update tags table when tags were changed.
 
@@ -134,7 +135,13 @@ export default class ArticleService {
 function checkArticle(article) {
   if (!article.title
     || article.title.length === 0
-    || article.title.length > 500) {
+    || article.title.length > 150) {
+    return false;
+  }
+
+  if (!article.description
+    || article.description.length === 0
+    || article.description.length > 300) {
     return false;
   }
 

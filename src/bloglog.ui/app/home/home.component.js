@@ -14,22 +14,15 @@
         .module('bloglog')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$document','articleService', 'authService', 'EVENTS', '$rootScope', '$uibModal', '$mdDialog', '$cookies', 'COMMON'];
+    HomeController.$inject = ['$document','$state', 'authService', 'EVENTS', '$rootScope', '$uibModal', '$mdDialog', '$cookies', 'COMMON'];
 
-    function HomeController($document, articleService, authService, EVENTS, $rootScope, $uibModal, $mdDialog, $cookies, COMMON) {
+    function HomeController($document, $state, authService, EVENTS, $rootScope, $uibModal, $mdDialog, $cookies, COMMON) {
 
         let vm = this;
 
-        $rootScope.Authorized = $cookies.get(COMMON.JWT_TOKEN);
-        $rootScope.UserId = $cookies.get(COMMON.ID);
-
-        vm.articles = [];
-        vm.totalItemsCount = 0;
         vm.signupDialog = signupDialog;
         vm.loginDialog = loginDialog;
-        vm.addArticle = addArticle;
-        vm.updateArticle = updateArticle;
-        vm.deleteArticle = deleteArticle;
+
         vm.logOut = function () {
             $cookies.remove(COMMON.JWT_TOKEN);
             $cookies.remove(COMMON.ID);
@@ -37,21 +30,9 @@
             $rootScope.UserId = null;
         };
 
-        $rootScope.$on(EVENTS.ARTICLE_ADDED, function (event, data) {
-            loadArticles();
-        });
-
-        ///////////////////// load articles /////////////////////////////////
-        function loadArticles() {
-            articleService.getRecentArticles()
-                .then((pageResult) => {
-                    vm.articles = pageResult.data;
-                    vm.totalItemsCount = pageResult.count;
-                })
-                .catch((error) => { });
-        }
-
-        loadArticles();
+        vm.navigateTo = function(stateName) { 
+            $state.go(stateName);
+        };
 
         /////////////////////// sign up //////////////////////
         function signupDialog() {
@@ -95,7 +76,7 @@
                 fullscreen: false // Only for -xs, -sm breakpoints.
             })
             .then(function (user) {
-console.log("ok");
+
                 authService.logIn(user)
                     .then((JWTResult) => {
                         if(!JWTResult.token){
@@ -109,7 +90,7 @@ console.log("ok");
                         $rootScope.UserId = JWTResult.id;
                     })
                     .catch((error) => {
-                        alert(error.data);
+                        alert(error.message);
                     });
 
             })
@@ -117,67 +98,6 @@ console.log("ok");
 console.log("cancel");
             });
 
-        }
-
-        ////////////////////// add article /////////////////////
-        function addArticle(selector){
-                        var parentElem = selector ?
-                angular.element($document[0].querySelector(selector)) : undefined;
-
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'articleModalContent.html',
-                controller: 'ArticleDialogController',
-                controllerAs: 'vm',
-                size: '',
-                appendTo: parentElem,
-                resolve: {
-                    existingArticle: null
-                }
-            }).result.then(function (selectedItem) {
-
-            }, function () {
-
-            });
-        }
-
-        ////////////////////// update article ///////////////////
-        function updateArticle(selector, article){
-                        var parentElem = selector ?
-                angular.element($document[0].querySelector(selector)) : undefined;
-
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'articleModalContent.html',
-                controller: 'ArticleDialogController',
-                controllerAs: 'vm',
-                size: '',
-                appendTo: parentElem,
-                resolve: {
-                    existingArticle: function () {
-                        return article;
-                    }
-                }
-            }).result.then(function (selectedItem) {
-                loadArticles();
-            }, function () {
-
-            });
-        }
-
-        ////////////////////// delete article ///////////////////
-        function deleteArticle(selector, article){
-            articleService.deleteArticle(article)
-            .then(resulrt => {
-                loadArticles();
-            })
-            .catch(error => {
-
-            });
         }
     }
 })();

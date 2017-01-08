@@ -15,8 +15,12 @@ var articleSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    'tags': {
+    'description': {
         type: String,
+        required: true,
+    },
+    'tags': {
+        type: Array,
         default: []
     },
     'createDateTime': {

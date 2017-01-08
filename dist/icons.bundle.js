@@ -63,17 +63,57 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 60);
+/******/ 	return __webpack_require__(__webpack_require__.s = 62);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 60:
+/***/ 33:
 /***/ function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+module.exports = "../images/close.svg";
+
+/***/ },
+
+/***/ 34:
+/***/ function(module, exports) {
+
+module.exports = "../images/delete.svg";
+
+/***/ },
+
+/***/ 35:
+/***/ function(module, exports) {
+
+module.exports = "../images/home.svg";
+
+/***/ },
+
+/***/ 36:
+/***/ function(module, exports) {
+
+module.exports = "../images/menu.svg";
+
+/***/ },
+
+/***/ 37:
+/***/ function(module, exports) {
+
+module.exports = "../images/new.svg";
+
+/***/ },
+
+/***/ 62:
+/***/ function(module, exports, __webpack_require__) {
+
+__webpack_require__(36);
+__webpack_require__(34);
+__webpack_require__(37);
+__webpack_require__(33);
+module.exports = __webpack_require__(35);
+
 
 /***/ }
 
 /******/ });
-//# sourceMappingURL=css.bundle.js.map
+//# sourceMappingURL=icons.bundle.js.map

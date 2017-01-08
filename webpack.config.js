@@ -14,6 +14,7 @@ module.exports = {
       "./bloglog.ui/app/app.module.js",
       "./bloglog.ui/app/app.routes.js",
       "./bloglog.ui/app/constants.js",
+      "./bloglog.ui/app/common/paging.directive.js",
 
       "./bloglog.ui/app/services/http-iterceptor.service.js",
       "./bloglog.ui/app/services/article.service.js",
@@ -22,12 +23,19 @@ module.exports = {
       "./bloglog.ui/app/home/home.component.js",
       // "./bloglog.ui/app/home/home.controller.js",
       "./bloglog.ui/app/article/article-dialog.controller.js",
+      "./bloglog.ui/app/article/articles.component.js",
       "./bloglog.ui/app/auth/create-user-dialog.controller.js",
       "./bloglog.ui/app/auth/login-dialog.controller.js"
       
     ],
-    "css": "./bloglog.ui/content/less/site.less"
-    
+    "css": "./bloglog.ui/content/less/site.less",
+    "icons": [
+      "./bloglog.ui/content/images/menu.svg",
+      "./bloglog.ui/content/images/delete.svg",
+      "./bloglog.ui/content/images/new.svg",
+      "./bloglog.ui/content/images/close.svg",
+      "./bloglog.ui/content/images/home.svg"
+      ]
   },
   output: {
     path: __dirname + "/dist",

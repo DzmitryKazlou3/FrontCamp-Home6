@@ -78,5 +78,97 @@ html {
 body {
   background-color: transparent;
 }
+.articles-section {
+  height: 100%;
+}
+.articles-fab-toolbar > .md-fab-toolbar-wrapper {
+  height: 64px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+.articles-container {
+  background: transparent;
+}
+.articles-content {
+  position: absolute;
+  top: 32px;
+  bottom: 32px;
+  left: 32px;
+  right: 32px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+.articles-list-container {
+  position: absolute;
+  top: 0;
+  bottom: 56px;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+.articles-list {
+  padding: 0;
+}
+.article-list-item {
+  line-height: 1;
+}
+.articles-paging-container {
+  position: absolute;
+  height: 40px;
+  width: 100%;
+  bottom: 0;
+  border-top: 1px solid #DDDDDD;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-align: center;
+}
+.articles-paging-control {
+  display: inline-block;
+}
+.article-list-item-tags {
+  font-size: 14px;
+  font-weight: normal;
+  color: #AAAAAA;
+}
+.article-list-item-description {
+  font-size: 14px;
+  font-weight: normal;
+  color: #222222;
+}
+.article-list-item-header {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3949AB;
+}
+.article-new-dialog {
+  width: 80%;
+}
+.md-dialog-content > form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+@media (max-width: 600px) {
+  .articles-content {
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    top: 8px;
+  }
+  .articles-paging-container {
+    height: 80px;
+    padding: 0;
+  }
+  .articles-list-container {
+    bottom: 80px;
+  }
+  .article-new-dialog {
+    width: 90%;
+    max-width: 90%;
+    max-height: 90%;
+  }
+}
 
 /*# sourceMappingURL=css.css.map*/

@@ -37,6 +37,7 @@ router.post('/', passport.authenticate('jwt', { session: false}), (req, res, nex
       null,
       req.body.title,
       req.body.text,
+      req.body.description,
       req.body.tags,
       Date.now(),
       Date.now(),
@@ -44,8 +45,8 @@ router.post('/', passport.authenticate('jwt', { session: false}), (req, res, nex
         "user_id": req.user.id,
         "name": req.user.name
       }))
-    .then(() => res.sendStatus(200))
-    .catch((result) => res.json(result));
+    .then((result) => res.json(result))
+    .catch((errorResult) => res.json(errorResult));
 
 });
 
@@ -56,6 +57,7 @@ router.put('/', passport.authenticate('jwt', { session: false }), (req, res, nex
       req.body.id,
       req.body.title,
       req.body.text,
+      req.body.description,
       req.body.tags,
       req.body.createDateTime,
       Date.now(),

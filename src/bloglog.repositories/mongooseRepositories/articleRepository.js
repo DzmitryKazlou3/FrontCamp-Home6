@@ -106,6 +106,7 @@ export default class ArticleRepository {
                 {
                     title: articleModel.title,
                     text: articleModel.text,
+                    description: articleModel.description,
                     tags: articleModel.tags
                 },
                 { new: true },
@@ -145,6 +146,7 @@ function MapToArticleModel(articleDataModel) {
         articleDataModel._id,
         articleDataModel.title,
         articleDataModel.text,
+        articleDataModel.description,
         articleDataModel.tags,
         articleDataModel.createDateTime,
         articleDataModel.updateDateTime,

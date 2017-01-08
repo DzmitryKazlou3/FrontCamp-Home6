@@ -103,7 +103,7 @@ function initialize(app) {
                 return res.json(new Result(null, false, "invalid creadentials", ResultCodes.Unathorized()));
             })
             .catch(error => {
-                return res.json(new Result(error, false, "", ResultCodes.Error()));
+                return res.json(new Result(error, false, "invalid creadentials", ResultCodes.Unathorized()));
             });
 
     });
