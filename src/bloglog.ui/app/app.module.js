@@ -19,7 +19,8 @@
         'material.components.list',
         'material.components.fabToolbar',
         'material.components.icon',
-        'material.components.chips'
+        'material.components.chips',
+        'material.components.fabSpeedDial'
     ]);
 
     angular.module("bloglog").config(["$httpProvider",

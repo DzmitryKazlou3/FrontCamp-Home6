@@ -87,10 +87,14 @@
     <script type="text/ng-template" id="articles.html">
         
         <section layout="row" flex class="articles-section">
+            
+            <md-button aria-label="articles-actions-area" class="md-fab md-warn articles-fab-left-button" ng-click="vm.toggleSearchPanel('search-panel')">
+                <md-icon md-svg-src="/images/menu.svg"></md-icon>
+            </md-button>
 
             <md-sidenav
                 class="md-sidenav-left"
-                md-component-id="left"
+                md-component-id="search-panel"
                 md-is-locked-open="$mdMedia('gt-sm')"
                 md-whiteframe="4">
 

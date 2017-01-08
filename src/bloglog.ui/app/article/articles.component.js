@@ -14,9 +14,9 @@
         .module('bloglog')
         .controller('ArticlesController', ArticlesController);
 
-    ArticlesController.$inject = ['articleService', '$state', '$mdDialog', '$rootScope', 'EVENTS', '$mdMedia'];
+    ArticlesController.$inject = ['articleService', '$state', '$mdDialog', '$rootScope', 'EVENTS', '$mdMedia', '$mdSidenav'];
 
-    function ArticlesController(articleService, $state, $mdDialog, $rootScope, EVENTS, $mdMedia) {
+    function ArticlesController(articleService, $state, $mdDialog, $rootScope, EVENTS, $mdMedia, $mdSidenav) {
 
         let vm = this;
         
@@ -27,7 +27,8 @@
         vm.updateArticle = updateArticle;
         vm.deleteArticle = deleteArticle;
         vm.home = function(){ $state.go('home'); };
-        
+
+        vm.toggleSearchPanel = buildToggler;
 
         // vm.article = existingArticle ? existingArticle : {};
 
@@ -120,6 +121,14 @@ console.log("cancel");
                 .catch(error => {
 
                 });
+        }
+
+        function buildToggler(navID) {
+                $mdSidenav(navID)
+                    .toggle()
+                    .then(function () {
+                        $log.debug("toggle " + navID + " is done");
+                    });
         }
 
     }

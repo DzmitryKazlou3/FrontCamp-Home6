@@ -76,7 +76,7 @@
 
 (function () {
 
-    angular.module('bloglog', ['ngAnimate', 'ngCookies', 'ngMessages', 'ui.bootstrap', 'ui.router', 'material.components.button', 'material.components.dialog', 'material.components.input', 'material.components.content', 'material.components.toolbar', 'material.components.sidenav', 'material.components.list', 'material.components.fabToolbar', 'material.components.icon', 'material.components.chips']);
+    angular.module('bloglog', ['ngAnimate', 'ngCookies', 'ngMessages', 'ui.bootstrap', 'ui.router', 'material.components.button', 'material.components.dialog', 'material.components.input', 'material.components.content', 'material.components.toolbar', 'material.components.sidenav', 'material.components.list', 'material.components.fabToolbar', 'material.components.icon', 'material.components.chips', 'material.components.fabSpeedDial']);
 
     angular.module("bloglog").config(["$httpProvider", function ($httpProvider) {
 
@@ -193,9 +193,9 @@
 
     angular.module('bloglog').controller('ArticlesController', ArticlesController);
 
-    ArticlesController.$inject = ['articleService', '$state', '$mdDialog', '$rootScope', 'EVENTS', '$mdMedia'];
+    ArticlesController.$inject = ['articleService', '$state', '$mdDialog', '$rootScope', 'EVENTS', '$mdMedia', '$mdSidenav'];
 
-    function ArticlesController(articleService, $state, $mdDialog, $rootScope, EVENTS, $mdMedia) {
+    function ArticlesController(articleService, $state, $mdDialog, $rootScope, EVENTS, $mdMedia, $mdSidenav) {
 
         var vm = this;
 
@@ -208,6 +208,9 @@
         vm.home = function () {
             $state.go('home');
         };
+        vm.searchPanelOpen = false;
+
+        vm.toggleSearchPanel = buildToggler;
 
         function loadArticles() {
             articleService.getRecentArticles().then(function (pageResult) {
@@ -273,6 +276,12 @@
 
         function deleteArticle(article) {
             articleService.deleteArticle(article).then(function (resulrt) {}).catch(function (error) {});
+        }
+
+        function buildToggler(navID) {
+            $mdSidenav(navID).toggle().then(function () {
+                $log.debug("toggle " + navID + " is done");
+            });
         }
     }
 })();

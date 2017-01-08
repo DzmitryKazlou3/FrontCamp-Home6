@@ -150,6 +150,11 @@ body {
   margin: 0;
   padding: 0;
 }
+.articles-fab-left-button {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
 @media (max-width: 600px) {
   .articles-content {
     bottom: 8px;
