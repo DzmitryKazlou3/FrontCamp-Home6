@@ -40,32 +40,34 @@ debugger;
       });
   };
 
-  findOrCreate(tagValues) {
+  createOrUpdateByArticleId(articleId, tagValues) {
       return new Promise(function (resolve, reject) {
 
           let updates = [];
           for (let tagValue of tagValues) {
-              updates.push({ q: { value: tagValue }, u: { value: tagValue }, upsert: true });
+              updates.push({
+                  q: { value: tagValue }, // query - selector for which item apply updates
+                  u: { value: tagValue, $addToSet: { articles: articleId } }, // updates - what updates apply to item
+                  upsert: true // if item does not exists - creates new one.
+              });
           }
 debugger;
-          let commandResult = tagDataModel.db.runCommand({
+          tagDataModel.db.db.command({
               update: "tags",
               updates: updates,
               ordered: false,
               writeConcern: { w: "majority", wtimeout: 10000 }
-          });
-
-          if(commandResult.ok){
-              resolve(new Result(commandResult.upserted, true, "Success", ResultCodes.Success()));
-          } else{
-              reject(
-                  new Result(
-                      commandResult,
-                       false,
-                       update.writeErrors ? update.writeErrors.errmsg : "" + ". " + update.writeConcernError ? update.writeConcernError.errmsg : "",
-                       ResultCodes.Error()));
-          }
-
+          })
+            .then(commandResult =>
+                resolve(new Result(commandResult.upserted, true, "Success", ResultCodes.Success()))
+            ).catch(() =>
+                reject(
+                    new Result(
+                        commandResult,
+                        false,
+                        update.writeErrors ? update.writeErrors.errmsg : "" + ". " + update.writeConcernError ? update.writeConcernError.errmsg : "",
+                        ResultCodes.Error()))
+            );
       });
   }
 

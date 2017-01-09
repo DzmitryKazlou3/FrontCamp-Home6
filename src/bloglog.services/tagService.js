@@ -25,9 +25,9 @@ export default class TagService {
     return Promise.reject(new Result(null, false, "Given tag values is not Array", ResultCodes.InvalidObject()))
   };
 
-  createUnexisted(values){
-    if (Array.isArray(values)) {
-      return tagRepository.findOrCreate(values);
+  createOrUpdateByArticleId(articleId, tagValues) {
+    if (Array.isArray(tagValues)) {
+      return tagRepository.createOrUpdateByArticleId(articleId, tagValues);
     }
 
     return Promise.reject(new Result(null, false, "Given tag values is not Array", ResultCodes.InvalidObject()))

@@ -14,7 +14,8 @@ let tagSchema = new mongoose.Schema({
 		unique: true
 	},
 	'articles': {
-		type: Array
+		type: Array,
+		default: []
 	}
 });
 

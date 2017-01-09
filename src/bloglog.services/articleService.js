@@ -30,16 +30,17 @@ export default class ArticleService {
     if (checkArticle(articleModel)) {
       return new Promise(function (resolve, reject) {
 
-        tagService.createUnexisted(articleModel.tags)
-          .then((result) => {
-            articleRepository.add(articleModel)
-              .then(addArticleResult => resolve(addArticleResult))
-              .catch(addArticleErrorResult => resolve(addArticleErrorResult));
+        articleRepository.add(articleModel)
+          .then(addArticleResult => {
+            tagService.createOrUpdateByArticleId(addArticleResult.data.id, articleModel.tags)
+              .then((result) => {
+                resolve(addArticleResult);
+              })
+              .catch((errorResult) => {
+                reject(errorResult);
+              });
           })
-          .catch((errorResult) => {
-            reject(errorResult);
-          });
-
+          .catch(addArticleErrorResult => resolve(addArticleErrorResult));
       });
     }
 

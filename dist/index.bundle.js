@@ -915,7 +915,8 @@ var tagSchema = new _mongoose2.default.Schema({
 		unique: true
 	},
 	'articles': {
-		type: Array
+		type: Array,
+		default: []
 	}
 });
 
@@ -1353,8 +1354,8 @@ var TagRepository = function () {
             });
         }
     }, {
-        key: 'findOrCreate',
-        value: function findOrCreate(tagValues) {
+        key: 'createOrUpdateByArticleId',
+        value: function createOrUpdateByArticleId(articleId, tagValues) {
             return new _promise2.default(function (resolve, reject) {
 
                 var updates = [];
@@ -1366,7 +1367,10 @@ var TagRepository = function () {
                     for (var _iterator2 = (0, _getIterator3.default)(tagValues), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                         var tagValue = _step2.value;
 
-                        updates.push({ q: { value: tagValue }, u: { value: tagValue }, upsert: true });
+                        updates.push({
+                            q: { value: tagValue },
+                            u: { value: tagValue, $addToSet: { articles: articleId } },
+                            upsert: true });
                     }
                 } catch (err) {
                     _didIteratorError2 = true;
@@ -1384,18 +1388,16 @@ var TagRepository = function () {
                 }
 
                 debugger;
-                var commandResult = _tagDataModel2.default.db.runCommand({
+                _tagDataModel2.default.db.db.command({
                     update: "tags",
                     updates: updates,
                     ordered: false,
                     writeConcern: { w: "majority", wtimeout: 10000 }
+                }).then(function (commandResult) {
+                    return resolve(new _result2.default(commandResult.upserted, true, "Success", _resultCodes2.default.Success()));
+                }).catch(function () {
+                    return reject(new _result2.default(commandResult, false, update.writeErrors ? update.writeErrors.errmsg :  true ? update.writeConcernError.errmsg : "", _resultCodes2.default.Error()));
                 });
-
-                if (commandResult.ok) {
-                    resolve(new _result2.default(commandResult.upserted, true, "Success", _resultCodes2.default.Success()));
-                } else {
-                    reject(new _result2.default(commandResult, false, update.writeErrors ? update.writeErrors.errmsg :  true ? update.writeConcernError.errmsg : "", _resultCodes2.default.Error()));
-                }
             });
         }
     }, {
@@ -1550,14 +1552,14 @@ var ArticleService = function () {
       if (checkArticle(articleModel)) {
         return new _promise2.default(function (resolve, reject) {
 
-          _bloglog2.tagService.createUnexisted(articleModel.tags).then(function (result) {
-            _bloglog.articleRepository.add(articleModel).then(function (addArticleResult) {
-              return resolve(addArticleResult);
-            }).catch(function (addArticleErrorResult) {
-              return resolve(addArticleErrorResult);
+          _bloglog.articleRepository.add(articleModel).then(function (addArticleResult) {
+            _bloglog2.tagService.createOrUpdateByArticleId(addArticleResult.data.id, articleModel.tags).then(function (result) {
+              resolve(addArticleResult);
+            }).catch(function (errorResult) {
+              reject(errorResult);
             });
-          }).catch(function (errorResult) {
-            reject(errorResult);
+          }).catch(function (addArticleErrorResult) {
+            return resolve(addArticleErrorResult);
           });
         });
       }
@@ -1806,10 +1808,10 @@ var TagService = function () {
       return _promise2.default.reject(new _result2.default(null, false, "Given tag values is not Array", _resultCodes2.default.InvalidObject()));
     }
   }, {
-    key: 'createUnexisted',
-    value: function createUnexisted(values) {
-      if (Array.isArray(values)) {
-        return _bloglog.tagRepository.findOrCreate(values);
+    key: 'createOrUpdateByArticleId',
+    value: function createOrUpdateByArticleId(articleId, tagValues) {
+      if (Array.isArray(tagValues)) {
+        return _bloglog.tagRepository.createOrUpdateByArticleId(articleId, tagValues);
       }
 
       return _promise2.default.reject(new _result2.default(null, false, "Given tag values is not Array", _resultCodes2.default.InvalidObject()));
