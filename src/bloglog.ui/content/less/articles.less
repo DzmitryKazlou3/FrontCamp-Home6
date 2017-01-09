@@ -1,0 +1,153 @@
+@panelBackground: rgba(255, 255, 255, 0.7);
+@panelSolidBackground: rgba(255, 255, 255, 1);
+@mobilePanelBackground: @panelSolidBackground;
+@panelBoxShadow: rgba(255,255,255,0.7);
+
+.articles-section {
+  height: 100%;
+}
+
+.articles-fab-toolbar > .md-fab-toolbar-wrapper{
+    height: 64px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+}
+
+.articles-container{
+  background: transparent;
+}
+
+.articles-panel{
+  background: @panelBackground;
+  box-shadow: 0 0 25px @panelBoxShadow;
+  transition: background 1s ease;
+}
+
+.articles-content{
+  position: absolute;
+  top: 32px;
+  bottom: 32px;
+  left: 12px;
+  right: 32px;
+}
+
+.articles-list-container{
+  position: absolute;
+  top: 0;
+  bottom: 56px;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+
+.articles-list{
+  padding: 0;
+}
+
+.article-list-item{
+  line-height: 1;
+}
+
+.articles-paging-container{
+    position: absolute;
+    height: 40px;
+    width: 100%;
+    bottom: 0;
+    border-top: 1px solid #DDDDDD;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+.articles-paging-control{
+  display: inline-block;
+}
+
+.article-list-item-tags{
+  font-size: 14px;
+  font-weight: normal;
+  color: #AAAAAA;
+}
+
+.article-list-item-description{
+  font-size: 14px;
+  font-weight: normal;
+  color: #222222;
+}
+
+.article-list-item-header{
+  font-size: 20px;
+  font-weight: bold;
+  color: #3949AB;
+}
+
+.article-new-dialog{
+  width: 80%;
+}
+
+
+.articles-fab-left-button{
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.search-panel{
+  background: transparent;
+}
+
+.serch-content-panel{
+  position: absolute;
+  top: 32px;
+  left: 0;
+  bottom: 32px;
+  right: 20px;
+  padding: 8px;
+}
+
+.articles-panel:hover{
+    background: @panelSolidBackground;
+}
+
+@media (max-width: 959px){
+    .articles-panel{
+        background: @mobilePanelBackground;
+    }
+
+    .serch-content-panel{
+        top: 0;
+        bottom: 0;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 959px){
+  .articles-content{
+    left: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .articles-content{
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    top: 8px
+  }
+
+  .articles-paging-container{
+    height: 80px;
+    padding: 0;
+  }
+
+  .articles-list-container{
+    bottom: 80px;
+  }
+
+  .article-new-dialog{
+    width: 90%;
+    max-width: 90%;
+    max-height: 90%;
+  }
+}

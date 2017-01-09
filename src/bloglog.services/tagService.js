@@ -15,11 +15,23 @@ export default class TagService {
   }
 
   /*
-   * gets tags
+   * gets tags by values
    */
-  getTags() {
-    return tagRepository.get();
+  getTagsByValues(values) {
+    if(Array.isArray(values)){
+        return tagRepository.get(values);
+    }
+
+    return Promise.reject(new Result(null, false, "Given tag values is not Array", ResultCodes.InvalidObject()))
   };
+
+  createUnexisted(values){
+    if (Array.isArray(values)) {
+      return tagRepository.findOrCreate(values);
+    }
+
+    return Promise.reject(new Result(null, false, "Given tag values is not Array", ResultCodes.InvalidObject()))
+  }
 
   /*
    * adds tag

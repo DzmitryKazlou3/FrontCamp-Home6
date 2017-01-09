@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 61);
+/******/ 	return __webpack_require__(__webpack_require__.s = 63);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -208,7 +208,6 @@
         vm.home = function () {
             $state.go('home');
         };
-        vm.searchPanelOpen = false;
 
         vm.toggleSearchPanel = buildToggler;
 
@@ -279,9 +278,7 @@
         }
 
         function buildToggler(navID) {
-            $mdSidenav(navID).toggle().then(function () {
-                $log.debug("toggle " + navID + " is done");
-            });
+            $mdSidenav(navID).toggle().then(function () {});
         }
     }
 })();
@@ -289,6 +286,60 @@
 /***/ },
 
 /***/ 24:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+
+    angular.module('bloglog').component('searchArticle', {
+        templateUrl: 'searchArticle.html',
+        controller: 'SearchArticlesController',
+        controllerAs: 'vm'
+    });
+
+    angular.module('bloglog').controller('SearchArticlesController', SearchArticlesController);
+
+    SearchArticlesController.$inject = ['articleService', '$state', '$mdDialog', '$rootScope', 'EVENTS', '$mdMedia', '$mdSidenav'];
+
+    function SearchArticlesController(articleService, $state, $mdDialog, $rootScope, EVENTS, $mdMedia, $mdSidenav) {
+
+        var vm = this;
+
+        vm.tags = [];
+        vm.chips = {};
+        vm.chips.transformChip = transformChip;
+        vm.chips.querySearch = querySearch;
+        vm.chips.autocompleteDemoRequireMatch = true;
+        vm.chips.selectedTags = [];
+
+        function transformChip(chip) {
+            if (angular.isObject(chip)) {
+                return chip;
+            }
+
+            return chip;
+        }
+
+        function querySearch(query) {
+            var results = query ? vm.tags.filter(createFilterFor(query)) : [];
+            return results;
+        }
+
+        function createFilterFor(query) {
+            var lowercaseQuery = angular.lowercase(query);
+
+            return function filterFn(tag) {
+                return tag.indexOf(lowercaseQuery) === 0;
+            };
+        }
+    }
+})();
+
+/***/ },
+
+/***/ 25:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -334,7 +385,7 @@
 
 /***/ },
 
-/***/ 25:
+/***/ 26:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -370,7 +421,7 @@
 
 /***/ },
 
-/***/ 26:
+/***/ 27:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -405,7 +456,7 @@
 
 /***/ },
 
-/***/ 27:
+/***/ 28:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -500,7 +551,7 @@
 
 /***/ },
 
-/***/ 28:
+/***/ 29:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -517,6 +568,7 @@
         BASE: window.location.origin + '/',
         API: "api/",
         ARTICLES: "api/articles/",
+        TAGS: "api/tags/",
         SIGNUP: "signup/",
         LOGIN: "login/",
         COMMENTS: "comments/"
@@ -527,7 +579,7 @@
 
 /***/ },
 
-/***/ 29:
+/***/ 30:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -616,7 +668,7 @@
 
 /***/ },
 
-/***/ 30:
+/***/ 31:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -682,7 +734,7 @@
 
 /***/ },
 
-/***/ 31:
+/***/ 32:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -728,21 +780,22 @@
 
 /***/ },
 
-/***/ 61:
+/***/ 63:
 /***/ function(module, exports, __webpack_require__) {
 
 __webpack_require__(20);
 __webpack_require__(21);
+__webpack_require__(29);
 __webpack_require__(28);
-__webpack_require__(27);
+__webpack_require__(32);
 __webpack_require__(31);
+__webpack_require__(25);
 __webpack_require__(30);
 __webpack_require__(24);
-__webpack_require__(29);
 __webpack_require__(22);
 __webpack_require__(23);
-__webpack_require__(25);
-module.exports = __webpack_require__(26);
+__webpack_require__(26);
+module.exports = __webpack_require__(27);
 
 
 /***/ }

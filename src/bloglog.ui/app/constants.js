@@ -18,6 +18,7 @@
             BASE: window.location.origin + '/',
             API: "api/",
             ARTICLES: "api/articles/",
+            TAGS: "api/tags/",
             SIGNUP: "signup/",
             LOGIN: "login/",
             COMMENTS: "comments/"

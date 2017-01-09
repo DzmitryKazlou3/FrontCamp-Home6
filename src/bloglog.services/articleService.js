@@ -7,6 +7,7 @@ import Article from '../bloglog.models/articleModel.js';
 import { articleRepository } from '../bloglog.repositories';
 import Result from '../bloglog.common/result.js';
 import ResultCodes from '../bloglog.common/resultCodes.js';
+import { tagService } from '../bloglog.services';
 
 
 /* -------------- implementation -------------- */
@@ -25,8 +26,21 @@ export default class ArticleService {
    * adds article
    */
   add(articleModel) {
+
     if (checkArticle(articleModel)) {
-      return articleRepository.add(articleModel);
+      return new Promise(function (resolve, reject) {
+
+        tagService.createUnexisted(articleModel.tags)
+          .then((result) => {
+            articleRepository.add(articleModel)
+              .then(addArticleResult => resolve(addArticleResult))
+              .catch(addArticleErrorResult => resolve(addArticleErrorResult));
+          })
+          .catch((errorResult) => {
+            reject(errorResult);
+          });
+
+      });
     }
 
     return Promise.reject(new Result(null, false, "", ResultCodes.InvalidObject()));

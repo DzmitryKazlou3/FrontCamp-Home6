@@ -14,13 +14,13 @@ export default class TagRepository {
   }
 
   /*
-   * gets tags
+   * gets tags by values
    */
-  get() {
-
+  get(values) {
+debugger;
       return new Promise(function (resolve, reject) {
           tagDataModel
-              .find({})
+              .find({value: {$in: values}})
               .exec(function (err, tags) {
                   if (err) {
                       reject(new Result(null, false, err, ResultCodes.Error()));
@@ -39,6 +39,35 @@ export default class TagRepository {
               });
       });
   };
+
+  findOrCreate(tagValues) {
+      return new Promise(function (resolve, reject) {
+
+          let updates = [];
+          for (let tagValue of tagValues) {
+              updates.push({ q: { value: tagValue }, u: { value: tagValue }, upsert: true });
+          }
+debugger;
+          let commandResult = tagDataModel.db.runCommand({
+              update: "tags",
+              updates: updates,
+              ordered: false,
+              writeConcern: { w: "majority", wtimeout: 10000 }
+          });
+
+          if(commandResult.ok){
+              resolve(new Result(commandResult.upserted, true, "Success", ResultCodes.Success()));
+          } else{
+              reject(
+                  new Result(
+                      commandResult,
+                       false,
+                       update.writeErrors ? update.writeErrors.errmsg : "" + ". " + update.writeConcernError ? update.writeConcernError.errmsg : "",
+                       ResultCodes.Error()));
+          }
+
+      });
+  }
 
   /*
    * adds tag

@@ -67,17 +67,6 @@
     color: rgba(255, 255, 255, 0.9);
   }
 }
-@font-face {
-  font-family: LeagueGothic;
-  src: url(../fonts/LeagueGothic-Regular.otf);
-}
-html {
-  background: url(../images/background2.jpg) no-repeat center center fixed;
-  background-size: cover;
-}
-body {
-  background-color: transparent;
-}
 .articles-section {
   height: 100%;
 }
@@ -91,14 +80,18 @@ body {
 .articles-container {
   background: transparent;
 }
+.articles-panel {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.7);
+  -webkit-transition: background 1s ease;
+  transition: background 1s ease;
+}
 .articles-content {
   position: absolute;
   top: 32px;
   bottom: 32px;
-  left: 32px;
+  left: 12px;
   right: 32px;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
 }
 .articles-list-container {
   position: absolute;
@@ -145,15 +138,38 @@ body {
 .article-new-dialog {
   width: 80%;
 }
-.md-dialog-content > form {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
 .articles-fab-left-button {
   position: absolute;
   left: 0;
   top: 0;
+}
+.search-panel {
+  background: transparent;
+}
+.serch-content-panel {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  bottom: 32px;
+  right: 20px;
+  padding: 8px;
+}
+.articles-panel:hover {
+  background: #ffffff;
+}
+@media (max-width: 959px) {
+  .articles-panel {
+    background: #ffffff;
+  }
+  .serch-content-panel {
+    top: 0;
+    bottom: 0;
+  }
+}
+@media (min-width: 600px) and (max-width: 959px) {
+  .articles-content {
+    left: 32px;
+  }
 }
 @media (max-width: 600px) {
   .articles-content {
@@ -174,6 +190,51 @@ body {
     max-width: 90%;
     max-height: 90%;
   }
+}
+search-article {
+  padding: 0 !important;
+}
+.search {
+  height: 100%;
+  position: relative;
+}
+.search .button {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+.search-content {
+  overflow: auto;
+  position: absolute;
+  height: 60px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+.search-footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  top: 60px;
+}
+@font-face {
+  font-family: LeagueGothic;
+  src: url(../fonts/LeagueGothic-Regular.otf);
+}
+html {
+  background: url(../images/background2.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+body {
+  background-color: transparent;
+}
+.md-dialog-content > form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /*# sourceMappingURL=css.css.map*/

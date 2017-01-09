@@ -84,25 +84,70 @@
         </div>
     </script>
 
-    <script type="text/ng-template" id="articles.html">
-        
-        <section layout="row" flex class="articles-section">
+    <script type="text/ng-template" id="searchArticle.html">
+        <div class="search">
+            <div class="search-content">
+                <!-- tags -->
+                <md-chips ng-model="vm.tags"
+                        md-autocomplete-snap
+                        md-transform-chip="vm.chips.transformChip($chip)"
+                        md-require-match="vm.chips.autocompleteDemoRequireMatch">
+                    <md-autocomplete
+                        md-selected-item="vm.chips.selectedItem"
+                        md-search-text="vm.chips.searchText"
+                        md-items="item in vm.chips.querySearch(vm.chips.searchText)"
+                        md-item-text="item"
+                        placeholder="Search for a Tags">
+                        <span md-highlight-text="vm.chips.searchText">{{item}}</span>
+                    </md-autocomplete>
+                    <md-chip-template>
+                        <span>
+                        <strong>{{$chip}}</strong>
+                        </span>
+                    </md-chip-template>
+                </md-chips>
+            </div>
             
-            <md-button aria-label="articles-actions-area" class="md-fab md-warn articles-fab-left-button" ng-click="vm.toggleSearchPanel('search-panel')">
+            <div class="search-footer">
+                <md-button ng-click="vm.ok()" class="md-primary button">Search</md-button>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="articles.html">
+        <md-fab-toolbar md-open="vm.isOpen" count="vm.count"
+                            md-direction="left" class="articles-fab-toolbar">
+            <md-fab-trigger class="align-with-text">
+            <md-button aria-label="menu" class="md-fab md-primary">
                 <md-icon md-svg-src="/images/menu.svg"></md-icon>
             </md-button>
+            </md-fab-trigger>
+
+            <md-toolbar>
+                <md-fab-actions class="md-toolbar-tools">
+                    <md-button aria-label="label" class="md-icon-button" ng-click="vm.home()">
+                        <md-icon md-svg-src="/images/home.svg"></md-icon>
+                    </md-button>
+                    <md-button aria-label="comment" class="md-icon-button" ng-if="$root.Authorized" ng-click="vm.addArticle()">
+                        <md-icon md-svg-src="/images/new.svg"></md-icon>
+                    </md-button>
+                    <md-button aria-label="photo" class="md-icon-button" hide-gt-sm ng-click="vm.toggleSearchPanel('search-panel')">
+                        <md-icon md-svg-src="/images/rightAngle.svg"></md-icon>
+                    </md-button>
+                </md-fab-actions>
+            </md-toolbar>
+        </md-fab-toolbar>
+
+        <section layout="row" flex class="articles-section">
 
             <md-sidenav
-                class="md-sidenav-left"
+                class="md-sidenav-left search-panel"
                 md-component-id="search-panel"
                 md-is-locked-open="$mdMedia('gt-sm')"
                 md-whiteframe="4">
 
-                <md-toolbar class="md-theme-indigo">
-                    <h1 class="md-toolbar-tools">Search</h1>
-                </md-toolbar>
-                <md-content layout-padding>
-                    [Search Component]
+                <md-content layout-padding class="serch-content-panel articles-panel">
+                    <search-article></search-article>
                 </md-content>
 
             </md-sidenav>
@@ -124,14 +169,14 @@
                             <md-button aria-label="comment" class="md-icon-button" ng-if="$root.Authorized" ng-click="vm.addArticle()">
                                 <md-icon md-svg-src="/images/new.svg"></md-icon>
                             </md-button>
-                            <!--<md-button aria-label="photo" class="md-icon-button">
-                                <md-icon md-svg-src="/images/menu.svg"></md-icon>
-                            </md-button>-->
+                            <md-button aria-label="photo" class="md-icon-button" hide-gt-sm ng-click="vm.toggleSearchPanel('search-panel')">
+                                <md-icon md-svg-src="/images/rightAngle.svg"></md-icon>
+                            </md-button>
                         </md-fab-actions>
                     </md-toolbar>
                 </md-fab-toolbar>
 
-                <md-content class="articles-content" flex>
+                <md-content class="articles-content articles-panel" flex>
                     <div style="position: relative; height:100%">
                         <div class="articles-list-container" flex>
                             <md-list flex class="articles-list md-dense">

@@ -12,7 +12,7 @@ const router = Router();
     get all
 */
 router.get('/', (req, res, next) => {
-
+debugger;
   tagService.getTags()
     .then(function (result) {
       res.json(result);
@@ -23,16 +23,17 @@ router.get('/', (req, res, next) => {
     
 });
 
-router.post('/', (req, res, next) => {
+// We add tags with articles
+// router.post('/', (req, res, next) => {
 
-  tagService.add(
-    new TagModel(
-      null,
-      req.body.value,
-      []))
-    .then(() => res.sendStatus(200))
-    .catch((result) => res.json(result));
+//   tagService.add(
+//     new TagModel(
+//       null,
+//       req.body.value,
+//       []))
+//     .then(() => res.sendStatus(200))
+//     .catch((result) => res.json(result));
 
-});
+// });
 
 export default router;

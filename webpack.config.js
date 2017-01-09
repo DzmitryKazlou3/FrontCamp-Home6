@@ -21,6 +21,7 @@ module.exports = {
       "./bloglog.ui/app/auth/auth.service.js",
 
       "./bloglog.ui/app/home/home.component.js",
+      "./bloglog.ui/app/article/search.component.js",
       // "./bloglog.ui/app/home/home.controller.js",
       "./bloglog.ui/app/article/article-dialog.controller.js",
       "./bloglog.ui/app/article/articles.component.js",
@@ -34,7 +35,8 @@ module.exports = {
       "./bloglog.ui/content/images/delete.svg",
       "./bloglog.ui/content/images/new.svg",
       "./bloglog.ui/content/images/close.svg",
-      "./bloglog.ui/content/images/home.svg"
+      "./bloglog.ui/content/images/home.svg",
+      "./bloglog.ui/content/images/rightAngle.svg"
       ]
   },
   output: {

@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 
 
 /* -------------- implementation -------------- */
-var tagSchema = new mongoose.Schema({
+let tagSchema = new mongoose.Schema({
 	'value': {
 		type: String,
 		required: true,
@@ -17,8 +17,6 @@ var tagSchema = new mongoose.Schema({
 		type: Array
 	}
 });
-
-
 
 /* -------------- exports -------------- */
 export default mongoose.model('tags', tagSchema);
