@@ -33,6 +33,22 @@ router.get('/',
 
 });
 
+/*
+    get recent article by id
+*/
+router.get('/:id', (req, res, next) => {
+
+    var article_id = req.params.id;
+    articleService.getById(article_id)
+      .then((result) => {
+        res.json(result);
+      })
+      .catch((errorResult) => {
+        res.json(errorResult);
+      });
+
+  });
+
 router.post('/', passport.authenticate('jwt', { session: false}), (req, res, next) => {
   
   articleService.add(
@@ -109,10 +125,13 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
 
 
 ///////////// article comments section //////////////////////
-router.get('/:id/comments', (req, res, next) => {
+router.get('/:id/comments/:pageNumber/:pageSize', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
   let article_id = req.params.id;
-  commentService.getCommentsByArticleId(article_id)
+  let pageNumber = Number(req.params.pageNumber);
+  let pageSize = Number(req.params.pageSize);
+
+  commentService.getCommentsByArticleId(article_id, (pageNumber - 1) * pageSize, pageSize)
     .then((result) => res.json(result))
     .catch((errorResult) => res.json(errorResult));
 

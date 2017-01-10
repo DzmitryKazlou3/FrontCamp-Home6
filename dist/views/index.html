@@ -180,7 +180,6 @@
 
     </script>
     
-
     <script type="text/ng-template" id="articleDetail.html">
         <md-fab-toolbar md-open="vm.isOpen" count="vm.count"
                             md-direction="left" class="articles-fab-toolbar">
@@ -226,6 +225,11 @@
                         <div>{{vm.article.title}}</div>                        
                         <div>{{vm.article.text}}</div>
                     </div>
+                    <div>
+                        <div ng-repeat="comment in vm.comments">
+                            <div>{{comment.text}}</div>
+                        </div>
+                    </div>
                 </md-content>
                     
             </md-content>
@@ -233,7 +237,6 @@
         </section>
 
     </script>
-
 
     <script type="text/ng-template" id="signupModalContent.html">
 

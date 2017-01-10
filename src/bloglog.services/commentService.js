@@ -17,8 +17,8 @@ export default class CommentService {
   /*
    * gets tags
    */
-  getCommentsByArticleId(article_id) {
-    return commentRepository.getByArticleId(article_id);
+  getCommentsByArticleId(article_id, skip, count) {
+    return commentRepository.getByArticleId(article_id, skip, count);
   };
 
   /*

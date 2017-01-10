@@ -9,19 +9,19 @@
     commentService.$inject = ['$http', 'URLS', '$q'];
 
     function commentService($http, URLS, $q) {
-        let service = {
+        return {
             getComments: getComments,
-            addArticle: addArticle
+            add: add
         };
 
         /*
         * Gets comments by article id
         */
-        function getComments(article_id) {
+        function getComments(article_id, pageNumber, pageSize) {
 
-            return $http.get(URLS.BASE + URLS.ARTICLES + article_id + "/" + URLS.COMMENTS)
+            return $http.get(URLS.BASE + URLS.ARTICLES + article_id + "/" + URLS.COMMENTS + pageNumber + '/' + pageSize)
                 .then((responce) => {
-                    return responce.data.data;
+                    return responce.data;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -47,7 +47,5 @@
                 });
 
         }
-
-        return service;
     }
 })();

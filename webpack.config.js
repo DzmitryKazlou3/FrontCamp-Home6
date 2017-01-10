@@ -20,6 +20,7 @@ module.exports = {
       "./bloglog.ui/app/services/article.service.js",
       "./bloglog.ui/app/auth/auth.service.js",
       "./bloglog.ui/app/services/tag.service.js",
+      "./bloglog.ui/app/services/comment.service.js",
 
       "./bloglog.ui/app/home/home.component.js",
       "./bloglog.ui/app/article/search.component.js",

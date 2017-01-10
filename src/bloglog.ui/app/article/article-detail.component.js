@@ -14,28 +14,50 @@
         .module('bloglog')
         .controller('ArticleDetailController', ArticleDetailController);
 
-    ArticleDetailController.$inject = ['articleService', '$mdDialog', '$rootScope', 'EVENTS'];
+    ArticleDetailController.$inject = ['articleService', 'commentService', '$stateParams', '$mdDialog', '$rootScope', 'EVENTS'];
 
-    function ArticleDetailController(articleService, $mdDialog, $rootScope, EVENTS) {
+    function ArticleDetailController(articleService, commentService, $stateParams, $mdDialog, $rootScope, EVENTS) {
 
         let vm = this;
 
         vm.article = {};
+        vm.id = $stateParams.id;
+        
+        vm.comments = [];
+        vm.commentsCurrentPage = 1;
+        vm.commentsPageCount = 1;
+        vm.commentsPageSize = 10;
 
         vm.updateArticle = updateArticle;
         vm.deleteArticle = deleteArticle;
+        
+        loadArticle();
+        loadComments();
 
         ///////////////////// load articles /////////////////////////////////
-        function loadArticles() {
-            articleService.getRecentArticles()
-                .then((pageResult) => {
-                    vm.articles = pageResult.data;
-                    vm.totalItemsCount = pageResult.count;
+        function loadArticle() {
+
+            articleService.getArticleById(vm.id)
+                .then((result) => {
+                    vm.article = result.data;
                 })
-                .catch((error) => { });
+                .catch((error) => {
+                    alert(error.message);
+                 });
         }
 
-        loadArticles();
+        function loadComments() {
+
+            commentService.getComments(vm.id, vm.commentsCurrentPage, vm.commentsPageSize)
+                .then((result) => {
+                    // TODO: calculate page count
+                    vm.comments = result.data;
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+
+        }
 
         ////////////////////// update article ///////////////////
         function updateArticle(article){

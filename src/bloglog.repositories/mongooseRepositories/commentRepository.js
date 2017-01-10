@@ -17,12 +17,14 @@ export default class CommentRepository {
     /*
      * gets comments of the given article
      */
-    getByArticleId(article_id) {
+    getByArticleId(article_id, skip, count) {
         return new Promise(function (resolve, reject) {
 
             commentDataModel
                 .find({ 'article_id': article_id })
                 .sort('-createDateTime')
+                .skip(skip)
+                .limit(count)
                 .exec(function (err, comments) {
                     if (err) {
                         reject(new Result(null, false, err, ResultCodes.Error()));

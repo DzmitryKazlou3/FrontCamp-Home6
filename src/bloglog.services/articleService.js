@@ -35,6 +35,20 @@ export default class ArticleService {
 
     });
   }
+  
+  getById(id){
+    
+    return new Promise(function (resolve, reject) {
+      articleRepository.getById(id)
+        .then(result => {
+          resolve(result);
+        })
+        .catch(errorResult => {
+          reject(errorResult);
+        });
+
+    });
+  }
 
   /*
    * adds article

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 65);
+/******/ 	return __webpack_require__(__webpack_require__.s = 66);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -126,25 +126,43 @@
 
     angular.module('bloglog').controller('ArticleDetailController', ArticleDetailController);
 
-    ArticleDetailController.$inject = ['articleService', '$mdDialog', '$rootScope', 'EVENTS'];
+    ArticleDetailController.$inject = ['articleService', 'commentService', '$stateParams', '$mdDialog', '$rootScope', 'EVENTS'];
 
-    function ArticleDetailController(articleService, $mdDialog, $rootScope, EVENTS) {
+    function ArticleDetailController(articleService, commentService, $stateParams, $mdDialog, $rootScope, EVENTS) {
 
         var vm = this;
 
         vm.article = {};
+        vm.id = $stateParams.id;
+
+        vm.comments = [];
+        vm.commentsCurrentPage = 1;
+        vm.commentsPageCount = 1;
+        vm.commentsPageSize = 10;
 
         vm.updateArticle = updateArticle;
         vm.deleteArticle = deleteArticle;
 
-        function loadArticles() {
-            articleService.getRecentArticles().then(function (pageResult) {
-                vm.articles = pageResult.data;
-                vm.totalItemsCount = pageResult.count;
-            }).catch(function (error) {});
+        loadArticle();
+        loadComments();
+
+        function loadArticle() {
+
+            articleService.getArticleById(vm.id).then(function (result) {
+                vm.article = result.data;
+            }).catch(function (error) {
+                alert(error.message);
+            });
         }
 
-        loadArticles();
+        function loadComments() {
+
+            commentService.getComments(vm.id, vm.commentsCurrentPage, vm.commentsPageSize).then(function (result) {
+                vm.comments = result.data;
+            }).catch(function (error) {
+                alert(error.message);
+            });
+        }
 
         function updateArticle(article) {
 
@@ -802,6 +820,7 @@
         return {
             getRecentArticles: getRecentArticles,
             getArticlesByFilter: getArticlesByFilter,
+            getArticleById: getArticleById,
             addArticle: addArticle,
             updateArticle: updateArticle,
             deleteArticle: deleteArticle
@@ -810,12 +829,22 @@
         function getRecentArticles() {
 
             return $http.get(URLS.BASE + URLS.ARTICLES).then(function (responce) {
-                return responce.data.data;
+                return responce.data;
             }).catch(function (error) {
                 console.log(error);
                 return $q.reject(error);
             });
         };
+
+        function getArticleById(id) {
+
+            return $http.get(URLS.BASE + URLS.ARTICLES + id).then(function (responce) {
+                return responce.data;
+            }).catch(function (error) {
+                console.log(error);
+                return $q.reject(error);
+            });
+        }
 
         function getArticlesByFilter(filterData, pageNumber, pageSize) {
 
@@ -870,6 +899,48 @@
 
 
 (function () {
+
+    angular.module('bloglog').service('commentService', commentService);
+
+    commentService.$inject = ['$http', 'URLS', '$q'];
+
+    function commentService($http, URLS, $q) {
+        return {
+            getComments: getComments,
+            add: add
+        };
+
+        function getComments(article_id, pageNumber, pageSize) {
+
+            return $http.get(URLS.BASE + URLS.ARTICLES + article_id + "/" + URLS.COMMENTS + pageNumber + '/' + pageSize).then(function (responce) {
+                return responce.data;
+            }).catch(function (error) {
+                console.log(error);
+                return $q.reject(error);
+            });
+        };
+
+        function add(article) {
+
+            return $http.post(URLS.BASE + URLS.COMMENTS, article).then(function (responce) {
+                return responce.data;
+            }).catch(function (error) {
+                console.log(error);
+                return $q.reject(error);
+            });
+        }
+    }
+})();
+
+/***/ },
+
+/***/ 34:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
     'use strict';
 
     angular.module("bloglog").factory('httpInterceptorService', httpInterceptorService);
@@ -909,7 +980,7 @@
 
 /***/ },
 
-/***/ 34:
+/***/ 35:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -940,17 +1011,18 @@
 
 /***/ },
 
-/***/ 65:
+/***/ 66:
 /***/ function(module, exports, __webpack_require__) {
 
 __webpack_require__(20);
 __webpack_require__(21);
 __webpack_require__(30);
 __webpack_require__(29);
-__webpack_require__(33);
+__webpack_require__(34);
 __webpack_require__(32);
 __webpack_require__(26);
-__webpack_require__(34);
+__webpack_require__(35);
+__webpack_require__(33);
 __webpack_require__(31);
 __webpack_require__(25);
 __webpack_require__(22);

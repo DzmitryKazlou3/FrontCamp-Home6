@@ -12,6 +12,7 @@
         return {
             getRecentArticles: getRecentArticles,
             getArticlesByFilter: getArticlesByFilter,
+            getArticleById: getArticleById,
             addArticle: addArticle,
             updateArticle: updateArticle,
             deleteArticle: deleteArticle
@@ -24,7 +25,7 @@
 
             return $http.get(URLS.BASE + URLS.ARTICLES)
                 .then((responce) => {
-                    return responce.data.data;
+                    return responce.data;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -32,6 +33,18 @@
                 });
 
         };
+
+        function getArticleById(id){
+
+            return $http.get(URLS.BASE + URLS.ARTICLES + id)
+                .then((responce) => {
+                    return responce.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                    return $q.reject(error);
+                });
+        }
 
         /*
         * gets articles with filter
