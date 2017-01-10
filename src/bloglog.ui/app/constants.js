@@ -25,7 +25,8 @@
         })
         
         .constant('EVENTS', {
-            ARTICLE_ADDED: "Article_Added"
+            ARTICLE_ADDED: "Article_Added",
+            SEARCH: "SEARCH"
         });
 
 })();

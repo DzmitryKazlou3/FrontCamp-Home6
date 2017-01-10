@@ -14,38 +14,46 @@
         .module('bloglog')
         .controller('ArticlesController', ArticlesController);
 
-    ArticlesController.$inject = ['articleService', '$state', '$mdDialog', '$rootScope', 'EVENTS', '$mdMedia', '$mdSidenav'];
+    ArticlesController.$inject = ['$scope', 'articleService', '$state', '$mdDialog', '$rootScope', 'EVENTS', '$mdMedia', '$mdSidenav'];
 
-    function ArticlesController(articleService, $state, $mdDialog, $rootScope, EVENTS, $mdMedia, $mdSidenav) {
+    function ArticlesController($scope, articleService, $state, $mdDialog, $rootScope, EVENTS, $mdMedia, $mdSidenav) {
 
         let vm = this;
         
         vm.articles = [];
-        vm.totalItemsCount = 0;
 
         vm.addArticle = addArticle;
         vm.updateArticle = updateArticle;
         vm.deleteArticle = deleteArticle;
         vm.home = function(){ $state.go('home'); };
+        vm.filterData = {};
+        vm.pageSize = 10;
+        vm.currentPage = 1;
+        vm.pageCount = 1;
+        vm.pageChanged = onPageChanged;
+        vm.navigateToItem = navigateToItem;
 
         vm.toggleSearchPanel = buildToggler;
 
-        // vm.article = existingArticle ? existingArticle : {};
+        $scope.$on(EVENTS.SEARCH, (event, filterData) => {
+            vm.filterData = filterData;
+            vm.currentPage = 1;
+            loadArticles();
+        });
 
-        // vm.save = save;        
-        // vm.close = function () { $uibModalInstance.dismiss('cancel'); };
+        loadArticles();
 
         ///////////////////// load articles /////////////////////////////////
         function loadArticles() {
-            articleService.getRecentArticles()
-                .then((pageResult) => {
-                    vm.articles = pageResult.data;
-                    vm.totalItemsCount = pageResult.count;
+            articleService.getArticlesByFilter(vm.filterData, vm.currentPage, vm.pageSize)
+                .then(result => {
+                    vm.articles = result.data;
+                    vm.pageCount = Math.ceil(result.count / vm.pageSize);
                 })
-                .catch((error) => { });
+                .catch(errorResult => {
+                    alert(errorResult.message);
+                });
         }
-
-        loadArticles();
 
         ////////////////////// add article /////////////////////
         function addArticle(){
@@ -77,6 +85,10 @@
             .catch(function () {
 console.log("cancel");
             });
+        }
+
+        function onPageChanged(){
+            loadArticles();
         }
 
         ////////////////////// update article ///////////////////
@@ -129,6 +141,10 @@ console.log("cancel");
                     .then(function () {
                         
                     });
+        }
+
+        function navigateToItem(article){
+            $state.go('articleDetail', {id: article.id});
         }
 
     }

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 61);
+/******/ 	return __webpack_require__(__webpack_require__.s = 63);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -156,6 +156,11 @@ var ResultCodes = function () {
         value: function Unathorized() {
             return 4;
         }
+    }, {
+        key: 'InvalidArguments',
+        value: function InvalidArguments() {
+            return 5;
+        }
     }]);
     return ResultCodes;
 }();
@@ -202,19 +207,19 @@ var _mongoose = __webpack_require__(6);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _articleRepository = __webpack_require__(50);
+var _articleRepository = __webpack_require__(52);
 
 var _articleRepository2 = _interopRequireDefault(_articleRepository);
 
-var _tagRepository = __webpack_require__(52);
+var _tagRepository = __webpack_require__(54);
 
 var _tagRepository2 = _interopRequireDefault(_tagRepository);
 
-var _userRepository = __webpack_require__(53);
+var _userRepository = __webpack_require__(55);
 
 var _userRepository2 = _interopRequireDefault(_userRepository);
 
-var _commentRepository = __webpack_require__(51);
+var _commentRepository = __webpack_require__(53);
 
 var _commentRepository2 = _interopRequireDefault(_commentRepository);
 
@@ -250,19 +255,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.commentService = exports.userService = exports.tagService = exports.articleService = undefined;
 
-var _articleService = __webpack_require__(54);
+var _articleService = __webpack_require__(56);
 
 var _articleService2 = _interopRequireDefault(_articleService);
 
-var _tagService = __webpack_require__(56);
+var _tagService = __webpack_require__(58);
 
 var _tagService2 = _interopRequireDefault(_tagService);
 
-var _userService = __webpack_require__(57);
+var _userService = __webpack_require__(59);
 
 var _userService2 = _interopRequireDefault(_userService);
 
-var _commentService = __webpack_require__(55);
+var _commentService = __webpack_require__(57);
 
 var _commentService2 = _interopRequireDefault(_commentService);
 
@@ -463,11 +468,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(5);
 
-var _articleRoutes = __webpack_require__(44);
+var _articleRoutes = __webpack_require__(46);
 
 var _articleRoutes2 = _interopRequireDefault(_articleRoutes);
 
-var _tagsRoutes = __webpack_require__(45);
+var _tagsRoutes = __webpack_require__(47);
 
 var _tagsRoutes2 = _interopRequireDefault(_tagsRoutes);
 
@@ -496,9 +501,9 @@ var _passport = __webpack_require__(15);
 
 var _passport2 = _interopRequireDefault(_passport);
 
-var _passportJwt = __webpack_require__(60);
+var _passportJwt = __webpack_require__(62);
 
-var _jwtSimple = __webpack_require__(59);
+var _jwtSimple = __webpack_require__(61);
 
 var _jwtSimple2 = _interopRequireDefault(_jwtSimple);
 
@@ -606,7 +611,9 @@ exports.default = { initialize: initialize };
 /* 30 */,
 /* 31 */,
 /* 32 */,
-/* 33 */
+/* 33 */,
+/* 34 */,
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -618,7 +625,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(5);
 
-__webpack_require__(58);
+__webpack_require__(60);
 
 var router = (0, _express.Router)();
 
@@ -629,37 +636,37 @@ router.use('/', function (req, res) {
 exports.default = router;
 
 /***/ },
-/* 34 */,
-/* 35 */,
 /* 36 */,
 /* 37 */,
 /* 38 */,
 /* 39 */,
-/* 40 */
+/* 40 */,
+/* 41 */,
+/* 42 */
 /***/ function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports) {
 
 module.exports = require("ejs");
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports) {
 
 module.exports = require("http");
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports) {
 
 module.exports = require("path");
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -685,6 +692,14 @@ var _commentModel = __webpack_require__(10);
 
 var _commentModel2 = _interopRequireDefault(_commentModel);
 
+var _result = __webpack_require__(1);
+
+var _result2 = _interopRequireDefault(_result);
+
+var _resultCodes = __webpack_require__(2);
+
+var _resultCodes2 = _interopRequireDefault(_resultCodes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = (0, _express.Router)();
@@ -708,6 +723,21 @@ router.post('/', _passport2.default.authenticate('jwt', { session: false }), fun
   }).catch(function (errorResult) {
     return res.json(errorResult);
   });
+});
+
+router.post('/:pageNumber/:pageSize', _passport2.default.authenticate('jwt', { session: false }), function (req, res, next) {
+
+  var pageNumber = Number(req.params.pageNumber);
+  var pageSize = Number(req.params.pageSize);
+  if (req.body.filterData) {
+    _bloglog.articleService.get(req.body.filterData, (pageNumber - 1) * pageSize, pageSize).then(function (result) {
+      return res.json(result);
+    }).catch(function (errorResult) {
+      return res.json(errorResult);
+    });
+  } else {
+    res.json(new _result2.default(null, false, "The given body invalid", _resultCodes2.default.InvalidArguments()));
+  }
 });
 
 router.put('/', _passport2.default.authenticate('jwt', { session: false }), function (req, res, next) {
@@ -758,7 +788,7 @@ router.post('/:id/comments', function (req, res, next) {
 exports.default = router;
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -781,8 +811,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var router = (0, _express.Router)();
 
 router.get('/', function (req, res, next) {
-  debugger;
-  _bloglog.tagService.getTags().then(function (result) {
+  _bloglog.tagService.getTagsByText(req.query.text).then(function (result) {
     res.json(result);
   }).catch(function (errorResult) {
     res.json(errorResult);
@@ -792,7 +821,7 @@ router.get('/', function (req, res, next) {
 exports.default = router;
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -848,7 +877,7 @@ var articleSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('articles', articleSchema);
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -892,7 +921,7 @@ var commentSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('comments', commentSchema);
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -923,7 +952,7 @@ var tagSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('tags', tagSchema);
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -959,7 +988,7 @@ var userSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('users', userSchema);
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -985,7 +1014,7 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _articleDataModel = __webpack_require__(46);
+var _articleDataModel = __webpack_require__(48);
 
 var _articleDataModel2 = _interopRequireDefault(_articleDataModel);
 
@@ -1051,6 +1080,62 @@ var ArticleRepository = function () {
                             }
 
                             _articleDataModel2.default.count(function (err, count) {
+                                if (err) {
+                                    reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                                }
+
+                                resolve(new _result2.default(new _pageResult2.default(articleModels, count), true, "", _resultCodes2.default.Success()));
+                            });
+                        })();
+                    }
+                });
+            });
+        }
+    }, {
+        key: 'getByTagValue',
+        value: function getByTagValue(filterData, skip, count) {
+
+            var queryFilter = {};
+            if (filterData.tags) {
+                queryFilter["tags"] = { $all: filterData.tags };
+            }
+
+            return new _promise2.default(function (resolve, reject) {
+
+                _articleDataModel2.default.find(queryFilter).sort('-createDateTime').skip(skip).limit(count).exec(function (err, articles) {
+                    if (err) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                    } else if (!articles) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.ObjectNotFound()));
+                    } else {
+                        (function () {
+                            var articleModels = [];
+                            var _iteratorNormalCompletion2 = true;
+                            var _didIteratorError2 = false;
+                            var _iteratorError2 = undefined;
+
+                            try {
+                                for (var _iterator2 = (0, _getIterator3.default)(articles), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                                    var article = _step2.value;
+
+                                    articleModels.push(MapToArticleModel(article));
+                                }
+                            } catch (err) {
+                                _didIteratorError2 = true;
+                                _iteratorError2 = err;
+                            } finally {
+                                try {
+                                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                                        _iterator2.return();
+                                    }
+                                } finally {
+                                    if (_didIteratorError2) {
+                                        throw _iteratorError2;
+                                    }
+                                }
+                            }
+
+                            _articleDataModel2.default.count(queryFilter, function (err, count) {
                                 if (err) {
                                     reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
                                 }
@@ -1139,7 +1224,7 @@ function MapToArticleModel(articleDataModel) {
 }
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1165,7 +1250,7 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _commentDataModel = __webpack_require__(47);
+var _commentDataModel = __webpack_require__(49);
 
 var _commentDataModel2 = _interopRequireDefault(_commentDataModel);
 
@@ -1262,7 +1347,7 @@ function MapToCommentModel(commentDataModel) {
 }
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1288,7 +1373,7 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _tagDataModel = __webpack_require__(48);
+var _tagDataModel = __webpack_require__(50);
 
 var _tagDataModel2 = _interopRequireDefault(_tagDataModel);
 
@@ -1312,9 +1397,9 @@ var TagRepository = function () {
     }
 
     (0, _createClass3.default)(TagRepository, [{
-        key: 'get',
-        value: function get(values) {
-            debugger;
+        key: 'getByValues',
+        value: function getByValues(values) {
+
             return new _promise2.default(function (resolve, reject) {
                 _tagDataModel2.default.find({ value: { $in: values } }).exec(function (err, tags) {
                     if (err) {
@@ -1354,44 +1439,127 @@ var TagRepository = function () {
             });
         }
     }, {
+        key: 'getContainsText',
+        value: function getContainsText(text) {
+
+            return new _promise2.default(function (resolve, reject) {
+                _tagDataModel2.default.find({ value: { "$regex": text, "$options": "i" } }).exec(function (err, tags) {
+                    if (err) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                    } else if (!tags) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.ObjectNotFound()));
+                    } else {
+                        var tagModels = [];
+                        var _iteratorNormalCompletion2 = true;
+                        var _didIteratorError2 = false;
+                        var _iteratorError2 = undefined;
+
+                        try {
+                            for (var _iterator2 = (0, _getIterator3.default)(tags), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                                var tag = _step2.value;
+
+                                tagModels.push(MapToTagModel(tag));
+                            }
+                        } catch (err) {
+                            _didIteratorError2 = true;
+                            _iteratorError2 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                                    _iterator2.return();
+                                }
+                            } finally {
+                                if (_didIteratorError2) {
+                                    throw _iteratorError2;
+                                }
+                            }
+                        }
+
+                        resolve(new _result2.default(tagModels, true, "", _resultCodes2.default.Success()));
+                    }
+                });
+            });
+        }
+    }, {
+        key: 'getArticleIdsByTagIds',
+        value: function getArticleIdsByTagIds(tagIds, skip, count) {
+            return new _promise2.default(function (resolve, reject) {
+
+                _tagDataModel2.default.find({ _id: { "$in": tagIds } }).exec(function (err, tags) {
+                    if (err) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                    } else if (!tags) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.ObjectNotFound()));
+                    } else {
+                        var tagModels = [];
+                        var _iteratorNormalCompletion3 = true;
+                        var _didIteratorError3 = false;
+                        var _iteratorError3 = undefined;
+
+                        try {
+                            for (var _iterator3 = (0, _getIterator3.default)(tags), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                                var tag = _step3.value;
+
+                                tagModels.push(MapToTagModel(tag));
+                            }
+                        } catch (err) {
+                            _didIteratorError3 = true;
+                            _iteratorError3 = err;
+                        } finally {
+                            try {
+                                if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                                    _iterator3.return();
+                                }
+                            } finally {
+                                if (_didIteratorError3) {
+                                    throw _iteratorError3;
+                                }
+                            }
+                        }
+
+                        resolve(new _result2.default(tagModels, true, "", _resultCodes2.default.Success()));
+                    }
+                });
+            });
+        }
+    }, {
         key: 'createOrUpdateByArticleId',
         value: function createOrUpdateByArticleId(articleId, tagValues) {
             return new _promise2.default(function (resolve, reject) {
 
                 var updates = [];
-                var _iteratorNormalCompletion2 = true;
-                var _didIteratorError2 = false;
-                var _iteratorError2 = undefined;
+                var _iteratorNormalCompletion4 = true;
+                var _didIteratorError4 = false;
+                var _iteratorError4 = undefined;
 
                 try {
-                    for (var _iterator2 = (0, _getIterator3.default)(tagValues), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                        var tagValue = _step2.value;
+                    for (var _iterator4 = (0, _getIterator3.default)(tagValues), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                        var tagValue = _step4.value;
 
                         updates.push({
                             q: { value: tagValue },
-                            u: { value: tagValue, $addToSet: { articles: articleId } },
+                            u: { $set: { value: tagValue }, $addToSet: { articles: articleId } },
                             upsert: true });
                     }
                 } catch (err) {
-                    _didIteratorError2 = true;
-                    _iteratorError2 = err;
+                    _didIteratorError4 = true;
+                    _iteratorError4 = err;
                 } finally {
                     try {
-                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                            _iterator2.return();
+                        if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                            _iterator4.return();
                         }
                     } finally {
-                        if (_didIteratorError2) {
-                            throw _iteratorError2;
+                        if (_didIteratorError4) {
+                            throw _iteratorError4;
                         }
                     }
                 }
 
-                debugger;
                 _tagDataModel2.default.db.db.command({
                     update: "tags",
                     updates: updates,
-                    ordered: false,
+                    ordered: true,
                     writeConcern: { w: "majority", wtimeout: 10000 }
                 }).then(function (commandResult) {
                     return resolve(new _result2.default(commandResult.upserted, true, "Success", _resultCodes2.default.Success()));
@@ -1417,7 +1585,7 @@ function MapToTagModel(tagDataModel) {
 }
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1439,7 +1607,7 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _userDataModel = __webpack_require__(49);
+var _userDataModel = __webpack_require__(51);
 
 var _userDataModel2 = _interopRequireDefault(_userDataModel);
 
@@ -1495,7 +1663,7 @@ function MapToUserModel(user) {
 }
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1544,6 +1712,18 @@ var ArticleService = function () {
     key: 'getRecent',
     value: function getRecent() {
       return _bloglog.articleRepository.get(0, 10);
+    }
+  }, {
+    key: 'get',
+    value: function get(filterData, skip, count) {
+
+      return new _promise2.default(function (resolve, reject) {
+        _bloglog.articleRepository.getByTagValue(filterData, skip, count).then(function (result) {
+          resolve(result);
+        }).catch(function (errorResult) {
+          reject(errorResult);
+        });
+      });
     }
   }, {
     key: 'add',
@@ -1660,7 +1840,7 @@ function checkArticle(article) {
 }
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1755,7 +1935,7 @@ function checkComment(comment) {
 }
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1799,13 +1979,18 @@ var TagService = function () {
   }
 
   (0, _createClass3.default)(TagService, [{
-    key: 'getTagsByValues',
-    value: function getTagsByValues(values) {
-      if (Array.isArray(values)) {
-        return _bloglog.tagRepository.get(values);
+    key: 'getTagsByText',
+    value: function getTagsByText(text) {
+      return _bloglog.tagRepository.getContainsText(text);
+    }
+  }, {
+    key: 'getArticleIdsByTagIds',
+    value: function getArticleIdsByTagIds(tagIds, skip, count) {
+      if (Array.isArray(tagIds)) {
+        return _bloglog.tagRepository.getArticleIdsByTagIds(tagIds, skip, count);
       }
 
-      return _promise2.default.reject(new _result2.default(null, false, "Given tag values is not Array", _resultCodes2.default.InvalidObject()));
+      return _promise2.default.reject(new _result2.default(null, false, "Given tagIds is not Array", _resultCodes2.default.InvalidObject()));
     }
   }, {
     key: 'createOrUpdateByArticleId',
@@ -1841,7 +2026,7 @@ function checkTag(tag) {
 }
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1932,31 +2117,31 @@ function checkUser(user) {
 }
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./views/index.html";
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports) {
 
 module.exports = require("jwt-simple");
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports) {
 
 module.exports = require("passport-jwt");
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _path = __webpack_require__(43);
+var _path = __webpack_require__(45);
 
 var _path2 = _interopRequireDefault(_path);
 
@@ -1964,11 +2149,11 @@ var _express = __webpack_require__(5);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _http = __webpack_require__(42);
+var _http = __webpack_require__(44);
 
 var _http2 = _interopRequireDefault(_http);
 
-var _bodyParser = __webpack_require__(40);
+var _bodyParser = __webpack_require__(42);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
@@ -1980,7 +2165,7 @@ var _bloglog = __webpack_require__(18);
 
 var _bloglog2 = _interopRequireDefault(_bloglog);
 
-var _bloglog3 = __webpack_require__(33);
+var _bloglog3 = __webpack_require__(35);
 
 var _bloglog4 = _interopRequireDefault(_bloglog3);
 
@@ -1999,7 +2184,7 @@ app.use(_express2.default.static('./dist'));
 app.use(_express2.default.static('./node_modules'));
 
 app.set('view engine', 'html');
-app.engine('html', __webpack_require__(41).renderFile);
+app.engine('html', __webpack_require__(43).renderFile);
 app.set('views', _path2.default.join(__dirname, '/views'));
 
 _bloglog6.default.initialize(app);

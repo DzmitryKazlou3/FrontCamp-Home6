@@ -15,16 +15,26 @@ export default class TagService {
   }
 
   /*
-   * gets tags by values
+   * gets tags contains text
    */
-  getTagsByValues(values) {
-    if(Array.isArray(values)){
-        return tagRepository.get(values);
-    }
-
-    return Promise.reject(new Result(null, false, "Given tag values is not Array", ResultCodes.InvalidObject()))
+  getTagsByText(text) {
+    return tagRepository.getContainsText(text);
   };
 
+  /*
+   * gets tags by values
+   */
+  getArticleIdsByTagIds(tagIds, skip, count) {
+    if(Array.isArray(tagIds)){
+        return tagRepository.getArticleIdsByTagIds(tagIds, skip, count);
+    }
+
+    return Promise.reject(new Result(null, false, "Given tagIds is not Array", ResultCodes.InvalidObject()))
+  };
+
+  /*
+   * creates or updates tags with articleId
+   */
   createOrUpdateByArticleId(articleId, tagValues) {
     if (Array.isArray(tagValues)) {
       return tagRepository.createOrUpdateByArticleId(articleId, tagValues);

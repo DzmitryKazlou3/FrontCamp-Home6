@@ -51,6 +51,45 @@ export default class ArticleRepository {
         });
     }
 
+    getByTagValue(filterData, skip, count) {
+        
+        let queryFilter = {};
+        if(filterData.tags){
+            queryFilter["tags"] = { $all: filterData.tags };
+        }
+
+        return new Promise(function (resolve, reject) {
+
+            articleDataModel
+                .find(queryFilter)
+                .sort('-createDateTime')
+                .skip(skip)
+                .limit(count)
+                .exec(function (err, articles) {
+                    if (err) {
+                        reject(new Result(null, false, err, ResultCodes.Error()));
+                    }
+                    else if (!articles) {
+                        reject(new Result(null, false, err, ResultCodes.ObjectNotFound()));
+                    }
+                    else {
+                        let articleModels = [];
+                        for (let article of articles) {
+                            articleModels.push(MapToArticleModel(article));
+                        }
+
+                        articleDataModel.count(queryFilter, function (err, count) {
+                            if (err) {
+                                reject(new Result(null, false, err, ResultCodes.Error()));
+                            }
+
+                            resolve(new Result(new PageResult(articleModels, count), true, "", ResultCodes.Success()));
+                        });
+                    }
+                });
+        });
+    }
+
     /*
      * gets article by Id
      */

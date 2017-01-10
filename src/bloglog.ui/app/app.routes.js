@@ -6,7 +6,7 @@
      function ($stateProvider, $urlRouterProvider) {
          $stateProvider.state('home', { url: '', component: 'home' });
          $stateProvider.state('articles', { url: '/articles', component: 'articles' });
-         $stateProvider.state('articleDetail', { url: '/article', component: 'articleDetail' });
+         $stateProvider.state('articleDetail', { url: '/articles/:id', component: 'articleDetail' });
             
             // { 
             // name: 'people', 

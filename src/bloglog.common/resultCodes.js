@@ -17,4 +17,5 @@ export default class ResultCodes{
     static ObjectNotFound() { return 2;}
     static ObjectExists() { return 3;}
     static Unathorized() { return 4;}
+    static InvalidArguments() { return 5;}
 }

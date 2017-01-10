@@ -207,14 +207,11 @@ search-article {
 }
 .search-content {
   overflow: auto;
-  position: absolute;
-  height: 60px;
   top: 0px;
   left: 0px;
   right: 0px;
 }
 .search-footer {
-  position: absolute;
   bottom: 0px;
   left: 0px;
   right: 0px;

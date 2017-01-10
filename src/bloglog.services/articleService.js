@@ -22,6 +22,20 @@ export default class ArticleService {
     return articleRepository.get(0, 10);
   };
 
+  get(filterData, skip, count){
+    
+    return new Promise(function (resolve, reject) {
+      articleRepository.getByTagValue(filterData, skip, count)
+        .then(result => {
+          resolve(result);
+        })
+        .catch(errorResult => {
+          reject(errorResult);
+        });
+
+    });
+  }
+
   /*
    * adds article
    */

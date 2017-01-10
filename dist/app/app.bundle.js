@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 63);
+/******/ 	return __webpack_require__(__webpack_require__.s = 65);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -102,7 +102,7 @@
         angular.module("bloglog").config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
                 $stateProvider.state('home', { url: '', component: 'home' });
                 $stateProvider.state('articles', { url: '/articles', component: 'articles' });
-                $stateProvider.state('articleDetail', { url: '/article', component: 'articleDetail' });
+                $stateProvider.state('articleDetail', { url: '/articles/:id', component: 'articleDetail' });
 
                 $urlRouterProvider.otherwise('');
         }]);
@@ -118,11 +118,82 @@
 
 (function () {
 
+    angular.module('bloglog').component('articleDetail', {
+        templateUrl: 'articleDetail.html',
+        controller: 'ArticleDetailController',
+        controllerAs: 'vm'
+    });
+
+    angular.module('bloglog').controller('ArticleDetailController', ArticleDetailController);
+
+    ArticleDetailController.$inject = ['articleService', '$mdDialog', '$rootScope', 'EVENTS'];
+
+    function ArticleDetailController(articleService, $mdDialog, $rootScope, EVENTS) {
+
+        var vm = this;
+
+        vm.article = {};
+
+        vm.updateArticle = updateArticle;
+        vm.deleteArticle = deleteArticle;
+
+        function loadArticles() {
+            articleService.getRecentArticles().then(function (pageResult) {
+                vm.articles = pageResult.data;
+                vm.totalItemsCount = pageResult.count;
+            }).catch(function (error) {});
+        }
+
+        loadArticles();
+
+        function updateArticle(article) {
+
+            $mdDialog.show({
+                controller: 'ArticleDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'articleModalContent.html',
+                parent: angular.element(document.body),
+                bindToController: true,
+                clickOutsideToClose: false,
+                escapeToClose: true,
+                fullscreen: false,
+                locals: {
+                    existingArticle: null,
+                    dialogTitle: "Update Article..."
+                }
+            }).then(function (article) {
+
+                articleService.updateArticle(article).then(function (pageResult) {
+                    debugger;
+                }).catch(function (error) {
+                    alert(error.data);
+                });
+            }).catch(function () {
+                console.log("cancel");
+            });
+        }
+
+        function deleteArticle(article) {
+            articleService.deleteArticle(article).then(function (resulrt) {}).catch(function (error) {});
+        }
+    }
+})();
+
+/***/ },
+
+/***/ 23:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+
     angular.module('bloglog').controller('ArticleDialogController', ArticleDialogController);
 
-    ArticleDialogController.$inject = ['articleService', '$mdDialog', '$rootScope', 'EVENTS', 'existingArticle', 'dialogTitle'];
+    ArticleDialogController.$inject = ['$scope', 'articleService', '$mdDialog', '$rootScope', 'EVENTS', 'existingArticle', 'dialogTitle'];
 
-    function ArticleDialogController(articleService, $mdDialog, $rootScope, EVENTS, existingArticle, dialogTitle) {
+    function ArticleDialogController($scope, articleService, $mdDialog, $rootScope, EVENTS, existingArticle, dialogTitle) {
 
         var vm = this;
 
@@ -134,13 +205,14 @@
 
         vm.chips = {};
         vm.tags = [];
+        vm.tagSearchText = "";
         vm.chips.transformChip = transformChip;
         vm.chips.querySearch = querySearch;
         vm.chips.autocompleteDemoRequireMatch = false;
         vm.chips.selectedTags = [];
+        vm.findTagsByText = findTagsByText;
 
         vm.ok = function (article) {
-            var vmm = vm;
             $mdDialog.hide(article);
         };
 
@@ -172,12 +244,14 @@
                 return tag.indexOf(lowercaseQuery) === 0;
             };
         }
+
+        function findTagsByText(text) {}
     }
 })();
 
 /***/ },
 
-/***/ 23:
+/***/ 24:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -193,14 +267,13 @@
 
     angular.module('bloglog').controller('ArticlesController', ArticlesController);
 
-    ArticlesController.$inject = ['articleService', '$state', '$mdDialog', '$rootScope', 'EVENTS', '$mdMedia', '$mdSidenav'];
+    ArticlesController.$inject = ['$scope', 'articleService', '$state', '$mdDialog', '$rootScope', 'EVENTS', '$mdMedia', '$mdSidenav'];
 
-    function ArticlesController(articleService, $state, $mdDialog, $rootScope, EVENTS, $mdMedia, $mdSidenav) {
+    function ArticlesController($scope, articleService, $state, $mdDialog, $rootScope, EVENTS, $mdMedia, $mdSidenav) {
 
         var vm = this;
 
         vm.articles = [];
-        vm.totalItemsCount = 0;
 
         vm.addArticle = addArticle;
         vm.updateArticle = updateArticle;
@@ -208,17 +281,31 @@
         vm.home = function () {
             $state.go('home');
         };
+        vm.filterData = {};
+        vm.pageSize = 10;
+        vm.currentPage = 1;
+        vm.pageCount = 1;
+        vm.pageChanged = onPageChanged;
+        vm.navigateToItem = navigateToItem;
 
         vm.toggleSearchPanel = buildToggler;
 
-        function loadArticles() {
-            articleService.getRecentArticles().then(function (pageResult) {
-                vm.articles = pageResult.data;
-                vm.totalItemsCount = pageResult.count;
-            }).catch(function (error) {});
-        }
+        $scope.$on(EVENTS.SEARCH, function (event, filterData) {
+            vm.filterData = filterData;
+            vm.currentPage = 1;
+            loadArticles();
+        });
 
         loadArticles();
+
+        function loadArticles() {
+            articleService.getArticlesByFilter(vm.filterData, vm.currentPage, vm.pageSize).then(function (result) {
+                vm.articles = result.data;
+                vm.pageCount = Math.ceil(result.count / vm.pageSize);
+            }).catch(function (errorResult) {
+                alert(errorResult.message);
+            });
+        }
 
         function addArticle() {
             $mdDialog.show({
@@ -244,6 +331,10 @@
             }).catch(function () {
                 console.log("cancel");
             });
+        }
+
+        function onPageChanged() {
+            loadArticles();
         }
 
         function updateArticle(article) {
@@ -280,12 +371,16 @@
         function buildToggler(navID) {
             $mdSidenav(navID).toggle().then(function () {});
         }
+
+        function navigateToItem(article) {
+            $state.go('articleDetail', { id: article.id });
+        }
     }
 })();
 
 /***/ },
 
-/***/ 24:
+/***/ 25:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -301,18 +396,22 @@
 
     angular.module('bloglog').controller('SearchArticlesController', SearchArticlesController);
 
-    SearchArticlesController.$inject = ['articleService', '$state', '$mdDialog', '$rootScope', 'EVENTS', '$mdMedia', '$mdSidenav'];
+    SearchArticlesController.$inject = ['$scope', 'articleService', 'tagService', '$state', '$mdDialog', '$rootScope', 'EVENTS', '$mdMedia', '$mdSidenav'];
 
-    function SearchArticlesController(articleService, $state, $mdDialog, $rootScope, EVENTS, $mdMedia, $mdSidenav) {
+    function SearchArticlesController($scope, articleService, tagService, $state, $mdDialog, $rootScope, EVENTS, $mdMedia, $mdSidenav) {
 
         var vm = this;
 
         vm.tags = [];
         vm.chips = {};
         vm.chips.transformChip = transformChip;
-        vm.chips.querySearch = querySearch;
         vm.chips.autocompleteDemoRequireMatch = true;
         vm.chips.selectedTags = [];
+
+        vm.findTagsByText = findTagsByText;
+        vm.tagSearchText = "";
+
+        vm.search = search;
 
         function transformChip(chip) {
             if (angular.isObject(chip)) {
@@ -322,11 +421,6 @@
             return chip;
         }
 
-        function querySearch(query) {
-            var results = query ? vm.tags.filter(createFilterFor(query)) : [];
-            return results;
-        }
-
         function createFilterFor(query) {
             var lowercaseQuery = angular.lowercase(query);
 
@@ -334,12 +428,35 @@
                 return tag.indexOf(lowercaseQuery) === 0;
             };
         }
+
+        function findTagsByText(text) {
+            return tagService.findTagsByText(text).then(function (result) {
+                return result.data;
+            }).catch(function (errorResult) {
+                return alert(errorResult.message);
+            });
+        }
+
+        function search() {
+            var filterData = {};
+            if (vm.tags && vm.tags.length > 0) {
+                (function () {
+                    var tagValues = [];
+                    angular.forEach(vm.tags, function (tag) {
+                        tagValues.push(tag.value);
+                    });
+                    filterData.tags = tagValues;
+                })();
+            }
+
+            $scope.$emit(EVENTS.SEARCH, filterData);
+        }
     }
 })();
 
 /***/ },
 
-/***/ 25:
+/***/ 26:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -385,7 +502,7 @@
 
 /***/ },
 
-/***/ 26:
+/***/ 27:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -421,7 +538,7 @@
 
 /***/ },
 
-/***/ 27:
+/***/ 28:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -456,7 +573,7 @@
 
 /***/ },
 
-/***/ 28:
+/***/ 29:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -551,7 +668,7 @@
 
 /***/ },
 
-/***/ 29:
+/***/ 30:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -573,13 +690,14 @@
         LOGIN: "login/",
         COMMENTS: "comments/"
     }).constant('EVENTS', {
-        ARTICLE_ADDED: "Article_Added"
+        ARTICLE_ADDED: "Article_Added",
+        SEARCH: "SEARCH"
     });
 })();
 
 /***/ },
 
-/***/ 30:
+/***/ 31:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -668,7 +786,7 @@
 
 /***/ },
 
-/***/ 31:
+/***/ 32:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -681,8 +799,9 @@
     articleService.$inject = ['$http', 'URLS', '$q'];
 
     function articleService($http, URLS, $q) {
-        var service = {
+        return {
             getRecentArticles: getRecentArticles,
+            getArticlesByFilter: getArticlesByFilter,
             addArticle: addArticle,
             updateArticle: updateArticle,
             deleteArticle: deleteArticle
@@ -697,6 +816,18 @@
                 return $q.reject(error);
             });
         };
+
+        function getArticlesByFilter(filterData, pageNumber, pageSize) {
+
+            return $http.post(URLS.BASE + URLS.ARTICLES + pageNumber + "/" + pageSize, { filterData: filterData }).then(function (responce) {
+                if (responce.data && responce.data.success) {
+                    return responce.data.data;
+                }
+            }).catch(function (error) {
+                console.log(error);
+                return $q.reject(error);
+            });
+        }
 
         function addArticle(article) {
 
@@ -727,14 +858,12 @@
                 return $q.reject(error);
             });
         }
-
-        return service;
     }
 })();
 
 /***/ },
 
-/***/ 32:
+/***/ 33:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -780,22 +909,55 @@
 
 /***/ },
 
-/***/ 63:
+/***/ 34:
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+
+    angular.module('bloglog').service('tagService', tagService);
+
+    tagService.$inject = ['$http', 'URLS', '$q'];
+
+    function tagService($http, URLS, $q) {
+        return {
+            findTagsByText: findTagsByText
+        };
+
+        function findTagsByText(text) {
+
+            return $http.get(URLS.BASE + URLS.TAGS + "?text=" + text).then(function (responce) {
+                return responce.data;
+            }).catch(function (error) {
+                console.log(error);
+                return $q.reject(error);
+            });
+        };
+    }
+})();
+
+/***/ },
+
+/***/ 65:
 /***/ function(module, exports, __webpack_require__) {
 
 __webpack_require__(20);
 __webpack_require__(21);
+__webpack_require__(30);
 __webpack_require__(29);
-__webpack_require__(28);
+__webpack_require__(33);
 __webpack_require__(32);
+__webpack_require__(26);
+__webpack_require__(34);
 __webpack_require__(31);
 __webpack_require__(25);
-__webpack_require__(30);
-__webpack_require__(24);
 __webpack_require__(22);
 __webpack_require__(23);
-__webpack_require__(26);
-module.exports = __webpack_require__(27);
+__webpack_require__(24);
+__webpack_require__(27);
+module.exports = __webpack_require__(28);
 
 
 /***/ }

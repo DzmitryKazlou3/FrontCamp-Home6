@@ -6,9 +6,9 @@
         .module('bloglog')
         .controller('ArticleDialogController', ArticleDialogController);
 
-    ArticleDialogController.$inject = ['articleService', '$mdDialog', '$rootScope', 'EVENTS', 'existingArticle', 'dialogTitle'];
+    ArticleDialogController.$inject = ['$scope', 'articleService', '$mdDialog', '$rootScope', 'EVENTS', 'existingArticle', 'dialogTitle'];
 
-    function ArticleDialogController(articleService, $mdDialog, $rootScope, EVENTS, existingArticle, dialogTitle) {
+    function ArticleDialogController($scope, articleService, $mdDialog, $rootScope, EVENTS, existingArticle, dialogTitle) {
 
         let vm = this;
 
@@ -20,13 +20,14 @@
         
         vm.chips = {};
         vm.tags = [];
+        vm.tagSearchText = "";
         vm.chips.transformChip = transformChip;
         vm.chips.querySearch = querySearch;
         vm.chips.autocompleteDemoRequireMatch = false;
         vm.chips.selectedTags = [];
+        vm.findTagsByText = findTagsByText;
 
         vm.ok = article => {
-            let vmm = vm;
             $mdDialog.hide(article);
         }
 
@@ -62,6 +63,10 @@
             return function filterFn(tag) {
                 return (tag.indexOf(lowercaseQuery) === 0);
             };
+
+        }
+
+        function findTagsByText(text){
 
         }
 

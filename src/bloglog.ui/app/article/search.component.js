@@ -14,18 +14,22 @@
         .module('bloglog')
         .controller('SearchArticlesController', SearchArticlesController);
 
-    SearchArticlesController.$inject = ['articleService', '$state', '$mdDialog', '$rootScope', 'EVENTS', '$mdMedia', '$mdSidenav'];
+    SearchArticlesController.$inject = ['$scope', 'articleService', 'tagService', '$state', '$mdDialog', '$rootScope', 'EVENTS', '$mdMedia', '$mdSidenav'];
 
-    function SearchArticlesController(articleService, $state, $mdDialog, $rootScope, EVENTS, $mdMedia, $mdSidenav) {
+    function SearchArticlesController($scope, articleService, tagService, $state, $mdDialog, $rootScope, EVENTS, $mdMedia, $mdSidenav) {
 
         let vm = this;
 
         vm.tags = [];
         vm.chips = {};
         vm.chips.transformChip = transformChip;
-        vm.chips.querySearch = querySearch;
         vm.chips.autocompleteDemoRequireMatch = true;
         vm.chips.selectedTags = [];
+        
+        vm.findTagsByText = findTagsByText;        
+        vm.tagSearchText = "";
+
+        vm.search = search;
 
         //////////////////////////////////////////////////////////////////////
         function transformChip(chip) {
@@ -39,14 +43,6 @@
         }
 
         /**
-         * Search for tags.
-         */
-        function querySearch(query) {
-            var results = query ? vm.tags.filter(createFilterFor(query)) : [];
-            return results;
-        }
-
-        /**
          * Create filter function for a query string
          */
         function createFilterFor(query) {
@@ -55,6 +51,25 @@
             return function filterFn(tag) {
                 return (tag.indexOf(lowercaseQuery) === 0);
             };
+        }
+
+        function findTagsByText(text) {
+            return tagService.findTagsByText(text)
+                .then(result => { 
+                    return result.data;
+                })
+                .catch(errorResult => alert(errorResult.message));
+        }
+
+        function search() {
+            let filterData = {};
+            if (vm.tags && vm.tags.length > 0) {
+                let tagValues = [];
+                angular.forEach(vm.tags, function(tag) {tagValues.push(tag.value)});
+                filterData.tags = tagValues;
+            }
+
+            $scope.$emit(EVENTS.SEARCH, filterData);
         }
 
     }

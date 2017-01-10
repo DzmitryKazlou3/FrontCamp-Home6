@@ -8,6 +8,9 @@ import { articleService, commentService } from '../bloglog.services';
 import ArticleModel from '../bloglog.models/articleModel.js';
 import CommentModel from '../bloglog.models/commentModel.js';
 
+import Result from '../bloglog.common/result.js';
+import ResultCodes from '../bloglog.common/resultCodes.js';
+
 
 
 /* -------------- implementation -------------- */
@@ -47,6 +50,20 @@ router.post('/', passport.authenticate('jwt', { session: false}), (req, res, nex
       }))
     .then((result) => res.json(result))
     .catch((errorResult) => res.json(errorResult));
+
+});
+
+router.post('/:pageNumber/:pageSize', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  
+  let pageNumber = Number(req.params.pageNumber);
+  let pageSize = Number(req.params.pageSize);
+  if (req.body.filterData) {
+    articleService.get(req.body.filterData, (pageNumber - 1) * pageSize, pageSize)
+      .then((result) => res.json(result))
+      .catch((errorResult) => res.json(errorResult));
+  } else{
+    res.json(new Result(null, false, "The given body invalid", ResultCodes.InvalidArguments()));
+  }
 
 });
 

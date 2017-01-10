@@ -9,8 +9,9 @@
     articleService.$inject = ['$http', 'URLS', '$q'];
 
     function articleService($http, URLS, $q) {
-        let service = {
+        return {
             getRecentArticles: getRecentArticles,
+            getArticlesByFilter: getArticlesByFilter,
             addArticle: addArticle,
             updateArticle: updateArticle,
             deleteArticle: deleteArticle
@@ -31,6 +32,25 @@
                 });
 
         };
+
+        /*
+        * gets articles with filter
+        */
+        function getArticlesByFilter(filterData, pageNumber, pageSize) {
+
+            return $http.post(
+                URLS.BASE + URLS.ARTICLES + pageNumber + "/" + pageSize,
+                { filterData: filterData })
+                .then((responce) => {
+                    if (responce.data && responce.data.success) {
+                        return responce.data.data;
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    return $q.reject(error);
+                });
+        }
 
         /*
         * adds article
@@ -84,7 +104,5 @@
                 });
 
         }
-
-        return service;
     }
 })();

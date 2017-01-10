@@ -4,27 +4,23 @@
 
     angular
         .module('bloglog')
-        .service('articleService', articleService);
+        .service('tagService', tagService);
 
-    articleService.$inject = ['$http', 'URLS', '$q'];
+    tagService.$inject = ['$http', 'URLS', '$q'];
 
-    function articleService($http, URLS, $q) {
-        let service = {
-            getRecentArticles: getRecentArticles,
-            addArticle: addArticle,
-            updateArticle: updateArticle,
-            deleteArticle: deleteArticle
+    function tagService($http, URLS, $q) {
+        return {
+            findTagsByText: findTagsByText
         };
 
         /*
-        * get tags by value
-        * not a strong equality. tag value should contain given parameter.
+        * get tags, which contain the given text.
         */
-        function getTagsContainsValue(value) {
+        function findTagsByText(text) {
 
-            return $http.get(URLS.BASE + URLS.TAGS + "?value=" + value)
+            return $http.get(URLS.BASE + URLS.TAGS + "?text=" + text)
                 .then((responce) => {
-                    return responce.data.data;
+                    return responce.data;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -33,59 +29,5 @@
 
         };
 
-        /*
-        * adds article
-        */
-        // function addArticle(article) {
-
-        //     return $http.post(
-        //         URLS.BASE + URLS.ARTICLES,
-        //         article)
-        //         .then((responce) => {
-        //             return responce.data;
-        //         })
-        //         .catch((error) => {
-        //             console.log(error);
-        //             return $q.reject(error);
-        //         });
-
-        // }
-
-        /*
-        * updates article
-        */
-        // function updateArticle(article) {
-
-        //     return $http.put(
-        //         URLS.BASE + URLS.ARTICLES,
-        //         article)
-        //         .then((responce) => {
-        //             return responce.data;
-        //         })
-        //         .catch((error) => {
-        //             console.log(error);
-        //             return $q.reject(error);
-        //         });
-
-        // }
-
-        /*
-        * deletes article
-        */
-        // function deleteArticle(article) {
-
-        //     return $http.delete(
-        //         URLS.BASE + URLS.ARTICLES + article.id)
-        //         .then((responce) => {
-        //             return responce.data;
-        //         })
-        //         .catch((error) => {
-        //             console.log(error);
-        //             return $q.reject(error);
-        //         });
-
-        // }
-
-        // return service;
     }
 })();

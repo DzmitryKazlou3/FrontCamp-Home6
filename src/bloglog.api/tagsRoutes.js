@@ -12,8 +12,7 @@ const router = Router();
     get all
 */
 router.get('/', (req, res, next) => {
-debugger;
-  tagService.getTags()
+  tagService.getTagsByText(req.query.text)
     .then(function (result) {
       res.json(result);
     })
