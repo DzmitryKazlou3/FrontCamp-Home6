@@ -125,6 +125,7 @@
   font-weight: normal;
   color: #AAAAAA;
 }
+.article-list-item-text,
 .article-list-item-description {
   font-size: 14px;
   font-weight: normal;
@@ -216,6 +217,62 @@ search-article {
   left: 0px;
   right: 0px;
   top: 60px;
+}
+.article-details-container {
+  background: transparent;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.article-list-item-header.details {
+  padding: 8px;
+}
+.article-details-content {
+  border-bottom: 1px solid #DDDDDD;
+}
+.article-details-header {
+  font-size: 24px;
+  font-weight: bold;
+  color: #3949AB;
+  padding: 16px;
+}
+.article-details-text {
+  font-size: 18px;
+  font-weight: normal;
+  color: #222222;
+  padding: 16px;
+}
+.new-comment-form-container {
+  padding: 16px;
+}
+.comments-container {
+  background: transparent;
+}
+.comments-container.even-comment {
+  background: rgba(128, 128, 128, 0.15);
+}
+.comment-item-container {
+  padding: 16px;
+  padding-left: 32px;
+  color: #222222;
+  font-size: 14px;
+  font-weight: bold;
+}
+.comment-item-user-name {
+  float: left;
+}
+.comment-item-date {
+  float: right;
+  color: #555555;
+  font-size: 12px;
+  font-weight: normal;
+}
+.comment-item-text {
+  clear: both;
+  padding-top: 8px;
+  font-weight: normal;
+  font-size: 16px;
+  font-style: oblique;
 }
 @font-face {
   font-family: LeagueGothic;

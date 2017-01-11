@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 67);
+/******/ 	return __webpack_require__(__webpack_require__.s = 70);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -71,54 +71,78 @@
 /***/ 37:
 /***/ function(module, exports) {
 
-module.exports = "../images/close.svg";
+module.exports = "../images/back.svg";
 
 /***/ },
 
 /***/ 38:
 /***/ function(module, exports) {
 
-module.exports = "../images/delete.svg";
+module.exports = "../images/close.svg";
 
 /***/ },
 
 /***/ 39:
 /***/ function(module, exports) {
 
-module.exports = "../images/home.svg";
+module.exports = "../images/delete.svg";
 
 /***/ },
 
 /***/ 40:
 /***/ function(module, exports) {
 
-module.exports = "../images/menu.svg";
+module.exports = "../images/edit.svg";
 
 /***/ },
 
 /***/ 41:
 /***/ function(module, exports) {
 
-module.exports = "../images/new.svg";
+module.exports = "../images/home.svg";
 
 /***/ },
 
 /***/ 42:
 /***/ function(module, exports) {
 
+module.exports = "../images/menu.svg";
+
+/***/ },
+
+/***/ 43:
+/***/ function(module, exports) {
+
+module.exports = "../images/new.svg";
+
+/***/ },
+
+/***/ 44:
+/***/ function(module, exports) {
+
 module.exports = "../images/rightAngle.svg";
 
 /***/ },
 
-/***/ 67:
+/***/ 45:
+/***/ function(module, exports) {
+
+module.exports = "../images/search.svg";
+
+/***/ },
+
+/***/ 70:
 /***/ function(module, exports, __webpack_require__) {
 
+__webpack_require__(42);
+__webpack_require__(39);
+__webpack_require__(43);
 __webpack_require__(40);
 __webpack_require__(38);
 __webpack_require__(41);
-__webpack_require__(37);
-__webpack_require__(39);
-module.exports = __webpack_require__(42);
+__webpack_require__(44);
+__webpack_require__(45);
+module.exports = __webpack_require__(37);
 
 
 /***/ }

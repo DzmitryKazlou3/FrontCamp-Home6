@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 66);
+/******/ 	return __webpack_require__(__webpack_require__.s = 69);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -126,9 +126,9 @@
 
     angular.module('bloglog').controller('ArticleDetailController', ArticleDetailController);
 
-    ArticleDetailController.$inject = ['articleService', 'commentService', '$stateParams', '$mdDialog', '$rootScope', 'EVENTS'];
+    ArticleDetailController.$inject = ['articleService', 'commentService', '$stateParams', '$state', '$mdDialog', '$rootScope', 'EVENTS'];
 
-    function ArticleDetailController(articleService, commentService, $stateParams, $mdDialog, $rootScope, EVENTS) {
+    function ArticleDetailController(articleService, commentService, $stateParams, $state, $mdDialog, $rootScope, EVENTS) {
 
         var vm = this;
 
@@ -136,12 +136,21 @@
         vm.id = $stateParams.id;
 
         vm.comments = [];
+        vm.comment = {};
         vm.commentsCurrentPage = 1;
         vm.commentsPageCount = 1;
         vm.commentsPageSize = 10;
+        vm.addComment = addComment;
 
-        vm.updateArticle = updateArticle;
+        vm.editArticle = editArticle;
         vm.deleteArticle = deleteArticle;
+
+        vm.home = function () {
+            $state.go('home');
+        };
+        vm.goToArticles = function () {
+            $state.go('articles');
+        };
 
         loadArticle();
         loadComments();
@@ -155,16 +164,7 @@
             });
         }
 
-        function loadComments() {
-
-            commentService.getComments(vm.id, vm.commentsCurrentPage, vm.commentsPageSize).then(function (result) {
-                vm.comments = result.data;
-            }).catch(function (error) {
-                alert(error.message);
-            });
-        }
-
-        function updateArticle(article) {
+        function editArticle(article) {
 
             $mdDialog.show({
                 controller: 'ArticleDialogController',
@@ -176,13 +176,13 @@
                 escapeToClose: true,
                 fullscreen: false,
                 locals: {
-                    existingArticle: null,
-                    dialogTitle: "Update Article..."
+                    existingArticle: article,
+                    dialogTitle: "Edit Article..."
                 }
             }).then(function (article) {
 
-                articleService.updateArticle(article).then(function (pageResult) {
-                    debugger;
+                articleService.updateArticle(article).then(function (result) {
+                    vm.article = result.data;
                 }).catch(function (error) {
                     alert(error.data);
                 });
@@ -193,6 +193,28 @@
 
         function deleteArticle(article) {
             articleService.deleteArticle(article).then(function (resulrt) {}).catch(function (error) {});
+        }
+
+        function loadComments() {
+
+            commentService.getComments(vm.id, vm.commentsCurrentPage, vm.commentsPageSize).then(function (result) {
+                vm.comments = result.data;
+            }).catch(function (error) {
+                alert(error.message);
+            });
+        }
+
+        function addComment(comment) {
+
+            if (vm.comment.text && vm.comment.text.length > 0) {
+
+                commentService.add(vm.id, vm.comment).then(function (result) {
+                    vm.comment.text = "";
+                    loadComments();
+                }).catch(function (error) {
+                    alert(error.message);
+                });
+            }
         }
     }
 })();
@@ -216,7 +238,7 @@
         var vm = this;
 
         vm.title = dialogTitle;
-        vm.article = existingArticle ? existingArticle : {};
+        vm.article = existingArticle ? angular.copy(existingArticle) : {};
         if (!existingArticle) {
             vm.article.tags = [];
         }
@@ -920,10 +942,14 @@
             });
         };
 
-        function add(article) {
+        function add(article_id, comment) {
 
-            return $http.post(URLS.BASE + URLS.COMMENTS, article).then(function (responce) {
-                return responce.data;
+            return $http.post(URLS.BASE + URLS.ARTICLES + article_id + "/" + URLS.COMMENTS + "add", comment).then(function (responce) {
+                if (responce.data && responce.data.success) {
+                    return responce.data;
+                }
+
+                return $q.reject(responce.data);
             }).catch(function (error) {
                 console.log(error);
                 return $q.reject(error);
@@ -1011,7 +1037,7 @@
 
 /***/ },
 
-/***/ 66:
+/***/ 69:
 /***/ function(module, exports, __webpack_require__) {
 
 __webpack_require__(20);

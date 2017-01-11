@@ -25,7 +25,7 @@ export default class CommentService {
    * adds comment to article
    */
   add(commentModel) {
-
+    
     // if commentModel is not valid - return error
     if (!checkComment(commentModel)) {
       return Promise.reject(new Result(null, false, "The given comment is not valid", ResultCodes.InvalidObject()));

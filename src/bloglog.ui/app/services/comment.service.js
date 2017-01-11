@@ -33,13 +33,17 @@
         /*
         * adds comment
         */
-        function add(article) {
-
+        function add(article_id, comment) {
+            
             return $http.post(
-                URLS.BASE + URLS.COMMENTS,
-                article)
+                URLS.BASE + URLS.ARTICLES + article_id + "/" + URLS.COMMENTS + "add",
+                comment)
                 .then((responce) => {
-                    return responce.data;
+                    if(responce.data && responce.data.success){
+                        return responce.data;
+                    }
+                    
+                    return $q.reject(responce.data);
                 })
                 .catch((error) => {
                     console.log(error);

@@ -23,22 +23,22 @@ const router = Router();
     
 // });
 
-router.post('/', passport.authenticate('jwt', { session: false}), (req, res, next) => {
+// router.post('/', passport.authenticate('jwt', { session: false}), (req, res, next) => {
 
-  commentService.add(
-    new Comment(
-      req.body.text,
-      req.body.value,
-      {
-        "user_id": req.user.id,
-        "name": req.user.name
-      },
-      Date.now(),
-      req.body.article_id))
-    .then(() => res.sendStatus(200))
-    .catch((result) => res.json(result));
+//   commentService.add(
+//     new Comment(
+//       req.body.text,
+//       req.body.value,
+//       {
+//         "user_id": req.user.id,
+//         "name": req.user.name
+//       },
+//       Date.now(),
+//       req.body.article_id))
+//     .then(() => res.sendStatus(200))
+//     .catch((result) => res.json(result));
 
-});
+// });
 
 // router.put('/', passport.authenticate('jwt', { session: false}), (req, res, next) => {
 

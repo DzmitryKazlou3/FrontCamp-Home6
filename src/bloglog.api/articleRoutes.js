@@ -20,9 +20,8 @@ const router = Router();
 /*
     get recent articles
 */
-router.get('/',
- (req, res, next) => {
-   
+router.get('/', (req, res, next) => {
+
   articleService.getRecent()
     .then((result) => {
       res.json(result);
@@ -38,19 +37,22 @@ router.get('/',
 */
 router.get('/:id', (req, res, next) => {
 
-    var article_id = req.params.id;
-    articleService.getById(article_id)
-      .then((result) => {
-        res.json(result);
-      })
-      .catch((errorResult) => {
-        res.json(errorResult);
-      });
+  var article_id = req.params.id;
+  articleService.getById(article_id)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((errorResult) => {
+      res.json(errorResult);
+    });
 
-  });
+});
 
-router.post('/', passport.authenticate('jwt', { session: false}), (req, res, next) => {
-  
+/*
+    creates new article
+*/
+router.post('/', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+
   articleService.add(
     new ArticleModel(
       null,
@@ -69,20 +71,26 @@ router.post('/', passport.authenticate('jwt', { session: false}), (req, res, nex
 
 });
 
+/*
+    gets articles accordeing the given filter
+*/
 router.post('/:pageNumber/:pageSize', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-  
+
   let pageNumber = Number(req.params.pageNumber);
   let pageSize = Number(req.params.pageSize);
   if (req.body.filterData) {
     articleService.get(req.body.filterData, (pageNumber - 1) * pageSize, pageSize)
       .then((result) => res.json(result))
       .catch((errorResult) => res.json(errorResult));
-  } else{
-    res.json(new Result(null, false, "The given body invalid", ResultCodes.InvalidArguments()));
+  } else {
+    res.json(new Result(null, false, "The given filter data is invalid", ResultCodes.InvalidArguments()));
   }
 
 });
 
+/*
+    updates the article
+*/
 router.put('/', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
   articleService.update(
@@ -103,8 +111,11 @@ router.put('/', passport.authenticate('jwt', { session: false }), (req, res, nex
 
 });
 
+/*
+    deletes the article
+*/
 router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-  
+
   var article_id = req.params.id;
   articleService.delete(
     new ArticleModel(
@@ -137,20 +148,24 @@ router.get('/:id/comments/:pageNumber/:pageSize', passport.authenticate('jwt', {
 
 });
 
-router.post('/:id/comments', (req, res, next) => {
-debugger;
+router.post('/:id/comments/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  
   let article_id = req.params.id;
   commentService.add(
     new CommentModel(
       null,
       req.body.text,
-      req.body.user,
+      {
+        "user_id": req.user.id,
+        "name": req.user.name
+      },
       Date.now(),
       article_id))
-    .then(() => res.sendStatus(200))
+    .then(result => res.json(result))
     .catch((errorResult) => res.json(errorResult));
 
 });
+
 
 
 /* -------------- exports -------------- */

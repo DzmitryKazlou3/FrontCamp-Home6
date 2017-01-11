@@ -132,7 +132,7 @@
                         <md-icon md-svg-src="/images/new.svg"></md-icon>
                     </md-button>
                     <md-button aria-label="photo" class="md-icon-button" hide-gt-sm ng-click="vm.toggleSearchPanel('search-panel')">
-                        <md-icon md-svg-src="/images/rightAngle.svg"></md-icon>
+                        <md-icon md-svg-src="/images/search.svg"></md-icon>
                     </md-button>
                 </md-fab-actions>
             </md-toolbar>
@@ -184,50 +184,56 @@
         <md-fab-toolbar md-open="vm.isOpen" count="vm.count"
                             md-direction="left" class="articles-fab-toolbar">
             <md-fab-trigger class="align-with-text">
-            <md-button aria-label="menu" class="md-fab md-primary">
-                <md-icon md-svg-src="/images/menu.svg"></md-icon>
-            </md-button>
+                <md-button aria-label="menu" class="md-fab md-primary">
+                    <md-icon md-svg-src="/images/menu.svg"></md-icon>
+                </md-button>
             </md-fab-trigger>
 
             <md-toolbar>
                 <md-fab-actions class="md-toolbar-tools">
                     <md-button aria-label="label" class="md-icon-button" ng-click="vm.home()">
                         <md-icon md-svg-src="/images/home.svg"></md-icon>
+                    </md-button>                    
+                    <md-button aria-label="photo" class="md-icon-button" ng-click="vm.goToArticles()">
+                        <md-icon md-svg-src="/images/back.svg"></md-icon>
                     </md-button>
-                    <md-button aria-label="comment" class="md-icon-button" ng-if="$root.Authorized" ng-click="vm.addArticle()">
-                        <md-icon md-svg-src="/images/new.svg"></md-icon>
-                    </md-button>
-                    <md-button aria-label="photo" class="md-icon-button" hide-gt-sm ng-click="vm.toggleSearchPanel('search-panel')">
-                        <md-icon md-svg-src="/images/rightAngle.svg"></md-icon>
+                    <md-button aria-label="comment" class="md-icon-button" ng-if="$root.Authorized" ng-click="vm.editArticle(vm.article)">
+                        <md-icon md-svg-src="/images/edit.svg"></md-icon>
                     </md-button>
                 </md-fab-actions>
             </md-toolbar>
         </md-fab-toolbar>
 
         <section layout="row" flex class="articles-section">
-
-            <md-sidenav
-                class="md-sidenav-left search-panel"
-                md-component-id="search-panel"
-                md-is-locked-open="$mdMedia('gt-sm')"
-                md-whiteframe="4">
-
-                <md-content layout-padding class="serch-content-panel articles-panel">
-                    
-                </md-content>
-
-            </md-sidenav>
             
-            <md-content flex class="articles-container">
+            <md-content flex class="article-details-container">
                 
                 <md-content class="articles-content articles-panel" flex>
-                    <div>
-                        <div>{{vm.article.title}}</div>                        
-                        <div>{{vm.article.text}}</div>
+                    <div class="article-details-content">
+                        <div class="article-details-header">{{vm.article.title}}</div>                        
+                        <div class="article-details-text">{{vm.article.text}}</div>
                     </div>
                     <div>
-                        <div ng-repeat="comment in vm.comments">
-                            <div>{{comment.text}}</div>
+                        <div ng-repeat="comment in vm.comments" class="comments-container" ng-class="{'even-comment' : $even}">
+                            <div class="comment-item-container">
+                                <div class="comment-item-user-name">{{comment.user.name}}</div>
+                                <div class="comment-item-date">{{comment.createDateTime | date : 'fullDate' }}</div>
+                                <div class="comment-item-text">{{comment.text}}</div>
+                            </div>
+                        </div>
+                        <div class="new-comment-form-container">
+                          <form id="addCommentForm" name="addCommentForm" novalidate>
+                            <md-input-container class="md-block">
+                                <label>Leave your comment</label>
+                                <textarea md-maxlength="5000" type="textarea" md-no-asterisk rows="2" md-select-on-focus name="text" ng-model="vm.comment.text"></textarea>
+                                <div ng-messages="addCommentForm.text.$error">
+                                    <div ng-message="md-maxlength">The comment must be less than 5000 characters long.</div>
+                                </div>
+                                <div>
+                                    <md-button ng-click="vm.addComment(vm.comment)" class="md-primary">Add comment</md-button>
+                                </div>
+                            </md-input-container>
+                          </form>
                         </div>
                     </div>
                 </md-content>
@@ -362,7 +368,7 @@
                         </div>
                     </md-input-container>
 
-                    <md-chips ng-model="vm.article.tags"
+                    <!--<md-chips ng-model="vm.article.tags"
                               md-autocomplete-snap
                               md-transform-chip="vm.chips.transformChip($chip)"
                               md-require-match="vm.chips.autocompleteDemoRequireMatch">
@@ -379,7 +385,7 @@
                             <strong>{{$chip}}</strong>
                             </span>
                         </md-chip-template>
-                    </md-chips>
+                    </md-chips>-->
 
                     <md-input-container class="md-block">
                         <label>Description</label>
@@ -399,18 +405,19 @@
                         </div>
                     </md-input-container>
 
+                    <md-dialog-actions layout="row" class="dialog-action-block">
+                        <md-button ng-click="vm.ok(vm.article)" ng-disabled="!articleForm.$valid" class="md-primary">Save</md-button>
+                        <md-button ng-click="vm.cancel()" class="md-primary">Close</md-button>
+                    </md-dialog-actions>
+
                 </form>
             </md-content>
-            <md-dialog-actions layout="row" class="dialog-action-block">
-                <md-button ng-click="vm.ok(vm.article)" class="md-primary">Save</md-button>
-                <md-button ng-click="vm.cancel()" class="md-primary">Close</md-button>
-            </md-dialog-actions>
         </md-dialog-content>
       </md-dialog>
 
     </script>
 
-    <script type="text/ng-template" id="commentModalContent.html">
+    <!--<script type="text/ng-template" id="commentModalContent.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">Add comment...</h3>
         </div>
@@ -429,7 +436,7 @@
             <button class="btn button" ng-click="vm.save()">save</button>
             <button class="btn button" ng-click="vm.close()">close</button>
         </div>
-    </script>
+    </script>-->
 </body>
 
 </html>

@@ -37,9 +37,12 @@ module.exports = {
       "./bloglog.ui/content/images/menu.svg",
       "./bloglog.ui/content/images/delete.svg",
       "./bloglog.ui/content/images/new.svg",
+      "./bloglog.ui/content/images/edit.svg",
       "./bloglog.ui/content/images/close.svg",
       "./bloglog.ui/content/images/home.svg",
-      "./bloglog.ui/content/images/rightAngle.svg"
+      "./bloglog.ui/content/images/rightAngle.svg",
+      "./bloglog.ui/content/images/search.svg",
+      "./bloglog.ui/content/images/back.svg"
       ]
   },
   output: {

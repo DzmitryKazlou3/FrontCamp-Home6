@@ -13,7 +13,7 @@
         let vm = this;
 
         vm.title = dialogTitle;
-        vm.article = existingArticle ? existingArticle : {};
+        vm.article = existingArticle ? angular.copy(existingArticle) : {};
         if(!existingArticle) {
             vm.article.tags = [];
         }
