@@ -125,6 +125,7 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
       null,
       null,
       null,
+      null,
       {
         "user_id": req.user.id,
         "name": req.user.name

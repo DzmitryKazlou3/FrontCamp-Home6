@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Blog Log</title>
 <!--
     <link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.css">
@@ -71,7 +72,7 @@
     <!-- templates -->
     <script type="text/ng-template" id="home.html">
         <div class="main" layout="row">
-            <div flex-offset="50"flex-offset-xs="0">
+            <div flex-offset="50" flex-offset-xs="0">
                 <div class="bloglog">bloglog</div>
                 <div id="main-page-text-container">
                 <div>Start your way here...</div>
@@ -158,11 +159,14 @@
                     <div style="position: relative; height:100%">
                         <div class="articles-list-container" flex>
                             <md-list flex class="articles-list md-dense">
+
                                 <md-list-item class="md-3-line article md-clickable" ng-click="vm.navigateToItem(article)" ng-repeat="article in vm.articles">
                                     <div class="md-list-item-text article-list-item" layout="column">
                                         <div class="article-list-item-header">{{article.title}}</div>
-                                        <div class="article-list-item-tags">{{article.tags}}</div>
-                                        <div class="article-list-item-description">{{article.createDateTime}}</div>                                        
+                                        <div class="article-list-item-tags">
+                                            <span ng-repeat="tag in article.tags">{{tag}} </span>
+                                        </div>
+                                        <div class="article-list-item-description">{{article.description}}</div>                                        
                                     </div>
                                 </md-list-item>
 
@@ -197,8 +201,11 @@
                     <md-button aria-label="photo" class="md-icon-button" ng-click="vm.goToArticles()">
                         <md-icon md-svg-src="/images/back.svg"></md-icon>
                     </md-button>
-                    <md-button aria-label="comment" class="md-icon-button" ng-if="$root.Authorized" ng-click="vm.editArticle(vm.article)">
+                    <md-button aria-label="comment" class="md-icon-button" ng-if="$root.Authorized && vm.isMyArticle" ng-click="vm.editArticle(vm.article)">
                         <md-icon md-svg-src="/images/edit.svg"></md-icon>
+                    </md-button>
+                    <md-button aria-label="comment" class="md-icon-button" ng-if="$root.Authorized && vm.isMyArticle" ng-click="vm.deleteArticle(vm.article)">
+                        <md-icon md-svg-src="/images/delete.svg"></md-icon>
                     </md-button>
                 </md-fab-actions>
             </md-toolbar>
@@ -368,7 +375,8 @@
                         </div>
                     </md-input-container>
 
-                    <!--<md-chips ng-model="vm.article.tags"
+                    <md-chips ng-if="!vm.isEdit"
+                              ng-model="vm.article.tags"
                               md-autocomplete-snap
                               md-transform-chip="vm.chips.transformChip($chip)"
                               md-require-match="vm.chips.autocompleteDemoRequireMatch">
@@ -385,7 +393,7 @@
                             <strong>{{$chip}}</strong>
                             </span>
                         </md-chip-template>
-                    </md-chips>-->
+                    </md-chips>
 
                     <md-input-container class="md-block">
                         <label>Description</label>

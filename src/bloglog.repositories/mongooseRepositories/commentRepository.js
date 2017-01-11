@@ -65,6 +65,29 @@ export default class CommentRepository {
         });
     }
 
+    /*
+     * Removes comments for given article Id
+     */
+    deleteForArticleId(article_id) {
+        return new Promise(function (resolve, reject) {
+            
+            commentDataModel
+                .find({ "article_id": article_id })
+                .remove(function (err, commentCreatedDataModel) {
+                    if (err) {
+                        reject(new Result(null, false, err, ResultCodes.Error()));
+                    }
+                    else if (!commentCreatedDataModel) {
+                        reject(new Result(null, false, err, ResultCodes.Error()));
+                    }
+                    else {
+                        resolve(new Result(MapToCommentModel(commentCreatedDataModel), true, "", ResultCodes.Success()));
+                    }
+                });
+
+        });
+    }
+
 }
 
 function MapToCommentModel(commentDataModel) {

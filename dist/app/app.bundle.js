@@ -134,6 +134,7 @@
 
         vm.article = {};
         vm.id = $stateParams.id;
+        vm.isMyArticle = false;
 
         vm.comments = [];
         vm.comment = {};
@@ -152,13 +153,18 @@
             $state.go('articles');
         };
 
-        loadArticle();
-        loadComments();
+        if (!$rootScope.Authorized) {
+            vm.home();
+        } else {
+            loadArticle();
+            loadComments();
+        }
 
         function loadArticle() {
 
             articleService.getArticleById(vm.id).then(function (result) {
                 vm.article = result.data;
+                vm.isMyArticle = $rootScope.UserId === vm.article.user.user_id;
             }).catch(function (error) {
                 alert(error.message);
             });
@@ -192,7 +198,19 @@
         }
 
         function deleteArticle(article) {
-            articleService.deleteArticle(article).then(function (resulrt) {}).catch(function (error) {});
+
+            var confirmDialog = $mdDialog.confirm().title('Delete article...').textContent('Are you sure you want to delete the article?').ariaLabel('Delete article').ok('Yes').cancel('No');
+
+            $mdDialog.show(confirmDialog).then(function () {
+
+                articleService.deleteArticle(article).then(function (result) {
+                    vm.goToArticles();
+                }).catch(function (error) {
+                    alert(error.message);
+                });
+            }).catch(function () {
+                console.log('deleteing cancelled');
+            });
         }
 
         function loadComments() {
@@ -238,6 +256,7 @@
         var vm = this;
 
         vm.title = dialogTitle;
+        vm.isEdit = !!existingArticle;
         vm.article = existingArticle ? angular.copy(existingArticle) : {};
         if (!existingArticle) {
             vm.article.tags = [];

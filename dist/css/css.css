@@ -7,6 +7,13 @@
       -ms-user-select: none;
           user-select: none;
   cursor: default;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  left: 0;
+  right: 0;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 .bloglog {
   font-family: LeagueGothic;

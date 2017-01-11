@@ -769,7 +769,7 @@ router.put('/', _passport2.default.authenticate('jwt', { session: false }), func
 router.delete('/:id', _passport2.default.authenticate('jwt', { session: false }), function (req, res, next) {
 
   var article_id = req.params.id;
-  _bloglog.articleService.delete(new _articleModel2.default(article_id, null, null, null, null, null, {
+  _bloglog.articleService.delete(new _articleModel2.default(article_id, null, null, null, null, null, null, {
     "user_id": req.user.id,
     "name": req.user.name
   })).then(function (result) {
@@ -1355,6 +1355,22 @@ var CommentRepository = function () {
                 });
             });
         }
+    }, {
+        key: 'deleteForArticleId',
+        value: function deleteForArticleId(article_id) {
+            return new _promise2.default(function (resolve, reject) {
+
+                _commentDataModel2.default.find({ "article_id": article_id }).remove(function (err, commentCreatedDataModel) {
+                    if (err) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                    } else if (!commentCreatedDataModel) {
+                        reject(new _result2.default(null, false, err, _resultCodes2.default.Error()));
+                    } else {
+                        resolve(new _result2.default(MapToCommentModel(commentCreatedDataModel), true, "", _resultCodes2.default.Success()));
+                    }
+                });
+            });
+        }
     }]);
     return CommentRepository;
 }();
@@ -1827,11 +1843,16 @@ var ArticleService = function () {
             var articleFromStorage = result.data;
 
             if (articleFromStorage.user.user_id.equals(articleModel.user.user_id)) {
-              _bloglog.articleRepository.delete(articleModel).then(function (result) {
-                resolve(result);
+              _bloglog.commentRepository.deleteForArticleId(articleModel.id).then(function () {
+                _bloglog.articleRepository.delete(articleModel).then(function (result) {
+                  resolve(result);
+                }).catch(function (errorResult) {
+                  reject(errorResult);
+                });
               }).catch(function (errorResult) {
                 reject(errorResult);
               });
+
               return;
             }
 

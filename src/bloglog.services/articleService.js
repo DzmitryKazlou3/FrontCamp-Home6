@@ -4,7 +4,7 @@
 
 //locals
 import Article from '../bloglog.models/articleModel.js';
-import { articleRepository } from '../bloglog.repositories';
+import { articleRepository, commentRepository } from '../bloglog.repositories';
 import Result from '../bloglog.common/result.js';
 import ResultCodes from '../bloglog.common/resultCodes.js';
 import { tagService } from '../bloglog.services';
@@ -144,17 +144,27 @@ export default class ArticleService {
           if (result.success) {
             let articleFromStorage = result.data;
 
-            // Check the article does not change owner.
+            // Check the article does not change owner. (i.e. check that you delete your own article)
             if (articleFromStorage.user.user_id.equals(articleModel.user.user_id)) {
 
-              // TODO: delete tagsfrom tags table.
-              articleRepository.delete(articleModel)
-                .then(result => {
-                  resolve(result);
+              // Remove comments
+              commentRepository.deleteForArticleId(articleModel.id)
+                .then(() => {
+                  
+                  // Delete article
+                  articleRepository.delete(articleModel)
+                    .then(result => {
+                      resolve(result);
+                    })
+                    .catch(errorResult => {
+                      reject(errorResult);
+                    });
+
                 })
                 .catch(errorResult => {
                   reject(errorResult);
                 });
+
               return;
             }
 

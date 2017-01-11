@@ -22,6 +22,7 @@
 
         vm.article = {};
         vm.id = $stateParams.id;
+        vm.isMyArticle = false;
         
         vm.comments = [];
         vm.comment = {};
@@ -34,10 +35,14 @@
         vm.deleteArticle = deleteArticle;
 
         vm.home = function(){ $state.go('home'); };
-        vm.goToArticles = function(){ $state.go('articles'); };
+        vm.goToArticles = function(){ $state.go('articles'); };        
         
-        loadArticle();
-        loadComments();
+        if(!$rootScope.Authorized){
+            vm.home();
+        } else{
+            loadArticle();
+            loadComments();
+        }
 
         ///////////////////// load articles /////////////////////////////////
         function loadArticle() {
@@ -45,6 +50,7 @@
             articleService.getArticleById(vm.id)
                 .then((result) => {
                     vm.article = result.data;
+                    vm.isMyArticle = $rootScope.UserId === vm.article.user.user_id;
                 })
                 .catch((error) => {
                     alert(error.message);
@@ -87,11 +93,28 @@ console.log("cancel");
 
         ////////////////////// delete article ///////////////////
         function deleteArticle(article) {
-            articleService.deleteArticle(article)
-                .then(resulrt => {
-                })
-                .catch(error => {
 
+            let confirmDialog = $mdDialog.confirm()
+                .title('Delete article...')
+                .textContent('Are you sure you want to delete the article?')
+                .ariaLabel('Delete article')
+                .ok('Yes')
+                .cancel('No');
+
+            $mdDialog.show(confirmDialog)
+                .then(function () {
+
+                    articleService.deleteArticle(article)
+                        .then(result => {
+                            vm.goToArticles();
+                        })
+                        .catch(error => {
+                            alert(error.message);
+                        });
+
+                })
+                .catch(() => {
+                    console.log('deleteing cancelled');
                 });
         }
 
