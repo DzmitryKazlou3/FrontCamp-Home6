@@ -16,7 +16,7 @@ const router = Router();
 
 //
 router.use('/', function (req, res) {
-    res.render('index.html');
+    res.render('./views/index.html');
 });
 
 /* -------------- exports -------------- */
