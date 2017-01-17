@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "set NODE_ENV='production' && node ./dist/index.bundle.js",
     "build": "webpack --config webpack.config.js",
-    "webpackInstall": "npm i webpack@2.2.0-rc.2 -g"
+    "webpackInstall": "npm i webpack@2.2.0-rc.2 -g",
+    "build-react": "webpack --config webpack.react.config.js"
   },
   "dependencies": {
     "express": "4.14.0",

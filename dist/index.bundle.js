@@ -2492,7 +2492,7 @@ exports.default = function (_ref) {
   var body = _ref.body,
       title = _ref.title;
 
-  return "\n    <!DOCTYPE html>\n    <html>\n      <head>\n        <title>" + title + "</title>\n        <link rel=\"stylesheet\" href=\"/css/react-css.css\" />\n      </head>\n      \n      <body>\n        <div id=\"root\">" + body + "</div>\n      </body>\n      \n    </html>\n  ";
+  return "\n    <!DOCTYPE html>\n    <html>\n      <head>\n        <title>" + title + "</title>\n        <link rel=\"stylesheet\" href=\"/css/react-css.css\" />\n      </head>\n      \n      <body>\n        <div id=\"root\">" + body + "</div>\n        <script src=\"/react/main.bundle.js\"></script>\n      </body>\n      \n    </html>\n  ";
 };
 
 /***/ },

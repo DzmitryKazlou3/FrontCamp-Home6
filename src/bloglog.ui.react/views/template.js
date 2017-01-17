@@ -9,6 +9,7 @@ export default ({ body, title }) => {
       
       <body>
         <div id="root">${body}</div>
+        <script src="/react/main.bundle.js"></script>
       </body>
       
     </html>

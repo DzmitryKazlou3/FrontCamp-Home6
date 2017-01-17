@@ -46,7 +46,6 @@ module.exports = {
 
       "./bloglog.ui.react/content/images/background.jpg"
       ]
-      // "react": "./bloglog.ui.react/views/index.html"
   },
   output: {
     path: __dirname + "/dist",
