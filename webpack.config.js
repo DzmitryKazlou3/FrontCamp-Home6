@@ -2,7 +2,9 @@
 var nodeExternals = require('webpack-node-externals');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 let extractLESS = new ExtractTextPlugin('css/[name].css');
+let extractHTML = new ExtractTextPlugin('react/views/[name].html');
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   context: __dirname + "/src",
@@ -33,6 +35,7 @@ module.exports = {
       
     ],
     "css": "./bloglog.ui/content/less/site.less",
+    "react-css": "./bloglog.ui.react/content/less/site.less",
     "icons": [
       "./bloglog.ui/content/images/menu.svg",
       "./bloglog.ui/content/images/delete.svg",
@@ -43,6 +46,9 @@ module.exports = {
       "./bloglog.ui/content/images/rightAngle.svg",
       "./bloglog.ui/content/images/search.svg",
       "./bloglog.ui/content/images/back.svg"
+      "./bloglog.ui/content/images/rightAngle.svg",
+
+      "./bloglog.ui.react/content/images/background.jpg"
       ]
   },
   output: {
@@ -58,7 +64,13 @@ module.exports = {
       },
       {
         test: /\.html$/,
+        include: /(bloglog.ui)/,
         loader: 'file-loader?name=./views/[name].[ext]'
+      },
+      {
+        test: /\.html$/,
+        include: /(bloglog.ui.react)/,
+        loader: 'file-loader?name=./react/views/[name].[ext]'
       },
       {
         test: /\.less$/,
@@ -81,7 +93,8 @@ module.exports = {
 
   plugins: [
     // extract CSS into separate file
-    extractLESS
+    extractLESS,
+    extractHTML
   ],
 
   node: {
