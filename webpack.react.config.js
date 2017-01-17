@@ -4,7 +4,8 @@ var webpack = require('webpack');
 module.exports = {
   context: __dirname + "/src/bloglog.ui.react",
   entry: {
-      main: "./views/main.browser.js"
+      main: "./views/main.browser.js",
+      articles: "./views/articlesPage.browser.js"
   },
   output: {
     path: __dirname + "/dist/react",
@@ -17,5 +18,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/
     }]
-  }
+  },
+  watch: true,
+  devtool: 'source-map'
 }

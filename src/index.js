@@ -7,6 +7,7 @@ import path from 'path';
 import express from 'express';
 import http from 'http';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 
 // locals
 import config from '../config.json';
@@ -16,12 +17,12 @@ import uiReactRoutes from './bloglog.ui.react';
 import auth from './bloglog.auth';
 
 
-var msg = "This is "+ process.env.USER + " environment";
-console.log(msg);
 
 // create app
 const app = express();
 app.server = http.createServer(app);
+
+app.use(cookieParser());
 
 // parsing application/json body
 app.use(bodyParser.json());

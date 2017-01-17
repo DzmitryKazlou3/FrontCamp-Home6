@@ -1,4 +1,4 @@
-export default ({ body, title }) => {
+export default ({ body, title, scriptDest, data }) => {
   return `
     <!DOCTYPE html>
     <html>
@@ -8,8 +8,13 @@ export default ({ body, title }) => {
       </head>
       
       <body>
-        <div id="root">${body}</div>
-        <script src="/react/main.bundle.js"></script>
+        <div id="root">${body}</div>` +
+        (data &&
+           `<script type="text/javascript" charset="utf-8">
+               window.data = ${JSON.stringify(data)};
+            </script>`
+        ) +        
+        `<script src="/${scriptDest}"></script>
       </body>
       
     </html>

@@ -63,86 +63,94 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 70);
+/******/ 	return __webpack_require__(__webpack_require__.s = 92);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 37:
+/***/ 44:
 /***/ function(module, exports) {
 
 module.exports = "../images/back.svg";
 
 /***/ },
 
-/***/ 38:
+/***/ 45:
 /***/ function(module, exports) {
 
 module.exports = "../images/close.svg";
 
 /***/ },
 
-/***/ 39:
+/***/ 46:
 /***/ function(module, exports) {
 
 module.exports = "../images/delete.svg";
 
 /***/ },
 
-/***/ 40:
+/***/ 47:
 /***/ function(module, exports) {
 
 module.exports = "../images/edit.svg";
 
 /***/ },
 
-/***/ 41:
+/***/ 48:
 /***/ function(module, exports) {
 
 module.exports = "../images/home.svg";
 
 /***/ },
 
-/***/ 42:
+/***/ 49:
 /***/ function(module, exports) {
 
 module.exports = "../images/menu.svg";
 
 /***/ },
 
-/***/ 43:
+/***/ 50:
 /***/ function(module, exports) {
 
 module.exports = "../images/new.svg";
 
 /***/ },
 
-/***/ 44:
+/***/ 51:
 /***/ function(module, exports) {
 
 module.exports = "../images/rightAngle.svg";
 
 /***/ },
 
-/***/ 45:
+/***/ 52:
 /***/ function(module, exports) {
 
 module.exports = "../images/search.svg";
 
 /***/ },
 
-/***/ 70:
+/***/ 53:
+/***/ function(module, exports) {
+
+module.exports = "../images/background.jpg";
+
+/***/ },
+
+/***/ 92:
 /***/ function(module, exports, __webpack_require__) {
 
-__webpack_require__(42);
-__webpack_require__(39);
-__webpack_require__(43);
-__webpack_require__(40);
-__webpack_require__(38);
-__webpack_require__(41);
-__webpack_require__(44);
+__webpack_require__(49);
+__webpack_require__(46);
+__webpack_require__(50);
+__webpack_require__(47);
 __webpack_require__(45);
-module.exports = __webpack_require__(37);
+__webpack_require__(48);
+__webpack_require__(51);
+__webpack_require__(52);
+__webpack_require__(44);
+module.exports = __webpack_require__(53);
 
 
 /***/ }

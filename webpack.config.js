@@ -45,8 +45,7 @@ module.exports = {
       "./bloglog.ui/content/images/home.svg",
       "./bloglog.ui/content/images/rightAngle.svg",
       "./bloglog.ui/content/images/search.svg",
-      "./bloglog.ui/content/images/back.svg"
-      "./bloglog.ui/content/images/rightAngle.svg",
+      "./bloglog.ui/content/images/back.svg",
 
       "./bloglog.ui.react/content/images/background.jpg"
       ]
@@ -104,6 +103,6 @@ module.exports = {
     __filename: false,
     __dirname: false
   },
-  //watch: true,
+  watch: true,
   devtool: 'source-map'
 };
