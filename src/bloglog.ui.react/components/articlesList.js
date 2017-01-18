@@ -16,7 +16,8 @@ export default class ArticlesList extends React.Component {
 					<ListItem
 					    key={i}
 						primaryText={article.title}
-						secondaryText={article.description} />
+						secondaryText={article.description}
+						onTouchTap={this.selectArticle}/>
 				)}
 			</List>
 		)

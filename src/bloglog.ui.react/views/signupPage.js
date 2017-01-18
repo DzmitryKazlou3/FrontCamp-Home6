@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Login from '../components/login.js';
+import SignUp from '../components/signup.js';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -8,7 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import { deepOrange500 } from 'material-ui/styles/colors';
 import {muiTheme as customTheme} from './theme';
 
-export default class Main extends React.Component {
+export default class SignUpPage extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -27,10 +27,8 @@ export default class Main extends React.Component {
             <div>
                 <MuiThemeProvider muiTheme={customTheme}>
                     <div>
-                        <Login isAuth={this.props.isAuth}/>
-                        {!this.props.isAuth &&
-                            <RaisedButton label="Sign Up" href="/react/signup"/>}
-                        <RaisedButton label="Articles" href="/react/articles"/>
+                        <SignUp />
+                        <RaisedButton label="Back to Main" href="/react"/>
                     </div>
                 </MuiThemeProvider>
             </div>

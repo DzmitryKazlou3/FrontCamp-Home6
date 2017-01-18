@@ -5,7 +5,8 @@ module.exports = {
   context: __dirname + "/src/bloglog.ui.react",
   entry: {
       main: "./views/main.browser.js",
-      articles: "./views/articlesPage.browser.js"
+      articles: "./views/articlesPage.browser.js",
+      signup: "./views/signupPage.browser.js"
   },
   output: {
     path: __dirname + "/dist/react",

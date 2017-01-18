@@ -9,10 +9,11 @@ export default ({ body, title, scriptDest, data }) => {
       
       <body>
         <div id="root">${body}</div>` +
-        (data &&
+        (data !== undefined ?
            `<script type="text/javascript" charset="utf-8">
                window.data = ${JSON.stringify(data)};
             </script>`
+            : ''
         ) +        
         `<script src="/${scriptDest}"></script>
       </body>

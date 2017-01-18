@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 426);
+/******/ 	return __webpack_require__(__webpack_require__.s = 427);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -34925,7 +34925,8 @@ module.exports = shallowCompare;
 /* 396 */,
 /* 397 */,
 /* 398 */,
-/* 399 */
+/* 399 */,
+/* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34959,9 +34960,9 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _login = __webpack_require__(402);
+var _signup = __webpack_require__(403);
 
-var _login2 = _interopRequireDefault(_login);
+var _signup2 = _interopRequireDefault(_signup);
 
 var _RaisedButton = __webpack_require__(256);
 
@@ -34975,13 +34976,13 @@ var _theme = __webpack_require__(167);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Main = function (_React$Component) {
-    (0, _inherits3.default)(Main, _React$Component);
+var SignUpPage = function (_React$Component) {
+    (0, _inherits3.default)(SignUpPage, _React$Component);
 
-    function Main(props) {
-        (0, _classCallCheck3.default)(this, Main);
+    function SignUpPage(props) {
+        (0, _classCallCheck3.default)(this, SignUpPage);
 
-        var _this = (0, _possibleConstructorReturn3.default)(this, (Main.__proto__ || (0, _getPrototypeOf2.default)(Main)).call(this, props));
+        var _this = (0, _possibleConstructorReturn3.default)(this, (SignUpPage.__proto__ || (0, _getPrototypeOf2.default)(SignUpPage)).call(this, props));
 
         _this.signup = function () {
 
@@ -34993,7 +34994,7 @@ var Main = function (_React$Component) {
         return _this;
     }
 
-    (0, _createClass3.default)(Main, [{
+    (0, _createClass3.default)(SignUpPage, [{
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -35005,23 +35006,22 @@ var Main = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         null,
-                        _react2.default.createElement(_login2.default, { isAuth: this.props.isAuth }),
-                        !this.props.isAuth && _react2.default.createElement(_RaisedButton2.default, { label: 'Sign Up', href: '/react/signup' }),
-                        _react2.default.createElement(_RaisedButton2.default, { label: 'Articles', href: '/react/articles' })
+                        _react2.default.createElement(_signup2.default, null),
+                        _react2.default.createElement(_RaisedButton2.default, { label: 'Back to Main', href: '/react' })
                     )
                 )
             );
         }
     }]);
-    return Main;
+    return SignUpPage;
 }(_react2.default.Component);
 
-exports.default = Main;
+exports.default = SignUpPage;
 
 /***/ },
-/* 400 */,
 /* 401 */,
-/* 402 */
+/* 402 */,
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35073,33 +35073,41 @@ var _reactCookie2 = _interopRequireDefault(_reactCookie);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Auth = function (_React$Component) {
-	(0, _inherits3.default)(Auth, _React$Component);
+var SignUp = function (_React$Component) {
+	(0, _inherits3.default)(SignUp, _React$Component);
 
-	function Auth(props) {
-		(0, _classCallCheck3.default)(this, Auth);
+	function SignUp(props) {
+		(0, _classCallCheck3.default)(this, SignUp);
 
-		var _this = (0, _possibleConstructorReturn3.default)(this, (Auth.__proto__ || (0, _getPrototypeOf2.default)(Auth)).call(this, props));
+		var _this = (0, _possibleConstructorReturn3.default)(this, (SignUp.__proto__ || (0, _getPrototypeOf2.default)(SignUp)).call(this, props));
 
 		_this.state = {
 			errors: {
+				name: '',
 				email: '',
 				password: ''
 			},
 			user: {
+				name: '',
 				email: '',
 				password: ''
 			}
 		};
 
-		_this.login = _this.login.bind(_this);
-		_this.logOut = _this.logOut.bind(_this);
+		_this.signup = _this.signup.bind(_this);
+		_this.onChangeName = _this.onChangeName.bind(_this);
 		_this.onChangeMail = _this.onChangeMail.bind(_this);
 		_this.onChangePassword = _this.onChangePassword.bind(_this);
 		return _this;
 	}
 
-	(0, _createClass3.default)(Auth, [{
+	(0, _createClass3.default)(SignUp, [{
+		key: 'onChangeName',
+		value: function onChangeName(event) {
+			this.state.user.name = event.target.value;
+			this.setState(this.state.user);
+		}
+	}, {
 		key: 'onChangeMail',
 		value: function onChangeMail(event) {
 			this.state.user.email = event.target.value;
@@ -35112,12 +35120,12 @@ var Auth = function (_React$Component) {
 			this.setState(this.state.user);
 		}
 	}, {
-		key: 'login',
-		value: function login(event) {
+		key: 'signup',
+		value: function signup(event) {
 			event.preventDefault();
 
 			var xhr = new XMLHttpRequest();
-			xhr.open('POST', '/login/');
+			xhr.open('POST', '/signup');
 			xhr.setRequestHeader('Content-type', 'application/json');
 			xhr.responseType = 'json';
 
@@ -35125,10 +35133,8 @@ var Auth = function (_React$Component) {
 				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 					console.log(xhr.response);
 					if (xhr.response.success) {
-						_reactCookie2.default.save("Id", xhr.response.data.id);
-						_reactCookie2.default.save("Token.JWT", xhr.response.data.token);
 
-						window.location.href = window.location.href;
+						window.location.href = '/react';
 					} else {
 						alert(xhr.response.message);
 					}
@@ -35138,27 +35144,31 @@ var Auth = function (_React$Component) {
 			xhr.send((0, _stringify2.default)(this.state.user));
 		}
 	}, {
-		key: 'logOut',
-		value: function logOut(event) {
-			_reactCookie2.default.remove("Id");
-			_reactCookie2.default.remove("Token.JWT");
-			window.location.href = window.location.href;
-		}
-	}, {
 		key: 'render',
 		value: function render() {
 
 			return _react2.default.createElement(
 				'div',
 				null,
-				!this.props.isAuth ? _react2.default.createElement(
+				_react2.default.createElement(
 					'form',
-					{ action: '', onSubmit: this.login },
+					{ action: '', onSubmit: this.signup },
 					_react2.default.createElement(
 						'div',
 						null,
 						_react2.default.createElement(_TextField2.default, {
-							id: 'loginForm-login',
+							id: 'signupForm-name',
+							floatingLabelText: 'Name',
+							onChange: this.onChangeName,
+							errorText: this.state.errors.name,
+							value: this.state.user.name
+						})
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(_TextField2.default, {
+							id: 'signupForm-login',
 							floatingLabelText: 'Email',
 							onChange: this.onChangeMail,
 							errorText: this.state.errors.email,
@@ -35169,7 +35179,7 @@ var Auth = function (_React$Component) {
 						'div',
 						null,
 						_react2.default.createElement(_TextField2.default, {
-							id: 'loginForm-password',
+							id: 'signupForm-password',
 							type: 'password',
 							floatingLabelText: 'Password',
 							onChange: this.onChangePassword,
@@ -35180,23 +35190,18 @@ var Auth = function (_React$Component) {
 					_react2.default.createElement(
 						'div',
 						null,
-						_react2.default.createElement(_RaisedButton2.default, { label: 'Sign In', type: 'submit' })
+						_react2.default.createElement(_RaisedButton2.default, { label: 'Sign Un', type: 'submit' })
 					)
-				) : _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(_RaisedButton2.default, { label: 'Log Out', onClick: this.logOut })
 				)
 			);
 		}
 	}]);
-	return Auth;
+	return SignUp;
 }(_react2.default.Component);
 
-exports.default = Auth;
+exports.default = SignUp;
 
 /***/ },
-/* 403 */,
 /* 404 */,
 /* 405 */,
 /* 406 */,
@@ -35219,7 +35224,8 @@ exports.default = Auth;
 /* 423 */,
 /* 424 */,
 /* 425 */,
-/* 426 */
+/* 426 */,
+/* 427 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35231,9 +35237,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(37);
 
-var _main = __webpack_require__(399);
+var _signupPage = __webpack_require__(400);
 
-var _main2 = _interopRequireDefault(_main);
+var _signupPage2 = _interopRequireDefault(_signupPage);
 
 var _reactCookie = __webpack_require__(165);
 
@@ -35247,8 +35253,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (0, _reactTapEventPlugin2.default)();
 
-(0, _reactDom.render)(_react2.default.createElement(_main2.default, { isAuth: _reactCookie2.default.load('Id') !== undefined }), document.getElementById('root'));
+(0, _reactDom.render)(_react2.default.createElement(_signupPage2.default, null), document.getElementById('root'));
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.bundle.js.map
+//# sourceMappingURL=signup.bundle.js.map
