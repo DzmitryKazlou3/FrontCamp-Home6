@@ -1,5 +1,6 @@
 import React from 'react';
 
+import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {muiTheme as customTheme} from './theme';
 
@@ -15,7 +16,11 @@ export default class ArticlesPage extends React.Component {
 		return (
             <div>
                 <MuiThemeProvider muiTheme={customTheme}>
-                    <ArticlesList articles={this.props.dataContext.data}/>
+				    <div>
+                        <ArticlesList articles={this.props.dataContext.data}/>
+						{!this.props.isAuth &&
+                            <RaisedButton label="Add article" href="/react/newarticle/"/>}
+					</div>
                 </MuiThemeProvider>
 
                 <div>Total items count {this.props.dataContext.count}</div>                

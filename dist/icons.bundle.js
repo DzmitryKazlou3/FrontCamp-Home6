@@ -63,94 +63,94 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 95);
+/******/ 	return __webpack_require__(__webpack_require__.s = 96);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 46:
+/***/ 48:
 /***/ function(module, exports) {
 
 module.exports = "../images/back.svg";
 
 /***/ },
 
-/***/ 47:
+/***/ 49:
 /***/ function(module, exports) {
 
 module.exports = "../images/close.svg";
 
 /***/ },
 
-/***/ 48:
+/***/ 50:
 /***/ function(module, exports) {
 
 module.exports = "../images/delete.svg";
 
 /***/ },
 
-/***/ 49:
+/***/ 51:
 /***/ function(module, exports) {
 
 module.exports = "../images/edit.svg";
 
 /***/ },
 
-/***/ 50:
+/***/ 52:
 /***/ function(module, exports) {
 
 module.exports = "../images/home.svg";
 
 /***/ },
 
-/***/ 51:
+/***/ 53:
 /***/ function(module, exports) {
 
 module.exports = "../images/menu.svg";
 
 /***/ },
 
-/***/ 52:
+/***/ 54:
 /***/ function(module, exports) {
 
 module.exports = "../images/new.svg";
 
 /***/ },
 
-/***/ 53:
+/***/ 55:
 /***/ function(module, exports) {
 
 module.exports = "../images/rightAngle.svg";
 
 /***/ },
 
-/***/ 54:
+/***/ 56:
 /***/ function(module, exports) {
 
 module.exports = "../images/search.svg";
 
 /***/ },
 
-/***/ 55:
+/***/ 57:
 /***/ function(module, exports) {
 
 module.exports = "../images/background.jpg";
 
 /***/ },
 
-/***/ 95:
+/***/ 96:
 /***/ function(module, exports, __webpack_require__) {
 
-__webpack_require__(51);
-__webpack_require__(48);
-__webpack_require__(52);
-__webpack_require__(49);
-__webpack_require__(47);
-__webpack_require__(50);
 __webpack_require__(53);
+__webpack_require__(50);
 __webpack_require__(54);
-__webpack_require__(46);
-module.exports = __webpack_require__(55);
+__webpack_require__(51);
+__webpack_require__(49);
+__webpack_require__(52);
+__webpack_require__(55);
+__webpack_require__(56);
+__webpack_require__(48);
+module.exports = __webpack_require__(57);
 
 
 /***/ }

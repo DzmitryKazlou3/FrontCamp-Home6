@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 422);
+/******/ 	return __webpack_require__(__webpack_require__.s = 423);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -32332,7 +32332,58 @@ exports.default = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ },
-/* 364 */,
+/* 364 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+exports.__esModule = true;
+var createHelper = function createHelper(func, helperName) {
+  var setDisplayName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+  var noArgs = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+  if (process.env.NODE_ENV !== 'production' && setDisplayName) {
+    var _ret = function () {
+      /* eslint-disable global-require */
+      var wrapDisplayName = __webpack_require__(392).default;
+      /* eslint-enable global-require */
+
+      if (noArgs) {
+        return {
+          v: function v(BaseComponent) {
+            var Component = func(BaseComponent);
+            Component.displayName = wrapDisplayName(BaseComponent, helperName);
+            return Component;
+          }
+        };
+      }
+
+      return {
+        v: function v() {
+          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+          }
+
+          return function (BaseComponent) {
+            var Component = func.apply(undefined, args)(BaseComponent);
+            Component.displayName = wrapDisplayName(BaseComponent, helperName);
+            return Component;
+          };
+        }
+      };
+    }();
+
+    if (typeof _ret === "object") return _ret.v;
+  }
+
+  return func;
+};
+
+exports.default = createHelper;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ },
 /* 365 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -32988,8 +33039,55 @@ exports.default = RaisedButton;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ },
-/* 368 */,
-/* 369 */,
+/* 368 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _SvgIcon = __webpack_require__(374);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _SvgIcon2.default;
+
+/***/ },
+/* 369 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _shouldUpdate = __webpack_require__(390);
+
+var _shouldUpdate2 = _interopRequireDefault(_shouldUpdate);
+
+var _shallowEqual = __webpack_require__(67);
+
+var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
+
+var _createHelper = __webpack_require__(364);
+
+var _createHelper2 = _interopRequireDefault(_createHelper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var pure = (0, _shouldUpdate2.default)(function (props, nextProps) {
+  return !(0, _shallowEqual2.default)(props, nextProps);
+});
+
+exports.default = (0, _createHelper2.default)(pure, 'pure', true, true);
+
+/***/ },
 /* 370 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -33209,7 +33307,174 @@ module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
 
 /***/ },
 /* 373 */,
-/* 374 */,
+/* 374 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends2 = __webpack_require__(18);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = __webpack_require__(19);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _getPrototypeOf = __webpack_require__(9);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(8);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(10);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(12);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(11);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _simpleAssign = __webpack_require__(14);
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _transitions = __webpack_require__(23);
+
+var _transitions2 = _interopRequireDefault(_transitions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SvgIcon = function (_Component) {
+  (0, _inherits3.default)(SvgIcon, _Component);
+
+  function SvgIcon() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    (0, _classCallCheck3.default)(this, SvgIcon);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = SvgIcon.__proto__ || (0, _getPrototypeOf2.default)(SvgIcon)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      hovered: false
+    }, _this.handleMouseLeave = function (event) {
+      _this.setState({ hovered: false });
+      _this.props.onMouseLeave(event);
+    }, _this.handleMouseEnter = function (event) {
+      _this.setState({ hovered: true });
+      _this.props.onMouseEnter(event);
+    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+  }
+
+  (0, _createClass3.default)(SvgIcon, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          children = _props.children,
+          color = _props.color,
+          hoverColor = _props.hoverColor,
+          onMouseEnter = _props.onMouseEnter,
+          onMouseLeave = _props.onMouseLeave,
+          style = _props.style,
+          viewBox = _props.viewBox,
+          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'color', 'hoverColor', 'onMouseEnter', 'onMouseLeave', 'style', 'viewBox']);
+      var _context$muiTheme = this.context.muiTheme,
+          svgIcon = _context$muiTheme.svgIcon,
+          prepareStyles = _context$muiTheme.prepareStyles;
+
+
+      var offColor = color ? color : 'currentColor';
+      var onColor = hoverColor ? hoverColor : offColor;
+
+      var mergedStyles = (0, _simpleAssign2.default)({
+        display: 'inline-block',
+        color: svgIcon.color,
+        fill: this.state.hovered ? onColor : offColor,
+        height: 24,
+        width: 24,
+        userSelect: 'none',
+        transition: _transitions2.default.easeOut()
+      }, style);
+
+      return _react2.default.createElement(
+        'svg',
+        (0, _extends3.default)({}, other, {
+          onMouseEnter: this.handleMouseEnter,
+          onMouseLeave: this.handleMouseLeave,
+          style: prepareStyles(mergedStyles),
+          viewBox: viewBox
+        }),
+        children
+      );
+    }
+  }]);
+  return SvgIcon;
+}(_react.Component);
+
+SvgIcon.muiName = 'SvgIcon';
+SvgIcon.defaultProps = {
+  onMouseEnter: function onMouseEnter() {},
+  onMouseLeave: function onMouseLeave() {},
+  viewBox: '0 0 24 24'
+};
+SvgIcon.contextTypes = {
+  muiTheme: _react.PropTypes.object.isRequired
+};
+process.env.NODE_ENV !== "production" ? SvgIcon.propTypes = {
+  /**
+   * Elements passed into the SVG Icon.
+   */
+  children: _react.PropTypes.node,
+  /**
+   * This is the fill color of the svg icon.
+   * If not specified, this component will default
+   * to muiTheme.palette.textColor.
+   */
+  color: _react.PropTypes.string,
+  /**
+   * This is the icon color when the mouse hovers over the icon.
+   */
+  hoverColor: _react.PropTypes.string,
+  /** @ignore */
+  onMouseEnter: _react.PropTypes.func,
+  /** @ignore */
+  onMouseLeave: _react.PropTypes.func,
+  /**
+   * Override the inline-styles of the root element.
+   */
+  style: _react.PropTypes.object,
+  /**
+   * Allows you to redefine what the coordinates
+   * without units mean inside an svg element. For example,
+   * if the SVG element is 500 (width) by 200 (height), and you
+   * pass viewBox="0 0 50 20", this means that the coordinates inside
+   * the svg will go from the top left corner (0,0) to bottom right (50,20)
+   * and each unit will be worth 10px.
+   */
+  viewBox: _react.PropTypes.string
+} : void 0;
+exports.default = SvgIcon;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ },
 /* 375 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -34730,13 +34995,207 @@ function shallowCompare(instance, nextProps, nextState) {
 module.exports = shallowCompare;
 
 /***/ },
-/* 386 */,
-/* 387 */,
-/* 388 */,
-/* 389 */,
-/* 390 */,
-/* 391 */,
-/* 392 */,
+/* 386 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _createEagerElementUtil = __webpack_require__(391);
+
+var _createEagerElementUtil2 = _interopRequireDefault(_createEagerElementUtil);
+
+var _isReferentiallyTransparentFunctionComponent = __webpack_require__(389);
+
+var _isReferentiallyTransparentFunctionComponent2 = _interopRequireDefault(_isReferentiallyTransparentFunctionComponent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createFactory = function createFactory(type) {
+  var isReferentiallyTransparent = (0, _isReferentiallyTransparentFunctionComponent2.default)(type);
+  return function (p, c) {
+    return (0, _createEagerElementUtil2.default)(false, isReferentiallyTransparent, type, p, c);
+  };
+};
+
+exports.default = createFactory;
+
+/***/ },
+/* 387 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+var getDisplayName = function getDisplayName(Component) {
+  if (typeof Component === 'string') {
+    return Component;
+  }
+
+  if (!Component) {
+    return undefined;
+  }
+
+  return Component.displayName || Component.name || 'Component';
+};
+
+exports.default = getDisplayName;
+
+/***/ },
+/* 388 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+var isClassComponent = function isClassComponent(Component) {
+  return Boolean(Component && Component.prototype && typeof Component.prototype.isReactComponent === 'object');
+};
+
+exports.default = isClassComponent;
+
+/***/ },
+/* 389 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+exports.__esModule = true;
+
+var _isClassComponent = __webpack_require__(388);
+
+var _isClassComponent2 = _interopRequireDefault(_isClassComponent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isReferentiallyTransparentFunctionComponent = function isReferentiallyTransparentFunctionComponent(Component) {
+  return Boolean(typeof Component === 'function' && !(0, _isClassComponent2.default)(Component) && !Component.defaultProps && !Component.contextTypes && (process.env.NODE_ENV === 'production' || !Component.propTypes));
+};
+
+exports.default = isReferentiallyTransparentFunctionComponent;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ },
+/* 390 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _react = __webpack_require__(4);
+
+var _createHelper = __webpack_require__(364);
+
+var _createHelper2 = _interopRequireDefault(_createHelper);
+
+var _createEagerFactory = __webpack_require__(386);
+
+var _createEagerFactory2 = _interopRequireDefault(_createEagerFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var shouldUpdate = function shouldUpdate(test) {
+  return function (BaseComponent) {
+    var factory = (0, _createEagerFactory2.default)(BaseComponent);
+    return function (_Component) {
+      _inherits(_class, _Component);
+
+      function _class() {
+        _classCallCheck(this, _class);
+
+        return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+      }
+
+      _class.prototype.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
+        return test(this.props, nextProps);
+      };
+
+      _class.prototype.render = function render() {
+        return factory(this.props);
+      };
+
+      return _class;
+    }(_react.Component);
+  };
+};
+
+exports.default = (0, _createHelper2.default)(shouldUpdate, 'shouldUpdate');
+
+/***/ },
+/* 391 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createEagerElementUtil = function createEagerElementUtil(hasKey, isReferentiallyTransparent, type, props, children) {
+  if (!hasKey && isReferentiallyTransparent) {
+    if (children) {
+      return type(_extends({}, props, { children: children }));
+    }
+    return type(props);
+  }
+
+  var Component = type;
+
+  if (children) {
+    return _react2.default.createElement(
+      Component,
+      props,
+      children
+    );
+  }
+
+  return _react2.default.createElement(Component, props);
+};
+
+exports.default = createEagerElementUtil;
+
+/***/ },
+/* 392 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _getDisplayName = __webpack_require__(387);
+
+var _getDisplayName2 = _interopRequireDefault(_getDisplayName);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var wrapDisplayName = function wrapDisplayName(BaseComponent, hocName) {
+  return hocName + '(' + (0, _getDisplayName2.default)(BaseComponent) + ')';
+};
+
+exports.default = wrapDisplayName;
+
+/***/ },
 /* 393 */,
 /* 394 */,
 /* 395 */,
@@ -34752,14 +35211,15 @@ module.exports = shallowCompare;
 /* 405 */,
 /* 406 */,
 /* 407 */,
-/* 408 */
+/* 408 */,
+/* 409 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+	value: true
 });
 
 var _getPrototypeOf = __webpack_require__(9);
@@ -34786,10 +35246,6 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _login = __webpack_require__(414);
-
-var _login2 = _interopRequireDefault(_login);
-
 var _RaisedButton = __webpack_require__(160);
 
 var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
@@ -34800,65 +35256,57 @@ var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
 var _theme = __webpack_require__(162);
 
+var _newArticle = __webpack_require__(415);
+
+var _newArticle2 = _interopRequireDefault(_newArticle);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Main = function (_React$Component) {
-    (0, _inherits3.default)(Main, _React$Component);
+var NewArticlePage = function (_React$Component) {
+	(0, _inherits3.default)(NewArticlePage, _React$Component);
 
-    function Main(props) {
-        (0, _classCallCheck3.default)(this, Main);
+	function NewArticlePage(props) {
+		(0, _classCallCheck3.default)(this, NewArticlePage);
+		return (0, _possibleConstructorReturn3.default)(this, (NewArticlePage.__proto__ || (0, _getPrototypeOf2.default)(NewArticlePage)).call(this, props));
+	}
 
-        var _this = (0, _possibleConstructorReturn3.default)(this, (Main.__proto__ || (0, _getPrototypeOf2.default)(Main)).call(this, props));
-
-        _this.signup = function () {
-
-            console.log("signup");
-            alert('left');
-        };
-
-        _this.signup = _this.signup.bind(_this);
-        return _this;
-    }
-
-    (0, _createClass3.default)(Main, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    _MuiThemeProvider2.default,
-                    { muiTheme: _theme.muiTheme },
-                    _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(_login2.default, { isAuth: this.props.isAuth }),
-                        !this.props.isAuth && _react2.default.createElement(_RaisedButton2.default, { label: 'Sign Up', href: '/react/signup' }),
-                        _react2.default.createElement(_RaisedButton2.default, { label: 'Articles', href: '/react/articles' })
-                    )
-                )
-            );
-        }
-    }]);
-    return Main;
+	(0, _createClass3.default)(NewArticlePage, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					_MuiThemeProvider2.default,
+					{ muiTheme: _theme.muiTheme },
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(_newArticle2.default, { isAuth: true })
+					)
+				)
+			);
+		}
+	}]);
+	return NewArticlePage;
 }(_react2.default.Component);
 
-exports.default = Main;
+exports.default = NewArticlePage;
 
 /***/ },
-/* 409 */,
 /* 410 */,
 /* 411 */,
 /* 412 */,
 /* 413 */,
-/* 414 */
+/* 414 */,
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 var _stringify = __webpack_require__(370);
@@ -34897,143 +35345,597 @@ var _RaisedButton = __webpack_require__(160);
 
 var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
+var _Chip = __webpack_require__(418);
+
+var _Chip2 = _interopRequireDefault(_Chip);
+
 var _reactCookie = __webpack_require__(363);
 
 var _reactCookie2 = _interopRequireDefault(_reactCookie);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Auth = function (_React$Component) {
-	(0, _inherits3.default)(Auth, _React$Component);
+var NewArticle = function (_React$Component) {
+    (0, _inherits3.default)(NewArticle, _React$Component);
 
-	function Auth(props) {
-		(0, _classCallCheck3.default)(this, Auth);
+    function NewArticle(props) {
+        (0, _classCallCheck3.default)(this, NewArticle);
 
-		var _this = (0, _possibleConstructorReturn3.default)(this, (Auth.__proto__ || (0, _getPrototypeOf2.default)(Auth)).call(this, props));
+        var _this = (0, _possibleConstructorReturn3.default)(this, (NewArticle.__proto__ || (0, _getPrototypeOf2.default)(NewArticle)).call(this, props));
 
-		_this.state = {
-			errors: {
-				email: '',
-				password: ''
-			},
-			user: {
-				email: '',
-				password: ''
-			}
-		};
+        _this.handleRequestDelete = function (key) {
+            if (key === 3) {
+                alert('Why would you want to delete React?! :)');
+                return;
+            }
 
-		_this.login = _this.login.bind(_this);
-		_this.logOut = _this.logOut.bind(_this);
-		_this.onChangeMail = _this.onChangeMail.bind(_this);
-		_this.onChangePassword = _this.onChangePassword.bind(_this);
-		return _this;
-	}
+            _this.chipData = _this.state.article.tags;
+            var chipToDelete = _this.chipData.map(function (chip) {
+                return chip.key;
+            }).indexOf(key);
+            _this.chipData.splice(chipToDelete, 1);
+            _this.setState(_this.state.article);
+        };
 
-	(0, _createClass3.default)(Auth, [{
-		key: 'onChangeMail',
-		value: function onChangeMail(event) {
-			this.state.user.email = event.target.value;
-			this.setState(this.state.user);
-		}
-	}, {
-		key: 'onChangePassword',
-		value: function onChangePassword(event) {
-			this.state.user.password = event.target.value;
-			this.setState(this.state.user);
-		}
-	}, {
-		key: 'login',
-		value: function login(event) {
-			event.preventDefault();
+        _this.state = {
+            errors: {
+                title: '',
+                text: '',
+                description: '',
+                tags: ''
+            },
+            article: {
+                title: '',
+                text: '',
+                description: '',
+                tags: ['tag1', 'tag2', 'tag3']
+            }
+        };
 
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', '/login/');
-			xhr.setRequestHeader('Content-type', 'application/json');
-			xhr.responseType = 'json';
+        _this.styles = {
+            chip: {
+                margin: 4
+            },
+            wrapper: {
+                display: 'flex',
+                flexWrap: 'wrap'
+            }
+        };
 
-			xhr.addEventListener('load', function () {
-				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-					console.log(xhr.response);
-					if (xhr.response.success) {
-						_reactCookie2.default.save("Id", xhr.response.data.id);
-						_reactCookie2.default.save("Token.JWT", xhr.response.data.token);
+        _this.add = _this.add.bind(_this);
+        _this.onChangeTitle = _this.onChangeTitle.bind(_this);
+        _this.onChangeText = _this.onChangeText.bind(_this);
+        _this.onChangeDescription = _this.onChangeDescription.bind(_this);
+        return _this;
+    }
 
-						window.location.href = window.location.href;
-					} else {
-						alert(xhr.response.message);
-					}
-				}
-			});
+    (0, _createClass3.default)(NewArticle, [{
+        key: 'onChangeTitle',
+        value: function onChangeTitle(event) {
+            this.state.article.title = event.target.value;
+            this.setState(this.state.article);
+        }
+    }, {
+        key: 'onChangeText',
+        value: function onChangeText(event) {
+            this.state.article.text = event.target.value;
+            this.setState(this.state.article);
+        }
+    }, {
+        key: 'onChangeDescription',
+        value: function onChangeDescription(event) {
+            this.state.article.description = event.target.value;
+            this.setState(this.state.article);
+        }
+    }, {
+        key: 'add',
+        value: function add(event) {
+            event.preventDefault();
 
-			xhr.send((0, _stringify2.default)(this.state.user));
-		}
-	}, {
-		key: 'logOut',
-		value: function logOut(event) {
-			_reactCookie2.default.remove("Id");
-			_reactCookie2.default.remove("Token.JWT");
-			window.location.href = window.location.href;
-		}
-	}, {
-		key: 'render',
-		value: function render() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/signup');
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.responseType = 'json';
 
-			return _react2.default.createElement(
-				'div',
-				null,
-				!this.props.isAuth ? _react2.default.createElement(
-					'form',
-					{ action: '', onSubmit: this.login },
-					_react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(_TextField2.default, {
-							id: 'loginForm-login',
-							floatingLabelText: 'Email',
-							onChange: this.onChangeMail,
-							errorText: this.state.errors.email,
-							value: this.state.user.email
-						})
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(_TextField2.default, {
-							id: 'loginForm-password',
-							type: 'password',
-							floatingLabelText: 'Password',
-							onChange: this.onChangePassword,
-							errorText: this.state.errors.password,
-							value: this.state.user.password
-						})
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						_react2.default.createElement(_RaisedButton2.default, { label: 'Sign In', type: 'submit' })
-					)
-				) : _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(_RaisedButton2.default, { label: 'Log Out', onClick: this.logOut })
-				)
-			);
-		}
-	}]);
-	return Auth;
+            xhr.addEventListener('load', function () {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    console.log(xhr.response);
+                    if (xhr.response.success) {
+
+                        window.location.href = '/react/articles/';
+                    } else {
+                        alert(xhr.response.message);
+                    }
+                }
+            });
+
+            xhr.send((0, _stringify2.default)(this.state.user));
+        }
+    }, {
+        key: 'renderChip',
+        value: function renderChip(data) {
+            var _this2 = this;
+
+            return _react2.default.createElement(
+                _Chip2.default,
+                {
+                    key: data.key,
+                    onRequestDelete: function onRequestDelete() {
+                        return _this2.handleRequestDelete(data.key);
+                    },
+                    style: this.styles.chip },
+                data.label
+            );
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'form',
+                    { action: '', onSubmit: this.add },
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(_TextField2.default, {
+                            id: 'newArticle-title',
+                            floatingLabelText: 'Title',
+                            onChange: this.onChangeTitle,
+                            errorText: this.state.errors.title,
+                            value: this.state.article.title
+                        })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { style: this.styles.wrapper },
+                        this.state.article.tags.map(this.renderChip, this)
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(_TextField2.default, {
+                            id: 'newArticle-description',
+                            floatingLabelText: 'Description',
+                            onChange: this.onChangeDescription,
+                            errorText: this.state.errors.description,
+                            value: this.state.article.description
+                        })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(_TextField2.default, {
+                            id: 'newArticle-text',
+                            floatingLabelText: 'Text',
+                            onChange: this.onChangeText,
+                            errorText: this.state.errors.text,
+                            value: this.state.article.text
+                        })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(_RaisedButton2.default, { label: 'Create Article', type: 'submit' })
+                    )
+                )
+            );
+        }
+    }]);
+    return NewArticle;
 }(_react2.default.Component);
 
-exports.default = Auth;
+exports.default = NewArticle;
 
 /***/ },
-/* 415 */,
 /* 416 */,
-/* 417 */,
-/* 418 */,
-/* 419 */,
+/* 417 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends2 = __webpack_require__(18);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = __webpack_require__(19);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _getPrototypeOf = __webpack_require__(9);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(8);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(10);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(12);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(11);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _simpleAssign = __webpack_require__(14);
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _keycode = __webpack_require__(159);
+
+var _keycode2 = _interopRequireDefault(_keycode);
+
+var _colorManipulator = __webpack_require__(65);
+
+var _EnhancedButton = __webpack_require__(156);
+
+var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
+
+var _cancel = __webpack_require__(419);
+
+var _cancel2 = _interopRequireDefault(_cancel);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function getStyles(props, context, state) {
+  var chip = context.muiTheme.chip;
+
+
+  var backgroundColor = props.backgroundColor || chip.backgroundColor;
+  var focusColor = (0, _colorManipulator.emphasize)(backgroundColor, 0.08);
+  var pressedColor = (0, _colorManipulator.emphasize)(backgroundColor, 0.12);
+
+  return {
+    avatar: {
+      marginRight: -4
+    },
+    deleteIcon: {
+      color: state.deleteHovered ? (0, _colorManipulator.fade)(chip.deleteIconColor, 0.4) : chip.deleteIconColor,
+      cursor: 'pointer',
+      margin: '4px 4px 0px -8px'
+    },
+    label: {
+      color: props.labelColor || chip.textColor,
+      fontSize: chip.fontSize,
+      fontWeight: chip.fontWeight,
+      lineHeight: '32px',
+      paddingLeft: 12,
+      paddingRight: 12,
+      userSelect: 'none',
+      whiteSpace: 'nowrap'
+    },
+    root: {
+      backgroundColor: state.clicked ? pressedColor : state.focused || state.hovered ? focusColor : backgroundColor,
+      borderRadius: 16,
+      boxShadow: state.clicked ? chip.shadow : null,
+      cursor: props.onTouchTap ? 'pointer' : 'default',
+      display: 'flex',
+      whiteSpace: 'nowrap',
+      width: 'fit-content'
+    }
+  };
+}
+
+var Chip = function (_Component) {
+  (0, _inherits3.default)(Chip, _Component);
+
+  function Chip() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    (0, _classCallCheck3.default)(this, Chip);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Chip.__proto__ || (0, _getPrototypeOf2.default)(Chip)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      clicked: false,
+      deleteHovered: false,
+      focused: false,
+      hovered: false
+    }, _this.handleBlur = function (event) {
+      _this.setState({ clicked: false, focused: false });
+      _this.props.onBlur(event);
+    }, _this.handleFocus = function (event) {
+      if (_this.props.onTouchTap || _this.props.onRequestDelete) {
+        _this.setState({ focused: true });
+      }
+      _this.props.onFocus(event);
+    }, _this.handleKeyboardFocus = function (event, keyboardFocused) {
+      if (keyboardFocused) {
+        _this.handleFocus();
+        _this.props.onFocus(event);
+      } else {
+        _this.handleBlur();
+      }
+
+      _this.props.onKeyboardFocus(event, keyboardFocused);
+    }, _this.handleKeyDown = function (event) {
+      if ((0, _keycode2.default)(event) === 'backspace') {
+        event.preventDefault();
+        if (_this.props.onRequestDelete) {
+          _this.props.onRequestDelete(event);
+        }
+      }
+      _this.props.onKeyDown(event);
+    }, _this.handleMouseDown = function (event) {
+      // Only listen to left clicks
+      if (event.button === 0) {
+        event.stopPropagation();
+        if (_this.props.onTouchTap) {
+          _this.setState({ clicked: true });
+        }
+      }
+      _this.props.onMouseDown(event);
+    }, _this.handleMouseEnter = function (event) {
+      if (_this.props.onTouchTap) {
+        _this.setState({ hovered: true });
+      }
+      _this.props.onMouseEnter(event);
+    }, _this.handleMouseEnterDeleteIcon = function () {
+      _this.setState({ deleteHovered: true });
+    }, _this.handleMouseLeave = function (event) {
+      _this.setState({
+        clicked: false,
+        hovered: false
+      });
+      _this.props.onMouseLeave(event);
+    }, _this.handleMouseLeaveDeleteIcon = function () {
+      _this.setState({ deleteHovered: false });
+    }, _this.handleMouseUp = function (event) {
+      _this.setState({ clicked: false });
+      _this.props.onMouseUp(event);
+    }, _this.handleTouchTapDeleteIcon = function (event) {
+      // Stop the event from bubbling up to the `Chip`
+      event.stopPropagation();
+      _this.props.onRequestDelete(event);
+    }, _this.handleTouchEnd = function (event) {
+      _this.setState({ clicked: false });
+      _this.props.onTouchEnd(event);
+    }, _this.handleTouchStart = function (event) {
+      event.stopPropagation();
+      if (_this.props.onTouchTap) {
+        _this.setState({ clicked: true });
+      }
+      _this.props.onTouchStart(event);
+    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+  }
+
+  (0, _createClass3.default)(Chip, [{
+    key: 'render',
+    value: function render() {
+      var buttonEventHandlers = {
+        onBlur: this.handleBlur,
+        onFocus: this.handleFocus,
+        onKeyDown: this.handleKeyDown,
+        onMouseDown: this.handleMouseDown,
+        onMouseEnter: this.handleMouseEnter,
+        onMouseLeave: this.handleMouseLeave,
+        onMouseUp: this.handleMouseUp,
+        onTouchEnd: this.handleTouchEnd,
+        onTouchStart: this.handleTouchStart,
+        onKeyboardFocus: this.handleKeyboardFocus
+      };
+
+      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+      var styles = getStyles(this.props, this.context, this.state);
+
+      var _props = this.props,
+          childrenProp = _props.children,
+          style = _props.style,
+          className = _props.className,
+          labelStyle = _props.labelStyle,
+          labelColor = _props.labelColor,
+          backgroundColor = _props.backgroundColor,
+          onRequestDelete = _props.onRequestDelete,
+          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'style', 'className', 'labelStyle', 'labelColor', 'backgroundColor', 'onRequestDelete']);
+
+
+      var deletable = this.props.onRequestDelete;
+      var avatar = null;
+
+      var deleteIcon = deletable ? _react2.default.createElement(_cancel2.default, {
+        color: styles.deleteIcon.color,
+        style: styles.deleteIcon,
+        onTouchTap: this.handleTouchTapDeleteIcon,
+        onMouseEnter: this.handleMouseEnterDeleteIcon,
+        onMouseLeave: this.handleMouseLeaveDeleteIcon
+      }) : null;
+
+      var children = childrenProp;
+      var childCount = _react2.default.Children.count(children);
+
+      // If the first child is an avatar, extract it and style it
+      if (childCount > 1) {
+        children = _react2.default.Children.toArray(children);
+
+        if (_react2.default.isValidElement(children[0]) && children[0].type.muiName === 'Avatar') {
+          avatar = children.shift();
+
+          avatar = _react2.default.cloneElement(avatar, {
+            style: (0, _simpleAssign2.default)(styles.avatar, avatar.props.style),
+            size: 32
+          });
+        }
+      }
+
+      return _react2.default.createElement(
+        _EnhancedButton2.default,
+        (0, _extends3.default)({}, other, buttonEventHandlers, {
+          className: className,
+          containerElement: 'div' // Firefox doesn't support nested buttons
+          , disableTouchRipple: true,
+          disableFocusRipple: true,
+          style: (0, _simpleAssign2.default)(styles.root, style)
+        }),
+        avatar,
+        _react2.default.createElement(
+          'span',
+          { style: prepareStyles((0, _simpleAssign2.default)(styles.label, labelStyle)) },
+          children
+        ),
+        deleteIcon
+      );
+    }
+  }]);
+  return Chip;
+}(_react.Component);
+
+Chip.defaultProps = {
+  onBlur: function onBlur() {},
+  onFocus: function onFocus() {},
+  onKeyDown: function onKeyDown() {},
+  onKeyboardFocus: function onKeyboardFocus() {},
+  onMouseDown: function onMouseDown() {},
+  onMouseEnter: function onMouseEnter() {},
+  onMouseLeave: function onMouseLeave() {},
+  onMouseUp: function onMouseUp() {},
+  onTouchEnd: function onTouchEnd() {},
+  onTouchStart: function onTouchStart() {}
+};
+Chip.contextTypes = { muiTheme: _react.PropTypes.object.isRequired };
+process.env.NODE_ENV !== "production" ? Chip.propTypes = {
+  /**
+   * Override the background color of the chip.
+   */
+  backgroundColor: _react.PropTypes.string,
+  /**
+   * Used to render elements inside the Chip.
+   */
+  children: _react.PropTypes.node,
+  /**
+   * CSS `className` of the root element.
+   */
+  className: _react.PropTypes.node,
+  /**
+   * Override the label color.
+   */
+  labelColor: _react.PropTypes.string,
+  /**
+   * Override the inline-styles of the label.
+   */
+  labelStyle: _react.PropTypes.object,
+  /** @ignore */
+  onBlur: _react.PropTypes.func,
+  /** @ignore */
+  onFocus: _react.PropTypes.func,
+  /** @ignore */
+  onKeyDown: _react.PropTypes.func,
+  /** @ignore */
+  onKeyboardFocus: _react.PropTypes.func,
+  /** @ignore */
+  onMouseDown: _react.PropTypes.func,
+  /** @ignore */
+  onMouseEnter: _react.PropTypes.func,
+  /** @ignore */
+  onMouseLeave: _react.PropTypes.func,
+  /** @ignore */
+  onMouseUp: _react.PropTypes.func,
+  /**
+   * Callback function fired when the delete icon is clicked. If set, the delete icon will be shown.
+   * @param {object} event `touchTap` event targeting the element.
+   */
+  onRequestDelete: _react.PropTypes.func,
+  /** @ignore */
+  onTouchEnd: _react.PropTypes.func,
+  /** @ignore */
+  onTouchStart: _react.PropTypes.func,
+  /**
+   * Callback function fired when the `Chip` element is touch-tapped.
+   *
+   * @param {object} event TouchTap event targeting the element.
+   */
+  onTouchTap: _react.PropTypes.func,
+  /**
+   * Override the inline-styles of the root element.
+   */
+  style: _react.PropTypes.object
+} : void 0;
+exports.default = Chip;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ },
+/* 418 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _Chip = __webpack_require__(417);
+
+var _Chip2 = _interopRequireDefault(_Chip);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _Chip2.default;
+
+/***/ },
+/* 419 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(369);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(368);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NavigationCancel = function NavigationCancel(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z' })
+  );
+};
+NavigationCancel = (0, _pure2.default)(NavigationCancel);
+NavigationCancel.displayName = 'NavigationCancel';
+NavigationCancel.muiName = 'SvgIcon';
+
+exports.default = NavigationCancel;
+
+/***/ },
 /* 420 */,
 /* 421 */,
-/* 422 */
+/* 422 */,
+/* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35045,13 +35947,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(37);
 
-var _main = __webpack_require__(408);
+var _newArticlePage = __webpack_require__(409);
 
-var _main2 = _interopRequireDefault(_main);
-
-var _reactCookie = __webpack_require__(363);
-
-var _reactCookie2 = _interopRequireDefault(_reactCookie);
+var _newArticlePage2 = _interopRequireDefault(_newArticlePage);
 
 var _reactTapEventPlugin = __webpack_require__(155);
 
@@ -35061,8 +35959,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (0, _reactTapEventPlugin2.default)();
 
-(0, _reactDom.render)(_react2.default.createElement(_main2.default, { isAuth: _reactCookie2.default.load('Id') !== undefined }), document.getElementById('root'));
+(0, _reactDom.render)(_react2.default.createElement(_newArticlePage2.default, null), document.getElementById('root'));
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.bundle.js.map
+//# sourceMappingURL=newArticle.bundle.js.map

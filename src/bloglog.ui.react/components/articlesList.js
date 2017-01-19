@@ -8,6 +8,10 @@ export default class ArticlesList extends React.Component {
 		super(props);
 	}
 
+	selectArticle(id){
+		window.location.href = window.location.href + id;
+	}
+
 	render() {
 
 		return (
@@ -17,7 +21,7 @@ export default class ArticlesList extends React.Component {
 					    key={i}
 						primaryText={article.title}
 						secondaryText={article.description}
-						onTouchTap={this.selectArticle}/>
+						onTouchTap={this.selectArticle.bind(this, article.id)}/>
 				)}
 			</List>
 		)

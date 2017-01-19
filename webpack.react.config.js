@@ -6,7 +6,9 @@ module.exports = {
   entry: {
       main: "./views/main.browser.js",
       articles: "./views/articlesPage.browser.js",
-      signup: "./views/signupPage.browser.js"
+      signup: "./views/signupPage.browser.js",
+      articleDetails: "./views/articleDetailsPage.browser.js",
+      newArticle: "./views/newArticlePage.browser.js"
   },
   output: {
     path: __dirname + "/dist/react",

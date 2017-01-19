@@ -9,15 +9,17 @@ import ReactDOMServer from 'react-dom/server';
 // local
 import template from './views/template.js';
 import Main from './views/main.js';
-import ArticlesPage from './views/articlesPage.js';
 import SignUpPage from './views/signupPage.js';
+import ArticlesPage from './views/articlesPage.js';
+import ArticleDetailsPage from './views/articleDetailsPage';
+import NewArticlePage from './views/newArticlePage';
 
 // results
 import Result from '../bloglog.common/result.js';
 import ResultCodes from '../bloglog.common/resultCodes.js';
 
 // local services
-import {articleService} from '../bloglog.services'
+import { articleService, commentService } from '../bloglog.services';
 /* -------------- implementation -------------- */
 
 // create router
@@ -36,6 +38,7 @@ router.get('/', function (req, res) {
 
 });
 
+// singup
 router.get('/signup', function (req, res) {
 
     let html = ReactDOMServer.renderToString(<SignUpPage />);
@@ -73,6 +76,53 @@ router.get('/articles/:pageNumber/:pageSize', function (req, res) {
             .catch((errorResult) => res.send("Error occured. " + errorResult.message));
     } else {
         next();
+    }
+
+});
+
+router.get('/newarticle', function (req, res) {
+
+    let html = ReactDOMServer.renderToString(<NewArticlePage/>);
+    res.send(template(
+        {
+            body: html,
+            title: 'Blog Log',
+            scriptDest: 'react/newArticle.bundle.js'
+        }));
+
+});
+
+// article details page
+router.get('/articles/:id', function (req, res) {
+
+    let article_id = req.params.id;
+
+    if (article_id) {
+
+        articleService.getById(article_id)
+            .then((result) => {
+
+                commentService.getCommentsByArticleId(article_id, 0, 10)
+                    .then((resultComments) => {
+
+                        let html = ReactDOMServer.renderToString(<ArticleDetailsPage article={result.data} comments={resultComments.data}/>);
+                        res.send(template(
+                            {
+                                body: html,
+                                title: 'Blog Log',
+                                scriptDest: 'react/articleDetails.bundle.js',
+                                data: { 
+                                    article: result.data,
+                                    comments: resultComments.data
+                                }
+                            }));
+
+                    })
+                    .catch((errorResult) => res.send("Error occured. " + errorResult.message));
+
+            })
+            .catch((errorResult) => res.json(errorResult));
+
     }
 
 });
