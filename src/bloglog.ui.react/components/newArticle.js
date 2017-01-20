@@ -22,7 +22,20 @@ export default class NewArticle extends React.Component {
 				title: '',
 				text: '',
                 description: '',
-				tags: ['tag1', 'tag2', 'tag3']
+				tags: [
+                    {
+                        key: 0,
+                        value: 'tag1'
+                    },
+                    {
+                        key: 1,
+                        value: 'tag2'
+                    },
+                    {
+                        key: 2,
+                        value: 'tag3'
+                    }
+                ]
 			}
 		};
 
@@ -57,19 +70,15 @@ export default class NewArticle extends React.Component {
 		this.setState(this.state.article);
 	}
 
-	// onChangeTags(event){
-    //     this.state.article.password = event.target.value;
-	// 	this.setState(this.state.article);
-	// }
-
 	add(event){
             // prevent default action. in this case, action is the form submission event
         event.preventDefault();
 
-            let xhr = new XMLHttpRequest();
-            xhr.open('POST', '/signup');
-            xhr.setRequestHeader('Content-type', 'application/json');
-            xhr.responseType = 'json';
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/articles');
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.setRequestHeader('Authorization', this.props.token);
+        xhr.responseType = 'json';
 
         xhr.addEventListener('load', () => {
             if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -81,9 +90,9 @@ export default class NewArticle extends React.Component {
                                 alert(xhr.response.message);
                             }
             }
-            });
+        });
 
-		xhr.send(JSON.stringify(this.state.user));
+		xhr.send(JSON.stringify(this.state.article));
 	}
 
     handleRequestDelete = (key) => {
@@ -104,7 +113,7 @@ export default class NewArticle extends React.Component {
                 key={data.key}
                 onRequestDelete={() => this.handleRequestDelete(data.key)}
                 style={this.styles.chip}>
-                {data.label}
+                {data.value}
             </Chip>
         );
     }

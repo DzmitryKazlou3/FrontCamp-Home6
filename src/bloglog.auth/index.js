@@ -42,6 +42,38 @@ function initialize(app) {
 
     }));
 
+    let opts = {};
+    opts.secretOrKey = "zlovzlovzlolovlll";
+    opts.jwtFromRequest = function (req) {
+        var token = null;
+        if (req && req.cookies) {
+            token = req.cookies['jwt'];
+            debugger;
+        }
+        return token;
+    };
+    passport.use("jwt-cookie", new JwtStrategy(opts, function (jwt_payload, done) {
+debugger;
+        userService.get(jwt_payload.email)
+            .then(result => {
+                if (result.success) {
+                    let user = result.data;
+                    if (user) {
+                        user.password = "";
+                        return done(null, user);
+                    }
+
+                    return done(null, false, { message: 'invalid credentials' });
+                }
+
+                return done(null, false, { message: 'invalid credentials' });
+            })
+            .catch(error => {
+                return done(error);
+            });
+
+    }));
+
     app.post('/signup', function (req, res) {
 
         userService.get(req.body.email)

@@ -80,14 +80,18 @@ router.get('/articles/:pageNumber/:pageSize', function (req, res) {
 
 });
 
-router.get('/newarticle', function (req, res) {
-
-    let html = ReactDOMServer.renderToString(<NewArticlePage/>);
+router.get('/newarticle', passport.authenticate('jwt-cookie', { session: false }), function (req, res) {
+debugger;
+    let dataContext = { isAuth: true };
+    let html = ReactDOMServer.renderToString(<NewArticlePage dataContext={dataContext}/>);
     res.send(template(
         {
             body: html,
             title: 'Blog Log',
-            scriptDest: 'react/newArticle.bundle.js'
+            scriptDest: 'react/newArticle.bundle.js',
+            data: {
+                isAuth: true
+            }
         }));
 
 });

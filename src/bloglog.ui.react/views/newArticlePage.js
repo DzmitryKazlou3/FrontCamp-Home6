@@ -17,7 +17,7 @@ export default class NewArticlePage extends React.Component {
             <div>
                 <MuiThemeProvider muiTheme={customTheme}>
 				    <div>
-						<NewArticle isAuth={true}/>
+						<NewArticle isAuth={this.props.dataContext.isAuth} token={this.props.dataContext.token} />
 					</div>
                 </MuiThemeProvider>            
             </div>
