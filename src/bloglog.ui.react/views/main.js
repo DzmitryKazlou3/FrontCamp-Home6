@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Login from '../components/login.js';
+import { logOut } from '../services/auth.service.js';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -24,16 +25,22 @@ export default class Main extends React.Component {
 
 	render() {
 		return (
-            <div>
-                <MuiThemeProvider muiTheme={customTheme}>
-                    <div>
-                        <Login isAuth={this.props.isAuth}/>
-                        {!this.props.isAuth &&
-                            <RaisedButton label="Sign Up" href="/react/signup"/>}
-                        <RaisedButton label="Articles" href="/react/articles"/>
-                    </div>
-                </MuiThemeProvider>
-            </div>
+            <MuiThemeProvider muiTheme={customTheme}>
+                <div>
+                    
+                        <div className="toolBar">
+                            <RaisedButton label="Articles" href="/react/articles" />
+                            {this.props.isAuth &&
+                                <RaisedButton label="Log Out"onClick={logOut}/>}                                
+                            {!this.props.isAuth &&
+                                <RaisedButton label="Sign Up" href="/react/signup"/>}
+                        </div>
+                    
+                        <div>
+                            <Login isAuth={this.props.isAuth}/>
+                        </div>
+                </div>
+            </MuiThemeProvider>
 		)
 	};
 }

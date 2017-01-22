@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {muiTheme as customTheme} from './theme';
 
 import ArticlesList from '../components/articlesList.js';
+import { logOut } from '../services/auth.service.js';
 
 
 export default class ArticlesPage extends React.Component {
@@ -12,18 +13,23 @@ export default class ArticlesPage extends React.Component {
 		super(props);
 	};
     
-	render() {        
+	render() {
 		return (
             <div>
                 <MuiThemeProvider muiTheme={customTheme}>
 				    <div>
-                        <ArticlesList articles={this.props.dataContext.data}/>
-						{!this.props.isAuth &&
-                            <RaisedButton label="Add article" href="/react/newarticle/"/>}
+						<div className="toolBar">
+							<RaisedButton label="Home" href="/react" />
+							{this.props.dataContext.isAuth &&
+								<RaisedButton label="Log Out"onClick={logOut}/>}								
+							{this.props.dataContext.isAuth &&
+								<RaisedButton label="Add article" href="/react/newarticle/"/>}
+						</div>
+                        <ArticlesList articles={this.props.dataContext.articles}/>
 					</div>
                 </MuiThemeProvider>
 
-                <div>Total items count {this.props.dataContext.count}</div>                
+                <div>Total items count {this.props.dataContext.count}</div>
             </div>
 		)
 	};

@@ -9,7 +9,7 @@ export default class ArticlesList extends React.Component {
 	}
 
 	selectArticle(id){
-		window.location.href = window.location.href + id;
+		window.location.href = window.location.href + '/' + id;
 	}
 
 	render() {

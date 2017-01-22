@@ -1,6 +1,7 @@
 /* -------------- imports -------------- */
 // external
 import { Router } from 'express';
+import passport from 'passport';
 
 import React from 'react';
 import ReactDom from 'react-dom';
@@ -13,6 +14,7 @@ import SignUpPage from './views/signupPage.js';
 import ArticlesPage from './views/articlesPage.js';
 import ArticleDetailsPage from './views/articleDetailsPage';
 import NewArticlePage from './views/newArticlePage';
+import EditArticlePage from './views/editArticlePage';
 
 // results
 import Result from '../bloglog.common/result.js';
@@ -24,10 +26,12 @@ import { articleService, commentService } from '../bloglog.services';
 
 // create router
 const router = Router();
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 // main page
 router.get('/', function (req, res) {
-
+    
     let html = ReactDOMServer.renderToString(<Main isAuth={req.cookies.Id !== undefined}/>);
     res.send(template(
         {
@@ -49,6 +53,44 @@ router.get('/signup', function (req, res) {
             scriptDest: 'react/signup.bundle.js'
         }));
 
+});
+
+// edit article page
+router.get('/articles/:id/edit',
+    passport.authenticate('jwt-cookie', {
+        session: false,
+        failureRedirect: '/react'
+    }), function (req, res) {
+
+        let article_id = req.params.id;
+        let token = req.cookies['Token.JWT'];
+
+        if (article_id) {
+
+            articleService.getById(article_id)
+                .then((result) => {
+
+                    let dataContext = {
+                        article: result.data,
+                        token: token
+                    }
+
+                    let html = ReactDOMServer.renderToString(<EditArticlePage dataContext={dataContext} />);
+                    res.send(template(
+                        {
+                            body: html,
+                            title: 'Blog Log',
+                            scriptDest: 'react/editArticle.bundle.js',
+                            data: {
+                                article: result.data,
+                                token: token
+                            }
+                        }));
+
+                })
+                .catch((errorResult) => res.json(errorResult));
+
+        }
 });
 
 // articles page
@@ -81,71 +123,91 @@ router.get('/articles/:pageNumber/:pageSize', function (req, res) {
 });
 
 router.get('/newarticle', passport.authenticate('jwt-cookie', { session: false }), function (req, res) {
-debugger;
-    let dataContext = { isAuth: true };
-    let html = ReactDOMServer.renderToString(<NewArticlePage dataContext={dataContext}/>);
+
+    let dataContext = {
+        isAuth: true,
+        token: req.cookies['Token.JWT']
+    };
+
+    let html = ReactDOMServer.renderToString(<NewArticlePage dataContext={dataContext} />);
     res.send(template(
         {
             body: html,
             title: 'Blog Log',
             scriptDest: 'react/newArticle.bundle.js',
-            data: {
-                isAuth: true
-            }
-        }));
+            data: dataContext
+        })
+    );
 
 });
 
 // article details page
-router.get('/articles/:id', function (req, res) {
+router.get('/articles/:id',
+    passport.authenticate('jwt-cookie', {
+        session: false,
+        failureRedirect: '/react'
+    }), function (req, res) {
+        
+        let article_id = req.params.id;
+        let token = req.cookies['Token.JWT'];
+        
+        if (article_id) {
 
-    let article_id = req.params.id;
+            articleService.getById(article_id)
+                .then((result) => {
 
-    if (article_id) {
+                    commentService.getCommentsByArticleId(article_id, 0, 10)
+                        .then((resultComments) => {
 
-        articleService.getById(article_id)
-            .then((result) => {
+                            let html = ReactDOMServer.renderToString(<ArticleDetailsPage article={result.data} comments={resultComments.data} token={token} user_id={req.user.id}/>);
+                            res.send(template(
+                                {
+                                    body: html,
+                                    title: 'Blog Log',
+                                    scriptDest: 'react/articleDetails.bundle.js',
+                                    data: {
+                                        article: result.data,
+                                        comments: resultComments.data,
+                                        token: token,
+                                        user_id: req.user.id
+                                    }
+                                }));
 
-                commentService.getCommentsByArticleId(article_id, 0, 10)
-                    .then((resultComments) => {
+                        })
+                        .catch((errorResult) => res.send("Error occured. " + errorResult.message));
 
-                        let html = ReactDOMServer.renderToString(<ArticleDetailsPage article={result.data} comments={resultComments.data}/>);
-                        res.send(template(
-                            {
-                                body: html,
-                                title: 'Blog Log',
-                                scriptDest: 'react/articleDetails.bundle.js',
-                                data: { 
-                                    article: result.data,
-                                    comments: resultComments.data
-                                }
-                            }));
+                })
+                .catch((errorResult) => res.json(errorResult));
 
-                    })
-                    .catch((errorResult) => res.send("Error occured. " + errorResult.message));
-
-            })
-            .catch((errorResult) => res.json(errorResult));
-
-    }
+        }
 
 });
 
+
 router.get('/articles', function (req, res) {
+    
+    let isAuth = req.cookies && req.cookies['Token.JWT'];
+
     articleService.get({}, 0, 10)
-    .then((result) => {
+        .then((result) => {
 
-        let html = ReactDOMServer.renderToString(<ArticlesPage dataContext={result.data} />);
-        res.send(template(
-            {
-                body: html,
-                title: 'Blog Log',
-                scriptDest: 'react/articles.bundle.js',
-                data: result.data
-            }));
+            let dataContext = {
+                articles: result.data.data,
+                isAuth: isAuth,
+                count: result.data.count
+            };
 
-    })
-    .catch((errorResult) => res.send("Error occured. " + errorResult.message));
+            let html = ReactDOMServer.renderToString(<ArticlesPage dataContext={dataContext} />);
+            res.send(template(
+                {
+                    body: html,
+                    title: 'Blog Log',
+                    scriptDest: 'react/articles.bundle.js',
+                    data: dataContext
+                }));
+
+        })
+        .catch((errorResult) => res.send("Error occured. " + errorResult.message));
 });
 
 /* -------------- exports -------------- */

@@ -8,7 +8,7 @@ export default class ArticleDetail extends React.Component {
 	}
 
 	render() {
-
+		
 		return (
 			<div>
 				<div>{this.props.article.title}</div>

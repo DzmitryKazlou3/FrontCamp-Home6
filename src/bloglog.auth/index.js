@@ -42,18 +42,20 @@ function initialize(app) {
 
     }));
 
-    let opts = {};
-    opts.secretOrKey = "zlovzlovzlolovlll";
-    opts.jwtFromRequest = function (req) {
-        var token = null;
+    let cookieOpts = {};
+    cookieOpts.secretOrKey = "zlovzlovzlolovlll";
+    cookieOpts.jwtFromRequest = function (req) {
+        let token = null;
         if (req && req.cookies) {
-            token = req.cookies['jwt'];
-            debugger;
+            token = req.cookies['Token.JWT'];
+            if(token){
+                token = token.substring(4);
+            }
         }
         return token;
     };
-    passport.use("jwt-cookie", new JwtStrategy(opts, function (jwt_payload, done) {
-debugger;
+    passport.use("jwt-cookie", new JwtStrategy(cookieOpts, function (jwt_payload, done) {
+        
         userService.get(jwt_payload.email)
             .then(result => {
                 if (result.success) {

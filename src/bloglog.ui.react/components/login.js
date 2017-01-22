@@ -22,7 +22,6 @@ export default class Auth extends React.Component {
 		};
 		
 		this.login = this.login.bind(this);
-		this.logOut = this.logOut.bind(this);
 		this.onChangeMail = this.onChangeMail.bind(this);
 		this.onChangePassword = this.onChangePassword.bind(this);
 	}
@@ -54,7 +53,7 @@ export default class Auth extends React.Component {
 							cookie.save("Token.JWT", xhr.response.data.token);
 
 							
-				      window.location.href = window.location.href;
+				      window.location.href = window.location.href + "articles";
 						} else{
 							alert(xhr.response.message);
 						}
@@ -64,17 +63,11 @@ export default class Auth extends React.Component {
 		xhr.send(JSON.stringify(this.state.user));
 	}
 
-	logOut(event) {
-		cookie.remove("Id");
-		cookie.remove("Token.JWT");
-		window.location.href = window.location.href;
-	}
-
 	render() {
 
 		return (
 			<div>
-			{ !this.props.isAuth ? (
+			{ !this.props.isAuth && (
 				<form action="" onSubmit={this.login}>
 				  <div>			
 						<TextField
@@ -102,10 +95,6 @@ export default class Auth extends React.Component {
 				  </div>
 
 			</form>
-			) : (
-          <div>
-						<RaisedButton label="Log Out"onClick={this.logOut}/>
-				  </div>
 			)}
 			</div>
 		)

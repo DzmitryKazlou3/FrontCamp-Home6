@@ -7,5 +7,7 @@
   "env": {
   },
   "comments": false,
-  "plugins": ["transform-runtime"]
+  "plugins": [
+    "transform-decorators-legacy"
+    ]
 }

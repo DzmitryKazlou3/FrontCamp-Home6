@@ -73,7 +73,12 @@ export default class SignUp extends React.Component {
 		return (
 			<div>
 				<form action="" onSubmit={this.signup}>
-          
+
+					<div className="toolBar">
+								<RaisedButton label="Back" href='/react' />
+								<RaisedButton label="Sign Up" type="submit"/>
+					</div>
+
 					<div>			
 						<TextField
 						  id="signupForm-name"
@@ -103,10 +108,6 @@ export default class SignUp extends React.Component {
 							errorText={this.state.errors.password}
 							value={this.state.user.password}
 							/>
-				  </div>
-
-          <div>
-						<RaisedButton label="Sign Un" type="submit"/>
 				  </div>
 
 			  </form>

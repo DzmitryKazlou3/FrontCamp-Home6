@@ -92,7 +92,7 @@ router.post('/:pageNumber/:pageSize', passport.authenticate('jwt', { session: fa
     updates the article
 */
 router.put('/', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-
+  
   articleService.update(
     new ArticleModel(
       req.body.id,

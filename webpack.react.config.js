@@ -8,7 +8,8 @@ module.exports = {
       articles: "./views/articlesPage.browser.js",
       signup: "./views/signupPage.browser.js",
       articleDetails: "./views/articleDetailsPage.browser.js",
-      newArticle: "./views/newArticlePage.browser.js"
+      newArticle: "./views/newArticlePage.browser.js",
+      editArticle: "./views/editArticlePage.browser.js"
   },
   output: {
     path: __dirname + "/dist/react",

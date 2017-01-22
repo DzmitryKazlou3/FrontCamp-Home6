@@ -28,7 +28,6 @@ export default class SignUpPage extends React.Component {
                 <MuiThemeProvider muiTheme={customTheme}>
                     <div>
                         <SignUp />
-                        <RaisedButton label="Back to Main" href="/react"/>
                     </div>
                 </MuiThemeProvider>
             </div>

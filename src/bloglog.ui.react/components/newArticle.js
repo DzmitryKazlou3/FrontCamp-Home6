@@ -3,8 +3,6 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Chip from 'material-ui/Chip';
 
-import cookie from 'react-cookie';
-
 
 
 export default class NewArticle extends React.Component {
@@ -73,6 +71,14 @@ export default class NewArticle extends React.Component {
 	add(event){
             // prevent default action. in this case, action is the form submission event
         event.preventDefault();
+        let article = {
+            title: this.state.article.title,
+            text: this.state.article.text,
+            description: this.state.article.description,
+            tags: []
+        };
+        
+        Array.forEach(this.state.article.tags, tag => {article.tags.push(tag.value)});
 
         let xhr = new XMLHttpRequest();
         xhr.open('POST', '/api/articles');
@@ -85,14 +91,14 @@ export default class NewArticle extends React.Component {
                 console.log(xhr.response);
                             if(xhr.response.success){
                                                             
-                            window.location.href = '/react/articles/';
+                            window.location.href = '/react/articles';
                             } else{
                                 alert(xhr.response.message);
                             }
             }
         });
 
-		xhr.send(JSON.stringify(this.state.article));
+		xhr.send(JSON.stringify(article));
 	}
 
     handleRequestDelete = (key) => {
@@ -123,7 +129,12 @@ export default class NewArticle extends React.Component {
 		return (
 			<div>
 				<form action="" onSubmit={this.add}>
-          
+                
+                    <div className="toolBar">
+                         <RaisedButton label="Back" href='/react/articles' />
+                         <RaisedButton label="Create" type="submit"/>
+                    </div>
+
 					<div>			
 					    <TextField
                             id="newArticle-title"
@@ -156,10 +167,6 @@ export default class NewArticle extends React.Component {
                                 errorText={this.state.errors.text}
                                 value={this.state.article.text}
                                 />
-                    </div>
-
-                    <div>
-                        <RaisedButton label="Create Article" type="submit"/>
                     </div>
 
 			  </form>
