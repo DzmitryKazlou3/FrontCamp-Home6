@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 99);
+/******/ 	return __webpack_require__(__webpack_require__.s = 98);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 27:
+/***/ 26:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76,7 +76,7 @@
 
 (function () {
 
-    angular.module('bloglog', ['ngAnimate', 'ngCookies', 'ngMessages', 'ui.bootstrap', 'ui.router', 'material.components.button', 'material.components.dialog', 'material.components.input', 'material.components.content', 'material.components.toolbar', 'material.components.sidenav', 'material.components.list', 'material.components.fabToolbar', 'material.components.icon', 'material.components.chips', 'material.components.fabSpeedDial']);
+    angular.module('bloglog', ['ngAnimate', 'ngCookies', 'ngMessages', 'ngResource', 'ui.bootstrap', 'ui.router', 'material.components.button', 'material.components.dialog', 'material.components.input', 'material.components.content', 'material.components.toolbar', 'material.components.sidenav', 'material.components.list', 'material.components.fabToolbar', 'material.components.icon', 'material.components.chips', 'material.components.fabSpeedDial']);
 
     angular.module("bloglog").config(["$httpProvider", function ($httpProvider) {
 
@@ -91,7 +91,7 @@
 
 /***/ },
 
-/***/ 28:
+/***/ 27:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99,18 +99,18 @@
 
 (function () {
 
-        angular.module("bloglog").config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
-                $stateProvider.state('home', { url: '', component: 'home' });
-                $stateProvider.state('articles', { url: '/articles', component: 'articles' });
-                $stateProvider.state('articleDetail', { url: '/articles/:id', component: 'articleDetail' });
+    angular.module("bloglog").config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
+        $stateProvider.state('home', { url: '', component: 'home' });
+        $stateProvider.state('articles', { url: '/articles', component: 'articles' });
+        $stateProvider.state('articleDetail', { url: '/articles/:id', component: 'articleDetail' });
 
-                $urlRouterProvider.otherwise('');
-        }]);
+        $urlRouterProvider.otherwise('');
+    }]);
 })();
 
 /***/ },
 
-/***/ 29:
+/***/ 28:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -163,7 +163,7 @@
         function loadArticle() {
 
             articleService.getArticleById(vm.id).then(function (result) {
-                vm.article = result.data;
+                vm.article = result;
                 vm.isMyArticle = $rootScope.UserId === vm.article.user.user_id;
             }).catch(function (error) {
                 alert(error.message);
@@ -239,7 +239,7 @@
 
 /***/ },
 
-/***/ 30:
+/***/ 29:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -310,7 +310,7 @@
 
 /***/ },
 
-/***/ 31:
+/***/ 30:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -439,7 +439,7 @@
 
 /***/ },
 
-/***/ 32:
+/***/ 31:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -515,7 +515,7 @@
 
 /***/ },
 
-/***/ 33:
+/***/ 32:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -561,7 +561,7 @@
 
 /***/ },
 
-/***/ 34:
+/***/ 33:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -597,7 +597,7 @@
 
 /***/ },
 
-/***/ 35:
+/***/ 34:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -632,7 +632,7 @@
 
 /***/ },
 
-/***/ 36:
+/***/ 35:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -727,7 +727,7 @@
 
 /***/ },
 
-/***/ 37:
+/***/ 36:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -756,7 +756,7 @@
 
 /***/ },
 
-/***/ 38:
+/***/ 37:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -845,7 +845,7 @@
 
 /***/ },
 
-/***/ 39:
+/***/ 38:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -855,9 +855,11 @@
 
     angular.module('bloglog').service('articleService', articleService);
 
-    articleService.$inject = ['$http', 'URLS', '$q'];
+    articleService.$inject = ['$http', 'URLS', '$q', '$resource'];
 
-    function articleService($http, URLS, $q) {
+    function articleService($http, URLS, $q, $resource) {
+        var Article = $resource(URLS.BASE + URLS.ARTICLES + '/:id', { id: '@id' });
+
         return {
             getRecentArticles: getRecentArticles,
             getArticlesByFilter: getArticlesByFilter,
@@ -879,7 +881,7 @@
 
         function getArticleById(id) {
 
-            return $http.get(URLS.BASE + URLS.ARTICLES + id).then(function (responce) {
+            return Article.get({ id: id }).$promise.then(function (responce) {
                 return responce.data;
             }).catch(function (error) {
                 console.log(error);
@@ -900,8 +902,7 @@
         }
 
         function addArticle(article) {
-
-            return $http.post(URLS.BASE + URLS.ARTICLES, article).then(function (responce) {
+            Article.save(article).$promise.then(function (responce) {
                 return responce.data;
             }).catch(function (error) {
                 console.log(error);
@@ -933,7 +934,7 @@
 
 /***/ },
 
-/***/ 40:
+/***/ 39:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -979,7 +980,7 @@
 
 /***/ },
 
-/***/ 41:
+/***/ 40:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1025,7 +1026,7 @@
 
 /***/ },
 
-/***/ 42:
+/***/ 41:
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1056,25 +1057,25 @@
 
 /***/ },
 
-/***/ 99:
+/***/ 98:
 /***/ function(module, exports, __webpack_require__) {
 
+__webpack_require__(26);
 __webpack_require__(27);
-__webpack_require__(28);
-__webpack_require__(37);
 __webpack_require__(36);
-__webpack_require__(41);
-__webpack_require__(39);
-__webpack_require__(33);
-__webpack_require__(42);
+__webpack_require__(35);
 __webpack_require__(40);
 __webpack_require__(38);
 __webpack_require__(32);
+__webpack_require__(41);
+__webpack_require__(39);
+__webpack_require__(37);
+__webpack_require__(31);
+__webpack_require__(28);
 __webpack_require__(29);
 __webpack_require__(30);
-__webpack_require__(31);
-__webpack_require__(34);
-module.exports = __webpack_require__(35);
+__webpack_require__(33);
+module.exports = __webpack_require__(34);
 
 
 /***/ }

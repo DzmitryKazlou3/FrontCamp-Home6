@@ -8,6 +8,6 @@
   },
   "comments": false,
   "plugins": [
-    "transform-decorators-legacy"
+    
     ]
 }

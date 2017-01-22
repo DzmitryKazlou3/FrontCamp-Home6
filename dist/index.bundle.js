@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 96);
+/******/ 	return __webpack_require__(__webpack_require__.s = 95);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -182,11 +182,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.muiTheme = undefined;
 
-var _getMuiTheme = __webpack_require__(91);
+var _getMuiTheme = __webpack_require__(90);
 
 var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
 
-var _colors = __webpack_require__(90);
+var _colors = __webpack_require__(89);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -219,19 +219,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.commentService = exports.userService = exports.tagService = exports.articleService = undefined;
 
-var _articleService = __webpack_require__(69);
+var _articleService = __webpack_require__(68);
 
 var _articleService2 = _interopRequireDefault(_articleService);
 
-var _tagService = __webpack_require__(71);
+var _tagService = __webpack_require__(70);
 
 var _tagService2 = _interopRequireDefault(_tagService);
 
-var _userService = __webpack_require__(72);
+var _userService = __webpack_require__(71);
 
 var _userService2 = _interopRequireDefault(_userService);
 
-var _commentService = __webpack_require__(70);
+var _commentService = __webpack_require__(69);
 
 var _commentService2 = _interopRequireDefault(_commentService);
 
@@ -275,19 +275,19 @@ var _mongoose = __webpack_require__(9);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _articleRepository = __webpack_require__(65);
+var _articleRepository = __webpack_require__(64);
 
 var _articleRepository2 = _interopRequireDefault(_articleRepository);
 
-var _tagRepository = __webpack_require__(67);
+var _tagRepository = __webpack_require__(66);
 
 var _tagRepository2 = _interopRequireDefault(_tagRepository);
 
-var _userRepository = __webpack_require__(68);
+var _userRepository = __webpack_require__(67);
 
 var _userRepository2 = _interopRequireDefault(_userRepository);
 
-var _commentRepository = __webpack_require__(66);
+var _commentRepository = __webpack_require__(65);
 
 var _commentRepository2 = _interopRequireDefault(_commentRepository);
 
@@ -482,14 +482,13 @@ module.exports = require("material-ui/Chip");
 module.exports = require("material-ui/List");
 
 /***/ },
-/* 21 */,
-/* 22 */
+/* 21 */
 /***/ function(module, exports) {
 
 module.exports = require("ts-md5/dist/md5");
 
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports) {
 
 module.exports = {
@@ -501,7 +500,7 @@ module.exports = {
 };
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -513,11 +512,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(4);
 
-var _articleRoutes = __webpack_require__(59);
+var _articleRoutes = __webpack_require__(58);
 
 var _articleRoutes2 = _interopRequireDefault(_articleRoutes);
 
-var _tagsRoutes = __webpack_require__(60);
+var _tagsRoutes = __webpack_require__(59);
 
 var _tagsRoutes2 = _interopRequireDefault(_tagsRoutes);
 
@@ -532,7 +531,7 @@ router.use('/tags', _tagsRoutes2.default);
 exports.default = router;
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -546,13 +545,13 @@ var _passport = __webpack_require__(15);
 
 var _passport2 = _interopRequireDefault(_passport);
 
-var _passportJwt = __webpack_require__(92);
+var _passportJwt = __webpack_require__(91);
 
-var _jwtSimple = __webpack_require__(89);
+var _jwtSimple = __webpack_require__(88);
 
 var _jwtSimple2 = _interopRequireDefault(_jwtSimple);
 
-var _md = __webpack_require__(22);
+var _md = __webpack_require__(21);
 
 var _bloglog = __webpack_require__(7);
 
@@ -674,7 +673,7 @@ function initialize(app) {
 exports.default = { initialize: initialize };
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -694,39 +693,39 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(93);
+var _reactDom = __webpack_require__(92);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _server = __webpack_require__(94);
+var _server = __webpack_require__(93);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _template = __webpack_require__(87);
+var _template = __webpack_require__(86);
 
 var _template2 = _interopRequireDefault(_template);
 
-var _main = __webpack_require__(84);
+var _main = __webpack_require__(83);
 
 var _main2 = _interopRequireDefault(_main);
 
-var _signupPage = __webpack_require__(86);
+var _signupPage = __webpack_require__(85);
 
 var _signupPage2 = _interopRequireDefault(_signupPage);
 
-var _articlesPage = __webpack_require__(82);
+var _articlesPage = __webpack_require__(81);
 
 var _articlesPage2 = _interopRequireDefault(_articlesPage);
 
-var _articleDetailsPage = __webpack_require__(81);
+var _articleDetailsPage = __webpack_require__(80);
 
 var _articleDetailsPage2 = _interopRequireDefault(_articleDetailsPage);
 
-var _newArticlePage = __webpack_require__(85);
+var _newArticlePage = __webpack_require__(84);
 
 var _newArticlePage2 = _interopRequireDefault(_newArticlePage);
 
-var _editArticlePage = __webpack_require__(83);
+var _editArticlePage = __webpack_require__(82);
 
 var _editArticlePage2 = _interopRequireDefault(_editArticlePage);
 
@@ -740,7 +739,7 @@ var _resultCodes2 = _interopRequireDefault(_resultCodes);
 
 var _bloglog = __webpack_require__(7);
 
-var _reactTapEventPlugin = __webpack_require__(95);
+var _reactTapEventPlugin = __webpack_require__(94);
 
 var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 
@@ -905,6 +904,7 @@ router.get('/articles', function (req, res) {
 exports.default = router;
 
 /***/ },
+/* 26 */,
 /* 27 */,
 /* 28 */,
 /* 29 */,
@@ -920,8 +920,7 @@ exports.default = router;
 /* 39 */,
 /* 40 */,
 /* 41 */,
-/* 42 */,
-/* 43 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -933,7 +932,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(4);
 
-__webpack_require__(88);
+__webpack_require__(87);
 
 var router = (0, _express.Router)();
 
@@ -944,6 +943,7 @@ router.use('/', function (req, res) {
 exports.default = router;
 
 /***/ },
+/* 43 */,
 /* 44 */,
 /* 45 */,
 /* 46 */,
@@ -953,38 +953,37 @@ exports.default = router;
 /* 50 */,
 /* 51 */,
 /* 52 */,
-/* 53 */,
-/* 54 */
+/* 53 */
 /***/ function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ },
-/* 55 */
+/* 54 */
 /***/ function(module, exports) {
 
 module.exports = require("cookie-parser");
 
 /***/ },
-/* 56 */
+/* 55 */
 /***/ function(module, exports) {
 
 module.exports = require("ejs");
 
 /***/ },
-/* 57 */
+/* 56 */
 /***/ function(module, exports) {
 
 module.exports = require("http");
 
 /***/ },
-/* 58 */
+/* 57 */
 /***/ function(module, exports) {
 
 module.exports = require("path");
 
 /***/ },
-/* 59 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1122,7 +1121,7 @@ router.post('/:id/comments/add', _passport2.default.authenticate('jwt', { sessio
 exports.default = router;
 
 /***/ },
-/* 60 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1155,7 +1154,7 @@ router.get('/', function (req, res, next) {
 exports.default = router;
 
 /***/ },
-/* 61 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1211,7 +1210,7 @@ var articleSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('articles', articleSchema);
 
 /***/ },
-/* 62 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1255,7 +1254,7 @@ var commentSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('comments', commentSchema);
 
 /***/ },
-/* 63 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1286,7 +1285,7 @@ var tagSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('tags', tagSchema);
 
 /***/ },
-/* 64 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1322,7 +1321,7 @@ var userSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('users', userSchema);
 
 /***/ },
-/* 65 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1331,11 +1330,10 @@ exports.default = _mongoose2.default.model('users', userSchema);
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _articleDataModel = __webpack_require__(61);
+var _articleDataModel = __webpack_require__(60);
 
 var _articleDataModel2 = _interopRequireDefault(_articleDataModel);
 
@@ -1548,7 +1546,7 @@ function MapToArticleModel(articleDataModel) {
 }
 
 /***/ },
-/* 66 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1557,11 +1555,10 @@ function MapToArticleModel(articleDataModel) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _commentDataModel = __webpack_require__(62);
+var _commentDataModel = __webpack_require__(61);
 
 var _commentDataModel2 = _interopRequireDefault(_commentDataModel);
 
@@ -1677,7 +1674,7 @@ function MapToCommentModel(commentDataModel) {
 }
 
 /***/ },
-/* 67 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1686,11 +1683,10 @@ function MapToCommentModel(commentDataModel) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _tagDataModel = __webpack_require__(63);
+var _tagDataModel = __webpack_require__(62);
 
 var _tagDataModel2 = _interopRequireDefault(_tagDataModel);
 
@@ -1905,7 +1901,7 @@ function MapToTagModel(tagDataModel) {
 }
 
 /***/ },
-/* 68 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1914,11 +1910,10 @@ function MapToTagModel(tagDataModel) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _userDataModel = __webpack_require__(64);
+var _userDataModel = __webpack_require__(63);
 
 var _userDataModel2 = _interopRequireDefault(_userDataModel);
 
@@ -1977,7 +1972,7 @@ function MapToUserModel(user) {
 }
 
 /***/ },
-/* 69 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1986,7 +1981,6 @@ function MapToUserModel(user) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -2165,7 +2159,7 @@ function checkArticle(article) {
 }
 
 /***/ },
-/* 70 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2174,7 +2168,6 @@ function checkArticle(article) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -2254,7 +2247,7 @@ function checkComment(comment) {
 }
 
 /***/ },
-/* 71 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2263,7 +2256,6 @@ function checkComment(comment) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -2339,7 +2331,7 @@ function checkTag(tag) {
 }
 
 /***/ },
-/* 72 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2348,11 +2340,10 @@ function checkTag(tag) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _md = __webpack_require__(22);
+var _md = __webpack_require__(21);
 
 var _userModel = __webpack_require__(14);
 
@@ -2424,7 +2415,7 @@ function checkUser(user) {
 }
 
 /***/ },
-/* 73 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2433,7 +2424,6 @@ function checkUser(user) {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -2490,7 +2480,7 @@ var ArticleDetail = function (_React$Component) {
 exports.default = ArticleDetail;
 
 /***/ },
-/* 74 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2499,7 +2489,6 @@ exports.default = ArticleDetail;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -2556,7 +2545,7 @@ var ArticlesList = function (_React$Component) {
 exports.default = ArticlesList;
 
 /***/ },
-/* 75 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2565,7 +2554,6 @@ exports.default = ArticlesList;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -2616,7 +2604,7 @@ var Comments = function (_React$Component) {
 exports.default = Comments;
 
 /***/ },
-/* 76 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2625,7 +2613,6 @@ exports.default = Comments;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -2803,7 +2790,7 @@ var EditArticle = function (_React$Component) {
 exports.default = EditArticle;
 
 /***/ },
-/* 77 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2812,7 +2799,6 @@ exports.default = EditArticle;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -2952,7 +2938,7 @@ var Auth = function (_React$Component) {
 exports.default = Auth;
 
 /***/ },
-/* 78 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2961,7 +2947,6 @@ exports.default = Auth;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -3186,7 +3171,7 @@ var NewArticle = function (_React$Component) {
 exports.default = NewArticle;
 
 /***/ },
-/* 79 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3195,7 +3180,6 @@ exports.default = NewArticle;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -3327,7 +3311,7 @@ var NewComment = function (_React$Component) {
 exports.default = NewComment;
 
 /***/ },
-/* 80 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3336,7 +3320,6 @@ exports.default = NewComment;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -3495,7 +3478,7 @@ var SignUp = function (_React$Component) {
 exports.default = SignUp;
 
 /***/ },
-/* 81 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3504,7 +3487,6 @@ exports.default = SignUp;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -3522,15 +3504,15 @@ var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
 var _theme = __webpack_require__(5);
 
-var _articleDetail = __webpack_require__(73);
+var _articleDetail = __webpack_require__(72);
 
 var _articleDetail2 = _interopRequireDefault(_articleDetail);
 
-var _comments = __webpack_require__(75);
+var _comments = __webpack_require__(74);
 
 var _comments2 = _interopRequireDefault(_comments);
 
-var _newComment = __webpack_require__(79);
+var _newComment = __webpack_require__(78);
 
 var _newComment2 = _interopRequireDefault(_newComment);
 
@@ -3588,7 +3570,7 @@ var ArticleDetailsPage = function (_React$Component) {
 exports.default = ArticleDetailsPage;
 
 /***/ },
-/* 82 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3597,7 +3579,6 @@ exports.default = ArticleDetailsPage;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -3615,7 +3596,7 @@ var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
 var _theme = __webpack_require__(5);
 
-var _articlesList = __webpack_require__(74);
+var _articlesList = __webpack_require__(73);
 
 var _articlesList2 = _interopRequireDefault(_articlesList);
 
@@ -3676,7 +3657,7 @@ var ArticlesPage = function (_React$Component) {
 exports.default = ArticlesPage;
 
 /***/ },
-/* 83 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3685,7 +3666,6 @@ exports.default = ArticlesPage;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -3703,7 +3683,7 @@ var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
 var _theme = __webpack_require__(5);
 
-var _editArticle = __webpack_require__(76);
+var _editArticle = __webpack_require__(75);
 
 var _editArticle2 = _interopRequireDefault(_editArticle);
 
@@ -3749,7 +3729,7 @@ var EditArticlePage = function (_React$Component) {
 exports.default = EditArticlePage;
 
 /***/ },
-/* 84 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3758,7 +3738,6 @@ exports.default = EditArticlePage;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -3766,7 +3745,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _login = __webpack_require__(77);
+var _login = __webpack_require__(76);
 
 var _login2 = _interopRequireDefault(_login);
 
@@ -3840,7 +3819,7 @@ var Main = function (_React$Component) {
 exports.default = Main;
 
 /***/ },
-/* 85 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3849,7 +3828,6 @@ exports.default = Main;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -3867,7 +3845,7 @@ var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
 var _theme = __webpack_require__(5);
 
-var _newArticle = __webpack_require__(78);
+var _newArticle = __webpack_require__(77);
 
 var _newArticle2 = _interopRequireDefault(_newArticle);
 
@@ -3913,7 +3891,7 @@ var NewArticlePage = function (_React$Component) {
 exports.default = NewArticlePage;
 
 /***/ },
-/* 86 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3922,7 +3900,6 @@ exports.default = NewArticlePage;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -3930,7 +3907,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _signup = __webpack_require__(80);
+var _signup = __webpack_require__(79);
 
 var _signup2 = _interopRequireDefault(_signup);
 
@@ -3995,7 +3972,7 @@ var SignUpPage = function (_React$Component) {
 exports.default = SignUpPage;
 
 /***/ },
-/* 87 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4015,61 +3992,61 @@ exports.default = function (_ref) {
 };
 
 /***/ },
-/* 88 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "./views/index.html";
 
 /***/ },
-/* 89 */
+/* 88 */
 /***/ function(module, exports) {
 
 module.exports = require("jwt-simple");
 
 /***/ },
-/* 90 */
+/* 89 */
 /***/ function(module, exports) {
 
 module.exports = require("material-ui/styles/colors");
 
 /***/ },
-/* 91 */
+/* 90 */
 /***/ function(module, exports) {
 
 module.exports = require("material-ui/styles/getMuiTheme");
 
 /***/ },
-/* 92 */
+/* 91 */
 /***/ function(module, exports) {
 
 module.exports = require("passport-jwt");
 
 /***/ },
-/* 93 */
+/* 92 */
 /***/ function(module, exports) {
 
 module.exports = require("react-dom");
 
 /***/ },
-/* 94 */
+/* 93 */
 /***/ function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ },
-/* 95 */
+/* 94 */
 /***/ function(module, exports) {
 
 module.exports = require("react-tap-event-plugin");
 
 /***/ },
-/* 96 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _path = __webpack_require__(58);
+var _path = __webpack_require__(57);
 
 var _path2 = _interopRequireDefault(_path);
 
@@ -4077,35 +4054,35 @@ var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _http = __webpack_require__(57);
+var _http = __webpack_require__(56);
 
 var _http2 = _interopRequireDefault(_http);
 
-var _bodyParser = __webpack_require__(54);
+var _bodyParser = __webpack_require__(53);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _cookieParser = __webpack_require__(55);
+var _cookieParser = __webpack_require__(54);
 
 var _cookieParser2 = _interopRequireDefault(_cookieParser);
 
-var _config = __webpack_require__(23);
+var _config = __webpack_require__(22);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _bloglog = __webpack_require__(24);
+var _bloglog = __webpack_require__(23);
 
 var _bloglog2 = _interopRequireDefault(_bloglog);
 
-var _bloglog3 = __webpack_require__(43);
+var _bloglog3 = __webpack_require__(42);
 
 var _bloglog4 = _interopRequireDefault(_bloglog3);
 
-var _bloglogUi = __webpack_require__(26);
+var _bloglogUi = __webpack_require__(25);
 
 var _bloglogUi2 = _interopRequireDefault(_bloglogUi);
 
-var _bloglog5 = __webpack_require__(25);
+var _bloglog5 = __webpack_require__(24);
 
 var _bloglog6 = _interopRequireDefault(_bloglog5);
 
@@ -4122,7 +4099,7 @@ app.use(_express2.default.static('./dist'));
 app.use(_express2.default.static('./node_modules'));
 
 app.set('view engine', 'html');
-app.engine('html', __webpack_require__(56).renderFile);
+app.engine('html', __webpack_require__(55).renderFile);
 app.set('views', _path2.default.join(__dirname, './'));
 
 _bloglog6.default.initialize(app);

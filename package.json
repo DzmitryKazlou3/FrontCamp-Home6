@@ -30,6 +30,7 @@
     "angular-messages": "1.6.1",
     "angular-sanitize":"1.6.1",
     "angular-route":"1.6.1",
+    "angular-resource": "1.6.1",
     
     "bootstrap": "3.3.7",
     "angular-ui-bootstrap": "2.3.2",
@@ -59,7 +60,6 @@
     "babel-preset-stage-1": "6.16.0",
     "babel-preset-react-es2015": "1.2.0",
     "babel-plugin-transform-runtime": "6.15.0",
-    "babel-plugin-transformer-decorators-legacy": "",
 
     "style-loader": "0.13.1",
     "css-loader": "0.26.0",

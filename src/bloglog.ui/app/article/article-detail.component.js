@@ -49,7 +49,7 @@
 
             articleService.getArticleById(vm.id)
                 .then((result) => {
-                    vm.article = result.data;
+                    vm.article = result;
                     vm.isMyArticle = $rootScope.UserId === vm.article.user.user_id;
                 })
                 .catch((error) => {

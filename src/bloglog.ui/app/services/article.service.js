@@ -6,9 +6,13 @@
         .module('bloglog')
         .service('articleService', articleService);
 
-    articleService.$inject = ['$http', 'URLS', '$q'];
+    articleService.$inject = ['$http', 'URLS', '$q', '$resource'];
 
-    function articleService($http, URLS, $q) {
+    function articleService($http, URLS, $q, $resource) {
+
+        // var Article = $resource('/user/:userId', {userId:'@id'});
+        var Article = $resource(URLS.BASE + URLS.ARTICLES + '/:id', {id:'@id'});
+
         return {
             getRecentArticles: getRecentArticles,
             getArticlesByFilter: getArticlesByFilter,
@@ -35,8 +39,8 @@
         };
 
         function getArticleById(id){
-
-            return $http.get(URLS.BASE + URLS.ARTICLES + id)
+            
+            return Article.get({id: id}).$promise
                 .then((responce) => {
                     return responce.data;
                 })
@@ -70,9 +74,10 @@
         */
         function addArticle(article) {
 
-            return $http.post(
-                URLS.BASE + URLS.ARTICLES,
-                article)
+            // return $http.post(
+            //     URLS.BASE + URLS.ARTICLES,
+            //     article)
+            Article.save(article).$promise
                 .then((responce) => {
                     return responce.data;
                 })

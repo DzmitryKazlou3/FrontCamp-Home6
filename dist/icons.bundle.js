@@ -63,95 +63,95 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 100);
+/******/ 	return __webpack_require__(__webpack_require__.s = 99);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 100:
-/***/ function(module, exports, __webpack_require__) {
-
-__webpack_require__(49);
-__webpack_require__(46);
-__webpack_require__(50);
-__webpack_require__(47);
-__webpack_require__(45);
-__webpack_require__(48);
-__webpack_require__(51);
-__webpack_require__(52);
-__webpack_require__(44);
-module.exports = __webpack_require__(53);
-
-
-/***/ },
-
-/***/ 44:
+/***/ 43:
 /***/ function(module, exports) {
 
 module.exports = "../images/back.svg";
 
 /***/ },
 
-/***/ 45:
+/***/ 44:
 /***/ function(module, exports) {
 
 module.exports = "../images/close.svg";
 
 /***/ },
 
-/***/ 46:
+/***/ 45:
 /***/ function(module, exports) {
 
 module.exports = "../images/delete.svg";
 
 /***/ },
 
-/***/ 47:
+/***/ 46:
 /***/ function(module, exports) {
 
 module.exports = "../images/edit.svg";
 
 /***/ },
 
-/***/ 48:
+/***/ 47:
 /***/ function(module, exports) {
 
 module.exports = "../images/home.svg";
 
 /***/ },
 
-/***/ 49:
+/***/ 48:
 /***/ function(module, exports) {
 
 module.exports = "../images/menu.svg";
 
 /***/ },
 
-/***/ 50:
+/***/ 49:
 /***/ function(module, exports) {
 
 module.exports = "../images/new.svg";
 
 /***/ },
 
-/***/ 51:
+/***/ 50:
 /***/ function(module, exports) {
 
 module.exports = "../images/rightAngle.svg";
 
 /***/ },
 
-/***/ 52:
+/***/ 51:
 /***/ function(module, exports) {
 
 module.exports = "../images/search.svg";
 
 /***/ },
 
-/***/ 53:
+/***/ 52:
 /***/ function(module, exports) {
 
 module.exports = "../images/background.jpg";
+
+/***/ },
+
+/***/ 99:
+/***/ function(module, exports, __webpack_require__) {
+
+__webpack_require__(48);
+__webpack_require__(45);
+__webpack_require__(49);
+__webpack_require__(46);
+__webpack_require__(44);
+__webpack_require__(47);
+__webpack_require__(50);
+__webpack_require__(51);
+__webpack_require__(43);
+module.exports = __webpack_require__(52);
+
 
 /***/ }
 
