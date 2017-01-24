@@ -41,8 +41,6 @@
             loadArticles();
         });
 
-        loadArticles();
-
         ///////////////////// load articles /////////////////////////////////
         function loadArticles() {
             articleService.getArticlesByFilter(vm.filterData, vm.currentPage, vm.pageSize)
@@ -51,7 +49,14 @@
                     vm.pageCount = Math.ceil(result.count / vm.pageSize);
                 })
                 .catch(errorResult => {
-                    alert(errorResult.message);
+                    if(errorResult.status == 401){
+                        showAlert(
+                            "Unauthorised...",
+                            "Please 'Sign In' to see the list of articles.",
+                            () => $state.go('home'));
+                    } else{
+                        alert(errorResult.message);
+                    }
                 });
         }
 
@@ -145,6 +150,24 @@ console.log("cancel");
 
         function navigateToItem(article){
             $state.go('articleDetail', {id: article.id});
+        }
+
+        // shows alert dialog
+        function showAlert(title, message, callback) {
+
+            let alert = $mdDialog.alert({
+                title: title,
+                textContent: message,
+                ok: 'OK'
+            });
+
+            $mdDialog
+                .show( alert )
+                .finally(function() {
+                    alert = undefined;
+                    callback();
+                });
+
         }
 
     }
