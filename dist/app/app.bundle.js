@@ -356,6 +356,7 @@
         });
 
         function loadArticles() {
+
             articleService.getArticlesByFilter(vm.filterData, vm.currentPage, vm.pageSize).then(function (result) {
                 vm.articles = result.data;
                 vm.pageCount = Math.ceil(result.count / vm.pageSize);

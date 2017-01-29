@@ -16,7 +16,7 @@
         function request(config) {
             config.headers = config.headers || {};
             if (config.url.indexOf("api") > -1) {
-                let token = $cookies.get(COMMON.JWT_TOKEN);
+                var token = $cookies.get(COMMON.JWT_TOKEN);
                 if (token) {
                     config.headers.Authorization = token;
                 } else {

@@ -4,12 +4,14 @@
   "description": "The blog",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "set NODE_ENV='production' && node ./dist/index.bundle.js",
     "build": "webpack --config webpack.config.js",
+    "build-prod": "webpack --config webpack.prod.config.js",
     "webpackInstall": "npm i webpack@2.2.0-rc.2 -g",
     "build-react": "set NODE_ENV=development && webpack --config webpack.react.config.js",
-    "build-react-prod": "webpack --config webpack.react.prod.config.js"
+    "build-react-prod": "webpack --config webpack.react.prod.config.js",
+    "test": "karma start karma.conf.js --browsers Chrome",
+    "test-debug": "karma start karma.conf.js --browsers Chrome"
   },
   "dependencies": {
     "express": "4.14.0",
@@ -71,7 +73,17 @@
     "url-loader": "0.5.7",
     "html-loader": "0.4.4",
     "extract-loader": "0.1.0",
-    "jsx-loader": "0.13.2"
+    "jsx-loader": "0.13.2",
+
+    "jasmine-core": "2.5.2",
+    "karma": "1.4.0",
+    "karma-coverage": "1.1.1",
+    "karma-chrome-launcher": "2.0.0",
+    "karma-phantomjs-launcher": "1.0.2",
+    "karma-es6-shim": "1.0.0",
+    "karma-jasmine": "1.1.0",
+    "karma-spec-reporter": "0.0.26",
+    "angular-mocks": "1.6.1"
   },
   "repository": {
     "type": "git",

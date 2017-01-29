@@ -43,6 +43,7 @@
 
         ///////////////////// load articles /////////////////////////////////
         function loadArticles() {
+            
             articleService.getArticlesByFilter(vm.filterData, vm.currentPage, vm.pageSize)
                 .then(result => {
                     vm.articles = result.data;

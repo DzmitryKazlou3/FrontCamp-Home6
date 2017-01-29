@@ -1,7 +1,7 @@
 var webpack = require('webpack');
-var reactConfig =  require('./webpack.react.config.js');
+var config =  require('./webpack.config.js');
 
-reactConfig.plugins = [
+config.plugins = config.plugins.concat([
     new webpack.DefinePlugin({
         'process.env': {
             'NODE_ENV': JSON.stringify('production')
@@ -12,9 +12,9 @@ reactConfig.plugins = [
             warnings: false
         }
     })
-]
+])
 
-reactConfig.watch = false;
-reactConfig.devtool = false;
+config.watch = false;
+config.devtool = false;
 
-module.exports = reactConfig;
+module.exports = config;
