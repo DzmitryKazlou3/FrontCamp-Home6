@@ -388,7 +388,7 @@
             }).then(function (article) {
 
                 articleService.addArticle(article).then(function (pageResult) {
-                    debugger;
+                    loadArticles();
                 }).catch(function (error) {
                     alert(error.data);
                 });
@@ -921,7 +921,8 @@
         }
 
         function addArticle(article) {
-            Article.save(article).$promise.then(function (responce) {
+
+            return Article.save(article).$promise.then(function (responce) {
                 return responce.data;
             }).catch(function (error) {
                 console.log(error);

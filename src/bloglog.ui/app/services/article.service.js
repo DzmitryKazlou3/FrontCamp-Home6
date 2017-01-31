@@ -74,10 +74,7 @@
         */
         function addArticle(article) {
 
-            // return $http.post(
-            //     URLS.BASE + URLS.ARTICLES,
-            //     article)
-            Article.save(article).$promise
+            return Article.save(article).$promise
                 .then((responce) => {
                     return responce.data;
                 })

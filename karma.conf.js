@@ -10,7 +10,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'es6-shim'],
+    frameworks: ['jasmine'],
 
 
     // list of files / patterns to load in the browser
@@ -26,13 +26,13 @@ module.exports = function(config) {
       './node_modules/angular-material/angular-material.js',
       './node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
 
-      './dist/app/app.bundle.js',
-      // './src/bloglog.ui/app/app.module.js',
-      // './src/bloglog.ui/app/constants.js',
-      // './src/bloglog.ui/app/services/http-iterceptor.service.js',
-      // './src/bloglog.ui/app/services/comment.service.js',
+      // './dist/app/app.bundle.js',
+      './src/bloglog.ui/app/app.module.js',
+      './src/bloglog.ui/app/constants.js',
+      './src/bloglog.ui/app/services/http-iterceptor.service.js',
+      './src/bloglog.ui/app/services/comment.service.js',
+      './src/bloglog.ui/app/article/articles.component.js',
 
-      // './src/bloglog.ui/app/article/articles.component.js',
       './src/tests/*.tests.js'
     ],
 
@@ -45,7 +45,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './src/bloglog.ui/app/services/comment.service.js': ['coverage']
+      './src/bloglog.ui/app/services/comment.service.js': ['coverage'],
+      './src/bloglog.ui/app/article/articles.component.js': ['coverage']
     },
 
 
@@ -80,24 +81,24 @@ module.exports = function(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
-    customLaunchers: {
-      'PhantomJS_custom': {
-        base: 'PhantomJS',
-        options: {
-          windowName: 'my-window',
-          settings: {
-            webSecurityEnabled: false
-          },
-        },
-        flags: ['--load-images=true'],
-        debug: true
-      }
-    },
+    // customLaunchers: {
+    //   'PhantomJS_custom': {
+    //     base: 'PhantomJS',
+    //     options: {
+    //       windowName: 'my-window',
+    //       settings: {
+    //         webSecurityEnabled: false
+    //       },
+    //     },
+    //     flags: ['--load-images=true'],
+    //     debug: true
+    //   }
+    // },
 
-    phantomjsLauncher: {
-      // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
-      exitOnResourceError: true
-    },
+    // phantomjsLauncher: {
+    //   // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
+    //   exitOnResourceError: true
+    // },
 
 
     // Continuous Integration mode

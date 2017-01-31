@@ -81,7 +81,7 @@
 
                 articleService.addArticle(article)
                     .then((pageResult) => {
-                        debugger;
+                        loadArticles();
                     })
                     .catch((error) => {
                         alert(error.data);

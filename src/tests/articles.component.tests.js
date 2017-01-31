@@ -10,6 +10,9 @@ describe('Articles component', function() {
       EVENTS,
       newArticleId = 123,
       $q,
+      getArticlesByFilterDefer,
+      addArticleDefer,
+      mdDialogDefer,
       newArticle = {
           title: "new article title",
           text: "new article test"
@@ -25,27 +28,28 @@ describe('Articles component', function() {
     $rootScope = _$rootScope_;
     $articleScope = _$rootScope_.$new();
     $q = _$q_;
+    
     EVENTS = _EVENTS_;
 
     articleServiceMock = {
 
-      getArticlesByFilter : function(filterData, currentPage, pageSize){
-          return $q.defer().resolve({
-            data: [{id:newArticleId}],
-            count: 20
-          });
+      getArticlesByFilter: function (filterData, currentPage, pageSize) {
+        getArticlesByFilterDefer = $q.defer();
+        return getArticlesByFilterDefer.promise;
       },
 
       addArticle: function(article){
         article.id = newArticleId;
-        return Promise.resolve(article);
+        addArticleDefer = $q.defer();
+        return addArticleDefer.promise;
       }
 
     };
 
     $mdDialogMock = {
-      show: function(){
-          return Promise.resolve(newArticle);
+      show: function(){          
+          mdDialogDefer = $q.defer();
+          return mdDialogDefer.promise;
       }
     }
 
@@ -68,41 +72,38 @@ describe('Articles component', function() {
 
   it('Check "loadArticles" function', function() {
     
-    let asd = $articleScope;
-    $rootScope.$broadcast(EVENTS.SEARCH, {});    
+    $rootScope.$broadcast(EVENTS.SEARCH, {});
+    getArticlesByFilterDefer.resolve({
+            data: [{id:newArticleId}],
+            count: 20
+          });
     
+    // wait for resolve promises.
+    $rootScope.$apply();
+
+    // since we have spyon the "getArticlesByFilter" - check that "getArticlesByFilter" has benn called.
     expect(articleServiceMock.getArticlesByFilter).toHaveBeenCalled();
     
-    setTimeout(function() { 
-        expect(ArticlesController.articles[0].id).toBe(newArticleId);
-        expect(ArticlesController.pageCount).toBe(2);
-    }, 0);
-    
+    // check that when "loadArticles" finishes - we have the correct valuen in the controller. 
+    expect(ArticlesController.articles[0].id).toBe(newArticleId);
+    expect(ArticlesController.pageCount).toBe(2);
+
   });
 
   it('Check "addArticle" function', function() {
     
     ArticlesController.addArticle();
-
-    //expect(articleServiceMock.addArticle).toHaveBeenCalled();
-
-    // setTimeout(function () {
-    //   expect(articleServiceMock.addArticle).toHaveBeenCalled();
-    //   console.log(true);
-    // }, 0);
-    // // let asd = $articleScope;
-    // $rootScope.$broadcast(EVENTS.SEARCH, {});
+    mdDialogDefer.resolve(newArticle);
     
-    // $rootScope.$apply();
-    // $articleScope.$apply();
-    // $articleScope.$digest();
-    // let df = ArticlesController;
-    // expect(articleServiceMock.getArticlesByFilter).toHaveBeenCalled();
+    // wait for resolve promises.
+    $rootScope.$apply();
+
+    addArticleDefer.resolve(newArticle);
     
-    // setTimeout(function() { 
-    //     expect(ArticlesController.articles[0].id).toBe(newArticleId);
-    //     expect(ArticlesController.pageCount).toBe(2);
-    // }, 0);
+    // wait for resolve promises.
+    $rootScope.$apply();
+
+    expect(articleServiceMock.addArticle).toHaveBeenCalled();
     
   });
 
