@@ -23,8 +23,6 @@
         vm.articles = [];
 
         vm.addArticle = addArticle;
-        vm.updateArticle = updateArticle;
-        vm.deleteArticle = deleteArticle;
         vm.home = function(){ $state.go('home'); };
         vm.filterData = {};
         vm.pageSize = 10;
@@ -95,50 +93,6 @@ console.log("cancel");
 
         function onPageChanged(){
             loadArticles();
-        }
-
-        ////////////////////// update article ///////////////////
-        function updateArticle(article){
-
-            $mdDialog.show({
-                controller: 'ArticleDialogController',
-                controllerAs: 'vm',
-                templateUrl: 'articleModalContent.html',
-                parent: angular.element(document.body),
-                bindToController: true,
-                clickOutsideToClose: false,
-                escapeToClose: true,
-                fullscreen: false, // Only for -xs, -sm breakpoints.
-                locals: {
-                    existingArticle: null,
-                    dialogTitle: "Update Article..."
-                }
-            })
-            .then(function (article) {
-
-                articleService.updateArticle(article)
-                    .then((pageResult) => {
-                        debugger;
-                    })
-                    .catch((error) => {
-                        alert(error.data);
-                    });
-
-            })
-            .catch(function () {
-console.log("cancel");
-            });
-
-        }
-
-        ////////////////////// delete article ///////////////////
-        function deleteArticle(article) {
-            articleService.deleteArticle(article)
-                .then(resulrt => {
-                })
-                .catch(error => {
-
-                });
         }
 
         function buildToggler(navID) {

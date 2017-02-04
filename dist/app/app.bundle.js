@@ -335,8 +335,6 @@
         vm.articles = [];
 
         vm.addArticle = addArticle;
-        vm.updateArticle = updateArticle;
-        vm.deleteArticle = deleteArticle;
         vm.home = function () {
             $state.go('home');
         };
@@ -399,37 +397,6 @@
 
         function onPageChanged() {
             loadArticles();
-        }
-
-        function updateArticle(article) {
-
-            $mdDialog.show({
-                controller: 'ArticleDialogController',
-                controllerAs: 'vm',
-                templateUrl: 'articleModalContent.html',
-                parent: angular.element(document.body),
-                bindToController: true,
-                clickOutsideToClose: false,
-                escapeToClose: true,
-                fullscreen: false,
-                locals: {
-                    existingArticle: null,
-                    dialogTitle: "Update Article..."
-                }
-            }).then(function (article) {
-
-                articleService.updateArticle(article).then(function (pageResult) {
-                    debugger;
-                }).catch(function (error) {
-                    alert(error.data);
-                });
-            }).catch(function () {
-                console.log("cancel");
-            });
-        }
-
-        function deleteArticle(article) {
-            articleService.deleteArticle(article).then(function (resulrt) {}).catch(function (error) {});
         }
 
         function buildToggler(navID) {
@@ -667,15 +634,15 @@
         return {
             restrict: 'EA',
             scope: {
-                clPages: '=',
-                clAlignModel: '=',
-                clPageChanged: '&',
-                clSteps: '=',
-                clCurrentPage: '='
+                pages: '=',
+                alignModel: '=',
+                pageChanged: '&',
+                steps: '=',
+                currentPage: '='
             },
             controller: PagingController,
             controllerAs: 'vm',
-            template: ['<md-button class="md-icon-button md-raised md-warn" aria-label="First" ng-click="vm.gotoFirst()">{{ vm.first }}</md-button>', '<md-button class="md-icon-button md-raised" aria-label="Previous" ng-click="vm.gotoPrev()" ng-show="vm.index - 1 >= 0">&#8230;</md-button>', '<md-button class="md-icon-button md-raised" aria-label="Go to page {{i+1}}" ng-repeat="i in vm.stepInfo"', ' ng-click="vm.goto(vm.index + i)" ng-show="vm.page[vm.index + i]" ', ' ng-class="{\'md-primary\': vm.page[vm.index + i] == clCurrentPage}">', ' {{ vm.page[vm.index + i] }}', '</md-button>', '<md-button class="md-icon-button md-raised" aria-label="Next" ng-click="vm.gotoNext()" ng-show="vm.index + vm.clSteps < clPages">&#8230;</md-button>', '<md-button class="md-icon-button md-raised md-warn" aria-label="Last" ng-click="vm.gotoLast()">{{ vm.last }}</md-button>'].join('')
+            template: ['<md-button class="md-icon-button md-raised md-warn" aria-label="First" ng-click="vm.gotoFirst()">{{ vm.first }}</md-button>', '<md-button class="md-icon-button md-raised" aria-label="Previous" ng-click="vm.gotoPrev()" ng-show="vm.index - 1 >= 0">&#8230;</md-button>', '<md-button class="md-icon-button md-raised" aria-label="Go to page {{i+1}}" ng-repeat="i in vm.stepInfo"', ' ng-click="vm.goto(vm.index + i)" ng-show="vm.page[vm.index + i]" ', ' ng-class="{\'md-primary\': vm.page[vm.index + i] == currentPage}">', ' {{ vm.page[vm.index + i] }}', '</md-button>', '<md-button class="md-icon-button md-raised" aria-label="Next" ng-click="vm.gotoNext()" ng-show="vm.index + vm.steps < pages">&#8230;</md-button>', '<md-button class="md-icon-button md-raised md-warn" aria-label="Last" ng-click="vm.gotoLast()">{{ vm.last }}</md-button>'].join('')
         };
     }
 
@@ -688,46 +655,46 @@
 
         vm.index = 0;
 
-        vm.clSteps = $scope.clSteps;
+        vm.steps = $scope.steps;
 
         vm.goto = function (index) {
-            $scope.clCurrentPage = vm.page[index];
+            $scope.currentPage = vm.page[index];
         };
 
         vm.gotoPrev = function () {
-            $scope.clCurrentPage = vm.index;
-            vm.index -= vm.clSteps;
+            $scope.currentPage = vm.index;
+            vm.index -= vm.steps;
         };
 
         vm.gotoNext = function () {
-            vm.index += vm.clSteps;
-            $scope.clCurrentPage = vm.index + 1;
+            vm.index += vm.steps;
+            $scope.currentPage = vm.index + 1;
         };
 
         vm.gotoFirst = function () {
             vm.index = 0;
-            $scope.clCurrentPage = 1;
+            $scope.currentPage = 1;
         };
 
         vm.gotoLast = function () {
-            vm.index = parseInt($scope.clPages / vm.clSteps) * vm.clSteps;
-            vm.index === $scope.clPages ? vm.index = vm.index - vm.clSteps : '';
-            $scope.clCurrentPage = $scope.clPages;
+            vm.index = parseInt($scope.pages / vm.steps) * vm.steps;
+            vm.index === $scope.pages ? vm.index = vm.index - vm.steps : '';
+            $scope.currentPage = $scope.pages;
         };
 
-        $scope.$watch('clCurrentPage', function (value) {
-            vm.index = parseInt((value - 1) / vm.clSteps) * vm.clSteps;
-            $scope.clPageChanged();
+        $scope.$watch('currentPage', function (value) {
+            vm.index = parseInt((value - 1) / vm.steps) * vm.steps;
+            $scope.pageChanged();
         });
 
-        $scope.$watch('clPages', function () {
+        $scope.$watch('pages', function () {
             vm.init();
         });
 
         vm.init = function () {
             vm.stepInfo = function () {
                 var result = [];
-                for (var i = 0; i < vm.clSteps; i++) {
+                for (var i = 0; i < vm.steps; i++) {
                     result.push(i);
                 }
                 return result;
@@ -735,7 +702,7 @@
 
             vm.page = function () {
                 var result = [];
-                for (var i = 1; i <= $scope.clPages; i++) {
+                for (var i = 1; i <= $scope.pages; i++) {
                     result.push(i);
                 }
                 return result;

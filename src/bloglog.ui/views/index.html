@@ -173,7 +173,7 @@
                             </md-list>
                         </div>
                         <div class="articles-paging-container">
-                            <paging-control flex cl-pages="vm.pageCount" cl-current-page="vm.currentPage" class="articles-paging-control" cl-steps="5" cl-page-changed="vm.pageChanged()" cl-align="center center"></paging-control>
+                            <paging-control flex pages="vm.pageCount" current-page="vm.currentPage" class="articles-paging-control" steps="5" page-changed="vm.pageChanged()" cl-align="center center"></paging-control>
                         </div>
                     </div>
                 </md-content>
@@ -424,27 +424,6 @@
       </md-dialog>
 
     </script>
-
-    <!--<script type="text/ng-template" id="commentModalContent.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Add comment...</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-        <form id="articleForm" name="articleForm" novalidate ng-submit="vm.save(vm.article)">
-            <div class="well">
-                <div class="form-group">
-                    <label>Text:</label>
-                    <textarea name="title" type="text" class="form-control" placeholder="Title" required data-ng-model="vm.article.title" ng-maxlength="500"
-                    ></textarea>
-                </div>
-            </div>
-        </form>
-        </div>
-        <div class="modal-footer">
-            <button class="btn button" ng-click="vm.save()">save</button>
-            <button class="btn button" ng-click="vm.close()">close</button>
-        </div>
-    </script>-->
 </body>
 
 </html>

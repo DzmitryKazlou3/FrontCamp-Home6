@@ -10,8 +10,8 @@
     "webpackInstall": "npm i webpack@2.2.0-rc.2 -g",
     "build-react": "set NODE_ENV=development && webpack --config webpack.react.config.js",
     "build-react-prod": "webpack --config webpack.react.prod.config.js",
-    "test": "karma start karma.conf.js --browsers Chrome",
-    "test-debug": "karma start karma.conf.js --browsers Chrome"
+    "test": "karma start karma.conf.prod.js",
+    "test-debug": "karma start karma.conf.debug.js"
   },
   "dependencies": {
     "express": "4.14.0",
