@@ -32,6 +32,7 @@ module.exports = {
     './src/bloglog.ui/app/services/comment.service.js',
     './src/bloglog.ui/app/article/articles.component.js',
     './src/bloglog.ui/app/common/paging.directive.js',
+    './src/bloglog.ui/app/article/article-detail.component.js',
 
     './src/tests/*.tests.js'
   ],

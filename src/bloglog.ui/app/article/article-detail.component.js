@@ -35,7 +35,9 @@
         vm.deleteArticle = deleteArticle;
 
         vm.home = function(){ $state.go('home'); };
-        vm.goToArticles = function(){ $state.go('articles'); };        
+        vm.goToArticles = function(){ $state.go('articles'); };
+        vm.loadArticle = loadArticle;
+        vm.loadComments = loadComments;
         
         if(!$rootScope.Authorized){
             vm.home();

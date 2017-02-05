@@ -34,7 +34,7 @@ describe('Paging directive', function() {
     expect(directiveElem).toBeDefined();
   });
 
-  it('check swithing to page', function() {
+  it('check swith to specific page', function() {
     var pageValue = 5;
     directiveController.goto(pageValue);
     expect(directiveScope.currentPage - 1).toBe(pageValue);
