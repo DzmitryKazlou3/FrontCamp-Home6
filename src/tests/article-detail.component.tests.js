@@ -1,24 +1,25 @@
-describe('Article form', function() {
+describe('Article form', function () {
 
   var $controller,
-      $rootScope,
-      ArticleDetailController,
-      $articleScope,
-      articleServiceMock,
-      $rootScope,
-      $mdDialogMock,
-      EVENTS,
-      newArticleId = 123,
-      $q,
-      getArticleByIdDefer,
-      updateArticleDefer,
-      mdDialogDefer,
-      newArticle;
+    $rootScope,
+    ArticleDetailController,
+    $articleScope,
+    articleServiceMock,
+    $rootScope,
+    $mdDialogMock,
+    EVENTS,
+    newArticleId = 123,
+    $q,
+    getArticleByIdDefer,
+    updateArticleDefer,
+    deleteArticleDefer,
+    mdDialogDefer,
+    newArticle;
 
-    // Before each test load bloglog module
+  // Before each test load bloglog module
   beforeEach(angular.mock.module('bloglog'));
-  
-  
+
+
   beforeEach(inject(function (_$controller_, _$rootScope_, _EVENTS_, _$q_) {
     $controller = _$controller_;
     $rootScope = _$rootScope_;
@@ -46,14 +47,31 @@ describe('Article form', function() {
       updateArticle: function (article) {
         updateArticleDefer = $q.defer();
         return updateArticleDefer.promise;
+      },
+
+      deleteArticle: function () {
+        deleteArticleDefer = $q.defer();
+        return deleteArticleDefer.promise;
       }
 
+    };
+
+    var mdConfirmInstance = {
+      title: function () { return mdConfirmInstance; },
+      textContent: function () { return mdConfirmInstance; },
+      ariaLabel: function () { return mdConfirmInstance; },
+      ok: function () { return mdConfirmInstance; },
+      cancel: function () { return mdConfirmInstance; },
     };
 
     $mdDialogMock = {
       show: function () {
         mdDialogDefer = $q.defer();
         return mdDialogDefer.promise;
+      },
+
+      confirm: function () {
+        return mdConfirmInstance;
       }
     }
 
@@ -67,31 +85,33 @@ describe('Article form', function() {
     // Spy on our service call but allow it to continue to its implementation
     spyOn(articleServiceMock, "getArticleById").and.callThrough();
     spyOn(articleServiceMock, "updateArticle").and.callThrough();
-    spyOn(articleServiceMock, "deleteArticle").and.callThrough();deleteArticle
+    spyOn(articleServiceMock, "deleteArticle").and.callThrough();
+    spyOn(ArticleDetailController, "goToArticles").and.callThrough();
+    
   }));
 
 
-  it('ArticleDetailController should be defined', function() {    
+  it('ArticleDetailController should be defined', function () {
     expect(ArticleDetailController).toBeDefined();
   });
 
-  it('Check "loadArticle"', function() {
+  it('Check "loadArticle"', function () {
     ArticleDetailController.loadArticle();
     getArticleByIdDefer.resolve(newArticle);
-    
+
     // wait for resolve promises.
     $rootScope.$apply();
 
     // since we have spyon the "getArticleById" - check that "getArticleById" has benn called.
     expect(articleServiceMock.getArticleById).toHaveBeenCalled();
-    
+
     // check that when "loadArticles" finishes - we have the correct valuen in the controller. 
     expect(ArticleDetailController.article.id).toBe(newArticleId);
     expect(ArticleDetailController.article.user.user_id).toBe(newArticle.user.user_id);
 
   });
 
-  it('Check "editArticle"', function() {
+  it('Check "editArticle"', function () {
     var changedTitle = "changedTitle";
 
     ArticleDetailController.editArticle(newArticle);
@@ -100,15 +120,15 @@ describe('Article form', function() {
     mdDialogDefer.resolve(newArticle);
     $rootScope.$apply();
 
-    updateArticleDefer.resolve({data: newArticle});
+    updateArticleDefer.resolve({ data: newArticle });
     $rootScope.$apply();
 
     expect(articleServiceMock.updateArticle).toHaveBeenCalled();
     expect(ArticleDetailController.article.title).toBe(changedTitle);
-    
+
   });
-  
-  it('Check "deleteArticle"', function() {
+
+  it('Check "deleteArticle"', function () {
     var changedTitle = "changedTitle";
 
     ArticleDetailController.deleteArticle(newArticle);
@@ -116,12 +136,12 @@ describe('Article form', function() {
     mdDialogDefer.resolve(newArticle);
     $rootScope.$apply();
 
-    updateArticleDefer.resolve({data: newArticle});
+    deleteArticleDefer.resolve();
     $rootScope.$apply();
 
-    expect(articleServiceMock.updateArticle).toHaveBeenCalled();
-    expect(ArticleDetailController.article.title).toBe(changedTitle);
-    
+    expect(articleServiceMock.deleteArticle).toHaveBeenCalled();
+    expect(ArticleDetailController.goToArticles).toHaveBeenCalled();
+
   });
 
 });

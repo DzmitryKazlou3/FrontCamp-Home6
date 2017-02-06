@@ -152,6 +152,8 @@
         vm.goToArticles = function () {
             $state.go('articles');
         };
+        vm.loadArticle = loadArticle;
+        vm.loadComments = loadComments;
 
         if (!$rootScope.Authorized) {
             vm.home();

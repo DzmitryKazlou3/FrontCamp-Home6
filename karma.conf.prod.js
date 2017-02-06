@@ -6,7 +6,8 @@ module.exports = function (config) {
   configObject.preprocessors = {
     './src/bloglog.ui/app/services/comment.service.js': ['coverage'],
     './src/bloglog.ui/app/article/articles.component.js': ['coverage'],
-    './src/bloglog.ui/app/common/paging.directive.js': ['coverage']
+    './src/bloglog.ui/app/common/paging.directive.js': ['coverage'],
+    './src/bloglog.ui/app/article/article-detail.component.js': ['coverage']
   };
 
   // level of logging
